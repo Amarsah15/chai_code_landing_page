@@ -19,8 +19,6 @@
             new Swiper(".swiper", {
                 slidesPerView: 4,
                 spaceBetween: 5,
-                // using "ratio" endpoints
-
                 grabCursor: true,
                 centeredSlides: true,
                 loop: true,
@@ -28,9 +26,13 @@
                     delay: 3000,
                     disableOnInteraction: false,
                 },
-
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
             });
         });
+
     </script>
 </head>
 
@@ -136,7 +138,8 @@
     </nav>
 
     <div class="hero mt-10">
-        <div class="hero-text text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-orange-500 to-red-500">
+        <div
+            class="hero-text text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 mt-20">
             Trusted by 1.5M Code Learners
         </div>
         <div class="hero-text-2">
@@ -282,7 +285,7 @@
 
     </div>
 
-    <div id="cohorts" class="bg-background text-textColor flex flex-col items-center justify-center mt-10">
+    <div id="cohorts" class=" flex flex-col items-center justify-center mt-10">
         <h1
             class="text-7xl font-semibold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-orange-500 to-red-500">
             Cohorts
@@ -293,17 +296,23 @@
         </h3>
 
         <div class="w-full text-white min-h-screen flex flex-col items-center justify-center">
-            <div class="swiper w-full max-w-7xl px-4 flex justify-center items-center">
-                <div id="swiper-wrapper" class="swiper-wrapper gap-4">
-                    <!-- Courses Slides will be shown here of courses -->
+            <div class="swiper w-full max-w-7xl px-4 flex justify-center items-center relative">
 
+                <!-- Swiper -->
+                <div id="swiper-wrapper" class="swiper-wrapper gap-4">
+                    <!-- Courses Slides will be injected here -->
                 </div>
 
+                <!-- Navigation buttons -->
+                <div class="swiper-button-prev !text-textColor"></div>
+                <div class="swiper-button-next !text-textColor"></div>
+
             </div>
+
         </div>
     </div>
 
-    <div id="testimonials" class="bg-background text-textColor flex flex-col items-center justify-center mt-10">
+    <div id="testimonials" class="flex flex-col items-center justify-center mt-10 overflow-x-hidden">
         <p class="text-xl">Testimonials </p>
 
         <h1 class="text-7xl font-semibold mt-4 "> Our Students <span
@@ -315,8 +324,100 @@
         </p>
 
         <div>
-            <div class="section-review">First Review Div</div>
-            <div class="section-review">Second Review Div</div>
+            <!-- First Row -->
+            <div class="overflow-hidden pause-on-hover mb-10">
+                <div class="scrolling-wrapper">
+                    <div class="flex gap-4">
+                        <!-- Cards repeated 2x for seamless scroll -->
+                        <!-- Group Start -->
+                        <div class="flex gap-4 transform transition-all duration-300 hover:scale-100">
+                            <div class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
+                                <img src="your-image-path-1.jpg" alt="Memory 1" class="w-full h-48 object-cover">
+                            </div>
+                            <div class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0 ">
+                                <img src="your-image-path-2.jpg" alt="Memory 2" class="w-full h-48 object-cover">
+                            </div>
+                            <div class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0 ">
+                                <img src="your-image-path-3.jpg" alt="Memory 3" class="w-full h-48 object-cover">
+                            </div>
+                            <div class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0 ">
+                                <img src="your-image-path-4.jpg" alt="Memory 4" class="w-full h-48 object-cover">
+                            </div>
+                            <div class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
+                                <img src="your-image-path-5.jpg" alt="Memory 5" class="w-full h-48 object-cover">
+                            </div>
+                        </div>
+                        <!-- Group Repeat -->
+                        <div class="flex gap-4">
+                            <div class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
+                                <img src="your-image-path-1.jpg" alt="Memory 1" class="w-full h-48 object-cover">
+                            </div>
+                            <div class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
+                                <img src="your-image-path-2.jpg" alt="Memory 2" class="w-full h-48 object-cover">
+                            </div>
+                            <div class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
+                                <img src="your-image-path-3.jpg" alt="Memory 3" class="w-full h-48 object-cover">
+                            </div>
+                            <div class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
+                                <img src="your-image-path-4.jpg" alt="Memory 4" class="w-full h-48 object-cover">
+                            </div>
+                            <div class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
+                                <img src="your-image-path-5.jpg" alt="Memory 5" class="w-full h-48 object-cover">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Second Row (Reverse Direction) -->
+            <div class="overflow-hidden pause-on-hover mb-10">
+                <div class="scrolling-wrapper-reverse">
+                    <div class="flex gap-4">
+                        <!-- Cards repeated 2x for seamless scroll -->
+                        <!-- Group Start -->
+                        <div class="flex gap-4">
+                            <div
+                                class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0 transform transition-transform duration-300 hover:scale-110 ">
+                                <img src="your-image-path-1.jpg" alt="Memory 1" class="w-full h-48 object-cover">
+                            </div>
+                            <div
+                                class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0 transform transition-transform duration-300 hover:scale-110 ">
+                                <img src="your-image-path-2.jpg" alt="Memory 2" class="w-full h-48 object-cover">
+                            </div>
+                            <div
+                                class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0 transform transition-transform duration-300 hover:scale-110 ">
+                                <img src="your-image-path-3.jpg" alt="Memory 3" class="w-full h-48 object-cover">
+                            </div>
+                            <div
+                                class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0 transform transition-transform duration-300 hover:scale-110 ">
+                                <img src="your-image-path-4.jpg" alt="Memory 4" class="w-full h-48 object-cover">
+                            </div>
+                            <div
+                                class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0 transform transition-transform duration-300 hover:scale-110 ">
+                                <img src="your-image-path-5.jpg" alt="Memory 5" class="w-full h-48 object-cover">
+                            </div>
+                        </div>
+                        <!-- Group Repeat -->
+                        <div class="flex gap-4">
+                            <div class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
+                                <img src="your-image-path-1.jpg" alt="Memory 1" class="w-full h-48 object-cover">
+                            </div>
+                            <div class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
+                                <img src="your-image-path-2.jpg" alt="Memory 2" class="w-full h-48 object-cover">
+                            </div>
+                            <div class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
+                                <img src="your-image-path-3.jpg" alt="Memory 3" class="w-full h-48 object-cover">
+                            </div>
+                            <div class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
+                                <img src="your-image-path-4.jpg" alt="Memory 4" class="w-full h-48 object-cover">
+                            </div>
+                            <div class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
+                                <img src="your-image-path-5.jpg" alt="Memory 5" class="w-full h-48 object-cover">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <button class="section-2-button">
@@ -326,7 +427,7 @@
         </button>
     </div>
 
-    <div id="udemy" class="bg-background text-textColor mt-10 shadow-lg ">
+    <div id="udemy" class=" mt-10 shadow-lg py-5 pt-10">
         <div class="text-center mb-8">
             <h3 class="font-bold mb-2 text-7xl">
                 <span
@@ -336,8 +437,7 @@
             <p class="text-xl mt-4">Not only in India, we are global leaders in tech education</p>
         </div>
 
-        <div class="flex flex-row overflow-x-hidden justify-center items-center border-t border-b border-orange-200 py-5"
-            id="slider">
+        <div class="flex flex-row overflow-x-hidden justify-center items-center border-orange-200 py-5 " id="slider">
             <!-- Card -->
             <div
                 class=" card-1 flex bg-gray-200 rounded-xl m-4 max-h-md max-w-md shadow-lg hover:shadow-2xl transition duration-300 ease-in-out transform hover:-translate-y-1">
@@ -384,7 +484,7 @@
         </div>
     </div>
 
-    <div class="Key-Benefits-of-Cohorts bg-background text-textColor w-full mx-auto px-4 py-10 ">
+    <div class="Key-Benefits-of-Cohorts  w-full mx-auto px-4 py-10 ">
         <div class="text-center mb-12">
             <h2 class="text-7xl font-semibold mb-4">Key <span
                     class="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-orange-500 to-red-500">Benefits</span>
@@ -396,16 +496,71 @@
         <div class="px-10 grid md:grid-cols-3 sm:grid-cols-2 gap-6">
             <!-- Card 1 -->
             <div
-                class="border-t-4 border-orange-500 bg-gray-50 p-6 rounded-xl shadow-md transform transition-all duration-300 hover:scale-105 hover:shadow-md hover:shadow-orange-400">
-                <div class="mb-4 text-sm bg-blue-100 border border-black px-2 py-1 w-20 h-12 rounded ">🎓</div>
+                class="border-t-4 border-orange-500 border p-6 rounded-xl shadow-md transform transition-all duration-300 hover:scale-105  hover:shadow-md hover:shadow-orange-400 text-center">
+                <svg class="h-16 mb-4 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+                    <defs>
+                        <style>
+                            .cls-1 {
+                                fill: #dad7e5
+                            }
+
+                            .cls-4 {
+                                fill: #f6ccaf
+                            }
+
+                            .cls-5 {
+                                fill: #db5669
+                            }
+
+                            .cls-6 {
+                                fill: #f26674
+                            }
+                        </style>
+                    </defs>
+                    <g id="professional_employee" data-name="professional employee">
+                        <path class="cls-1"
+                            d="M47 39.08V47H1c0-7.51-.75-11.39 3-15.06 2.07-2 3.08-2.08 14-5.94l6 6 6-6 10.33 3.65A10 10 0 0 1 47 39.08z" />
+                        <path
+                            d="M47 39.08V45H17.06A13.06 13.06 0 0 1 4 31.94c2.07-2 3.08-2.08 14-5.94l6 6 6-6 10.33 3.65A10 10 0 0 1 47 39.08z"
+                            style="fill:#edebf2" />
+                        <path d="M30 22.29V26l-6 6-6-6v-3.71a8 8 0 0 0 12 0z" style="fill:#edb996" />
+                        <path class="cls-4"
+                            d="M28.35 27.65 24 32l-4-4a1.49 1.49 0 0 1 2.21-1.3c2.19 1.19 3.79 1.69 6.14.95z" />
+                        <path class="cls-5" d="M29 47H19l2-9h6c1.79 8 1.41 6.34 2 9z" />
+                        <path class="cls-6" d="M28.56 45c-4.29 0-6.78-3.5-6-7H27z" />
+                        <path class="cls-4"
+                            d="M32 13c0 4 .32 6.06-1.44 8.57a8 8 0 0 1-12.56.72C15.58 19.54 16 17 16 13a13.37 13.37 0 0 0 11-5 5 5 0 0 0 5 5z" />
+                        <path
+                            d="M32 13c0 4 .32 6.06-1.44 8.57a8 8 0 0 1-10.22-.91C17.76 18.08 18 15.31 18 12.92a13.14 13.14 0 0 0 4.37-1.24A14 14 0 0 0 27 8a5 5 0 0 0 5 5z"
+                            style="fill:#ffdec7" />
+                        <path class="cls-4"
+                            d="M34 17h-2v-4h2a2 2 0 0 1 0 4zM14 17h2v-4h-2a2 2 0 0 0-2 2 2 2 0 0 0 2 2z" />
+                        <path
+                            d="M35 12v1h-3a5 5 0 0 1-5-5 13.28 13.28 0 0 1-4.63 3.68C19.13 13.25 16.76 13 13 13v-1a11 11 0 0 1 22 0z"
+                            style="fill:#be927c" />
+                        <path
+                            d="M19.6 11a2.81 2.81 0 0 1-2.7-3.61c.6-2 1.49-4.39 2.59-5.42A11 11 0 0 0 13 12v1c4.32 0 8.13.38 12.36-3.32A13.22 13.22 0 0 1 19.6 11z"
+                            style="fill:#a87e6b" />
+                        <path class="cls-1"
+                            d="m24 32-6 6-5.49-10.06L18 26l6 6zM35.49 27.94 30 38l-6-6 6-6 5.49 1.94z" />
+                        <path class="cls-5" d="M27 35v3h-6v-3l3-3 3 3z" />
+                        <path class="cls-6" d="M27 35v2h-2a3 3 0 0 1-3-3l2-2z" />
+                        <path class="cls-1" d="M1 47h18v1H1z" />
+                        <path class="cls-5" d="M19 47h10v1H19z" />
+                        <path class="cls-1" d="M29 47h18v1H29z" />
+                        <path
+                            d="M40.66 28.7 31 25.29v-2.65A8.9 8.9 0 0 0 32.94 18H34a3 3 0 0 0 2-5.22c0-17-24-17-24 0A3 3 0 0 0 14 18h1.06A8.9 8.9 0 0 0 17 22.64v2.65L7.34 28.7A11 11 0 0 0 0 39.08V47a1 1 0 0 0 2 0v-7.92a9 9 0 0 1 6-8.49L12.4 29c5.19 10.37 4.76 10 5.6 10 2 0 3.28-6.85 0 7.78a1 1 0 0 0 2 .44L21.8 39h4.4l1.8 8.22a1 1 0 0 0 2-.44c-2.27-10.18-2-8.7-2-9.37 2.87 2.87 2 2.92 7.6-8.41l4.4 1.59a9 9 0 0 1 6 8.49V47a1 1 0 0 0 2 0v-7.92a11 11 0 0 0-7.34-10.38zM24 30.59l-5-5v-1.11a9 9 0 0 0 10 0v1.11zM24 24a7 7 0 0 1-7-7v-3a14.23 14.23 0 0 0 9.39-3.85A6 6 0 0 0 31 13.91V17a7 7 0 0 1-7 7zm10-8h-1v-2h1a1 1 0 0 1 0 2zM24 2a10 10 0 0 1 10 10h-2a4 4 0 0 1-4-4 1 1 0 0 0-1.78-.62A12.36 12.36 0 0 1 16 12h-2A10 10 0 0 1 24 2zM14 14h1v2h-1a1 1 0 0 1 0-2zm4.27 22.31-4-7.94 3.44-1.22L22.59 32zM26 37h-4v-1.59l2-2 2 2zm3.73-.69L25.41 32l4.85-4.85 3.44 1.22z" />
+                        <path d="M8 45v2a1 1 0 0 0 2 0v-2a1 1 0 0 0-2 0zM38 45v2a1 1 0 0 0 2 0v-2a1 1 0 0 0-2 0z" />
+                    </g>
+                </svg>
                 <h3 class="text-lg font-semibold text-orange-600 mb-2">Taught by Professionals</h3>
                 <p class="text-gray-700 text-sm">Our cohorts are being taught by top industry experts and educators</p>
             </div>
 
             <!-- Card 2 -->
             <div
-                class="border-t-4 border-orange-500 bg-gray-50 p-6 rounded-xl shadow-md transform transition-all duration-300 hover:scale-105 hover:shadow-md hover:shadow-orange-400">
-                <div class="mb-4 text-sm bg-blue-100 border-black border px-2 py-1 w-20 h-12 rounded ">icon</div>
+                class="border-t-4 border-orange-500 border  p-6 rounded-xl shadow-md transform transition-all duration-300 hover:scale-105  hover:shadow-md hover:shadow-orange-400 text-center">
+                <img class="h-16 mb-4 mx-auto" src="/images/money-801.svg" alt="">
                 <h3 class="text-lg font-semibold text-orange-600 mb-2">Bounties</h3>
                 <p class="text-gray-700 text-sm">Earn rewards, from Cash to MacBook. Keeps you motivated to work hard
                 </p>
@@ -413,17 +568,110 @@
 
             <!-- Card 3 -->
             <div
-                class="border-t-4 border-orange-500 bg-gray-50 p-6 rounded-xl shadow-md transform transition-all duration-300 hover:scale-105 hover:shadow-md hover:shadow-orange-400">
-                <div class="mb-4 text-sm bg-blue-100 border border-black px-2 py-1 w-20 h-12  rounded">icon</div>
+                class="border-t-4 border-orange-500 border p-6 rounded-xl shadow-md transform transition-all duration-300 hover:scale-105  hover:shadow-md hover:shadow-orange-400 text-center">
+                <svg class="h-16 mb-4 mx-auto" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0" y="0"
+                    viewBox="0 0 64 64" style="enable-background:new 0 0 64 64" xml:space="preserve">
+                    <style>
+                        .st1,
+                        .st2,
+                        .st5 {
+                            fill: #78909c;
+                            stroke: #37474f;
+                            stroke-linecap: round;
+                            stroke-linejoin: round;
+                            stroke-miterlimit: 10
+                        }
+
+                        .st2,
+                        .st5 {
+                            fill: #eceff1
+                        }
+
+                        .st5 {
+                            fill: none
+                        }
+                    </style>
+                    <path
+                        d="M53.5 47.5h-9c-5.5 0-10 4.5-10 10V61c0 1.4 1.1 2.5 2.5 2.5h24c1.4 0 2.5-1.1 2.5-2.5v-3.5c0-5.5-4.5-10-10-10z"
+                        style="fill:#d32f2f;stroke:#37474f;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10" />
+                    <path
+                        d="M53.5 43.5h-9c-5.5 0-10 4.5-10 10V57c0 1.4 1.1 2.5 2.5 2.5h24c1.4 0 2.5-1.1 2.5-2.5v-3.5c0-5.5-4.5-10-10-10z"
+                        style="fill:#ef5350;stroke:#37474f;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10" />
+                    <path class="st2" d="M54.1 43.5H44.1c0 2.8 2.2 5 5 5 2.7 0 5-2.2 5-5zM57.5 59.5v-6" />
+                    <circle class="st2" cx="49.1" cy="33.5" r="10" />
+                    <path class="st5" d="M52.6 37c-2 2-5.1 2-7.1 0" />
+                    <path class="st1" d="m57.3 27.7-17.9 3.5c1-4.4 5-7.7 9.7-7.7 3.4 0 6.3 1.7 8.2 4.2z" />
+                    <path class="st1"
+                        d="M55.6 25.9h0c2.1 1.8 3.5 4.5 3.5 7.6h0c-1.9 0-3.5-1.6-3.5-3.5v-4.1zM26.1 42.5l-11 2-11-2 1-9h20z" />
+                    <path
+                        d="M19.5 47.5h-9c-5.5 0-10 4.5-10 10V61c0 1.4 1.1 2.5 2.5 2.5h24c1.4 0 2.5-1.1 2.5-2.5v-3.5c0-5.5-4.5-10-10-10z"
+                        style="fill:#ffa000;stroke:#37474f;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10" />
+                    <path
+                        d="M19.5 43.5h-9c-5.5 0-10 4.5-10 10V57c0 1.4 1.1 2.5 2.5 2.5h24c1.4 0 2.5-1.1 2.5-2.5v-3.5c0-5.5-4.5-10-10-10z"
+                        style="fill:#ffca28;stroke:#37474f;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10" />
+                    <path d="M2.5 53.5c0-3.7 2.6-6.9 6-7.7"
+                        style="fill:none;stroke:#ffe082;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10" />
+                    <path class="st2" d="M20.1 43.5H10.1c0 2.8 2.2 5 5 5 2.7 0 5-2.2 5-5zM6.5 59.5v-6" />
+                    <circle class="st2" cx="15.1" cy="33.5" r="10" />
+                    <path class="st5" d="M18.6 37c-2 2-5.1 2-7.1 0" />
+                    <path class="st1"
+                        d="M15.1 23.5c-5.5 0-10 4.5-10 10h.1c1.7 0 3.2-1 3.9-2.6l.6-1.5.9.7c2.9 2.2 6.5 3.5 10.2 3.5h4.3c0-5.6-4.5-10.1-10-10.1z" />
+                    <path
+                        d="M40.5 63.5h-17c-1.4 0-2.5-1.1-2.5-2.5v-3c0-4.1 3.4-7.5 7.5-7.5h7c4.1 0 7.5 3.4 7.5 7.5v3c0 1.4-1.1 2.5-2.5 2.5z"
+                        style="fill:#b0bec5;stroke:#37474f;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10" />
+                    <circle class="st2" cx="32" cy="37.5" r="9" />
+                    <path class="st5" d="M35.2 40.7c-1.8 1.8-4.6 1.8-6.4 0" />
+                    <path class="st2"
+                        d="M40.5 59.5h-17c-1.4 0-2.5-1.1-2.5-2.5v-3c0-4.1 3.4-7.5 7.5-7.5h7c4.1 0 7.5 3.4 7.5 7.5v3c0 1.4-1.1 2.5-2.5 2.5z" />
+                    <path class="st2" d="M36 46.5h-8c0 2.2 1.8 4 4 4s4-1.8 4-4z" />
+                    <path class="st5" d="M38 59.5v-5M26 59.5v-5" />
+                    <path class="st1" d="M32 28.5c-5 0-9 4-9 9l4-4 5 2 5-2 4 4c0-5-4-9-9-9z" />
+                    <path
+                        d="M3 9.5V13c0 2.8 2.2 5 5 5h3l3.2 3.5c.4.5 1.2.5 1.6 0L19 18h7.5l3.2 3.5c.4.5 1.2.5 1.6 0l3.2-3.5H42l3.2 3.5c.4.5 1.2.5 1.6 0L50 18h3c2.8 0 5-2.2 5-5V9.5c0-2.8-2.2-5-5-5H8c-2.8 0-5 2.2-5 5z"
+                        style="fill:#0097a7;stroke:#37474f;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10" />
+                    <path
+                        d="M3 5.5V9c0 2.8 2.2 5 5 5h3l3.2 3.5c.4.5 1.2.5 1.6 0L19 14h7.5l3.2 3.5c.4.5 1.2.5 1.6 0l3.2-3.5H42l3.2 3.5c.4.5 1.2.5 1.6 0L50 14h3c2.8 0 5-2.2 5-5V5.5c0-2.8-2.2-5-5-5H8c-2.8 0-5 2.2-5 5z"
+                        style="fill:#26c6da;stroke:#37474f;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10" />
+                    <path d="M5 7.5v-2c0-1.7 1.3-3 3-3h2"
+                        style="fill:none;stroke:#80deea;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10" />
+                    <path class="st5" d="M12.5 5h36M15.5 9h30" />
+                </svg>
                 <h3 class="text-lg font-semibold text-orange-600 mb-2">Coding Hostels</h3>
                 <p class="text-gray-700 text-sm">There is nothing like late night discussion with fellow learners and
                     solving bugs</p>
             </div>
+
             <!-- Card 4 -->
             <div
-                class="border-t-4 border-orange-500 bg-gray-50 p-6 rounded-xl shadow-md transform transition-all duration-300 hover:scale-105 hover:shadow-md hover:shadow-orange-400">
-                <div class="mb-4 text-sm bg-blue-100 border border-black px-2 py-1 inline-block w-20 h-12  rounded">icon
-                </div>
+                class="border-t-4 border-orange-500 border p-6 rounded-xl shadow-md transform transition-all duration-300 hover:scale-105  hover:shadow-md hover:shadow-orange-400 text-center">
+                <svg class="h-16 mb-4 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+                    <defs>
+                        <style>
+                            .cls-3 {
+                                fill: #edb996
+                            }
+
+                            .cls-6 {
+                                fill: #ffde76
+                            }
+                        </style>
+                    </defs>
+                    <g id="Top_rating_feedback" data-name="Top rating feedback">
+                        <rect x="8" y="31" width="8" height="16" rx="1" style="fill:#6fabe6" />
+                        <path d="M16 32c0 13.72-.1 13 0 13a5 5 0 0 1-5-5v-9h4a1 1 0 0 1 1 1z" style="fill:#82bcf4" />
+                        <path class="cls-3"
+                            d="M35.22 31H28l1.43-5.61c.55-3.28-4.1-4.71-4.81-1.88-1.15 4.6-2.08 4.95-5.62 8.49l-3 1v13h2.42c2.79 0 3.37 1 6.16 1h8.64a3.55 3.55 0 0 0 3.45-2.7l2.22-8.87A3.6 3.6 0 0 0 35.22 31z" />
+                        <path
+                            d="M38.89 35.43c-2.43 9.71-2.23 9.68-3.25 10.62a3.61 3.61 0 0 0 .88-1.31 3.5 3.5 0 0 1-1.3.26c-9.16 0-9.54.18-11.88-.55a9.64 9.64 0 0 0-2.92-.45A2.42 2.42 0 0 1 18 41.58v-9.25l1-.33c2.62-2.62 4.47-3.9 5.37-7.49.25-1 .45-2.42 2-2.51a2.92 2.92 0 0 1 3 3.39L28 31h7.22a3.59 3.59 0 0 1 3.67 4.43z"
+                            style="fill:#f6ccaf" />
+                        <path class="cls-3"
+                            d="M26.5 22a2 2 0 0 0-1.88 1.5 10.79 10.79 0 0 1-2.81 5.7c2.71-2.61 3.79-3.59 4.69-7.2z" />
+                        <path style="fill:#fc6"
+                            d="m24 1 1.3 2.63 2.91.43-2.11 2.05.5 2.89L24 7.63 21.4 9l.5-2.89-2.11-2.05 2.91-.43L24 1z" />
+                        <path class="cls-6"
+                            d="m24 1 1.3 2.63 2.91.43-2.11 2.05.5 2.89L24 7.63 21.4 9l.5-2.89-2.11-2.05 2.91-.43L24 1zM34 8l1.3 2.63 2.91.43-2.11 2.05.5 2.89-2.6-1.37L31.4 16l.5-2.89-2.11-2.05 2.91-.43L34 8zM42.79 16l1.3 2.63 2.91.43-2.1 2.05.49 2.89-2.6-1.37L40.2 24l.49-2.89-2.1-2.05 2.9-.43 1.3-2.63zM14 8l-1.3 2.63-2.91.43 2.11 2.05-.5 2.89 2.6-1.37L16.6 16l-.5-2.89 2.11-2.05-2.91-.43L14 8zM5.21 16l-1.3 2.63-2.91.43 2.1 2.05L2.61 24l2.6-1.37L7.8 24l-.49-2.89 2.1-2.05-2.9-.43L5.21 16z" />
+                    </g>
+                </svg>
                 <h3 class="text-lg font-semibold text-orange-600 mb-2">Peer Code Reviews</h3>
                 <p class="text-gray-700 text-sm">With our internal tools like Masterji, every code assignment gets
                     feedback to improve your code</p>
@@ -431,9 +679,24 @@
 
             <!-- Card 5 -->
             <div
-                class="border-t-4 border-orange-500 bg-gray-50 p-6 rounded-xl shadow-md transform transition-all duration-300 hover:scale-105 hover:shadow-md hover:shadow-orange-400">
-                <div class="mb-4 text-sm bg-blue-100 border border-black px-2 py-1 inline-block w-20 h-12 rounded">icon
-                </div>
+                class="border-t-4 border-orange-500 border p-6 rounded-xl shadow-md transform transition-all duration-300 hover:scale-105  hover:shadow-md hover:shadow-orange-400 text-center">
+                <svg class="h-16 mb-4 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 215.1 162.9"
+                    style="enable-background:new 0 0 215.1 162.9" xml:space="preserve">
+                    <style>
+                        .st14 {
+                            fill: none;
+                            stroke: #0561fc;
+                            stroke-width: 7.1001
+                        }
+                    </style>
+                    <g id="Layer_4">
+                        <path class="st14" d="M211.6 33.6v110.8c0 8.3-6.7 15-15 15h-178c-8.3 0-15-6.7-15-15V33.6" />
+                        <path d="M199.9 0H15.2C6.9 0 .2 6.7.2 15v14.9H215V15c0-8.3-6.7-15-15.1-15z"
+                            style="fill:#9ac7f7" />
+                        <path class="st14"
+                            d="M21.3 15.9h-5.1M32.1 15.9h-5M43 15.9h-5.1M82 113.1l-17.3-10-17.3-10 17.3-10 17.3-10M123.2 113.1l17.3-10 17.3-10-17.3-10-17.3-10M115.5 59.7l-26.4 66.9" />
+                    </g>
+                </svg>
                 <h3 class="text-lg font-semibold text-orange-600 mb-2">Leet Lab</h3>
                 <p class="text-gray-700 text-sm">Our in-house built LeetCode style platform helps you understand the
                     foundation of programming</p>
@@ -441,175 +704,239 @@
 
             <!-- Card 6 -->
             <div
-                class="border-t-4 border-orange-500 bg-gray-50 p-6 rounded-xl shadow-md transform transition-all duration-300 hover:scale-105 hover:shadow-md hover:shadow-orange-400">
-                <div class="mb-4 text-sm bg-blue-100 border border-black px-2 py-1 inline-block w-20 h-12  rounded">icon
-                </div>
+                class="border-t-4 border-orange-500 border p-6 rounded-xl shadow-md transform transition-all duration-300 hover:scale-105  hover:shadow-md hover:shadow-orange-400 text-center">
+                <svg class="h-20 mx-auto" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0" y="0"
+                    viewBox="0 0 2048 2048" style="enable-background:new 0 0 2048 2048" xml:space="preserve">
+                    <style>
+                        .st2 {
+                            fill: #fff
+                        }
+
+                        .st6 {
+                            fill: #ebcd6d
+                        }
+
+                        .st8 {
+                            fill: #784132
+                        }
+                    </style>
+                    <path
+                        d="M725.33 503.89h1046.01c11.41 0 20.66 9.25 20.66 20.66v807.83c0 11.41-9.25 20.66-20.66 20.66H725.33c-11.41 0-20.66-9.25-20.66-20.66V524.55c.01-11.41 9.26-20.66 20.66-20.66z"
+                        style="fill:#4d5d7a" />
+                    <path style="fill:#a8b0bc" d="M753.74 550.16h989.2v756.61h-989.2z" />
+                    <path class="st2"
+                        d="M1045.66 869.17c-2.14-5.62-3.94-10.22-5.37-13.69a55.386 55.386 0 0 0-5.63-10.4c-2.44-3.53-5.66-6.45-9.59-8.68-4.02-2.27-8.98-3.43-14.73-3.43-5.67 0-10.59 1.15-14.61 3.43-3.95 2.24-7.18 5.21-9.62 8.85-2.22 3.3-4.31 7.46-6.23 12.35-1.8 4.59-3.34 8.52-4.6 11.78L930.4 983.31c-1.87 4.64-3.25 8.35-4.08 11.02-.94 3-1.41 5.97-1.41 8.84 0 5.48 2.23 10.38 6.62 14.57 4.33 4.13 9.42 6.22 15.13 6.22 6.81 0 11.91-2.19 15.16-6.5 2.61-3.47 5.57-9.68 9.04-18.98l7.23-19.42h64.78l7.22 18.97.05.12c1.12 2.71 2.48 5.91 4.05 9.5 1.74 3.97 3.37 6.89 4.99 8.94 1.78 2.26 4.01 4.06 6.63 5.37 2.65 1.32 5.78 2 9.31 2 6.07 0 11.33-2.18 15.63-6.48 4.3-4.3 6.48-9.19 6.48-14.55 0-4.59-1.88-11.32-5.73-20.58l-45.84-113.18zm-15.88 73.7h-38.9l19.27-53.74 19.63 53.74zM1301.91 922.53c13.28-8.97 20.01-21.66 20.01-37.77 0-5.64-.94-11.08-2.8-16.17-1.86-5.09-4.59-9.8-8.13-14-3.52-4.18-7.62-7.68-12.18-10.4-5.36-3.25-11.48-5.47-18.19-6.61-6.39-1.08-13.98-1.62-22.58-1.62h-56.86c-8.85 0-15.52 2.18-19.82 6.48-4.3 4.3-6.48 11.05-6.48 20.06v131.93c0 8.81 2.11 15.49 6.28 19.86 4.23 4.43 10.96 6.68 20.02 6.68h53.63c9.42 0 17.81-.48 24.92-1.42 7.32-.97 13.95-2.67 19.72-5.09 9.37-4.12 16.92-10.58 22.44-19.21 5.5-8.6 8.29-18.38 8.29-29.07 0-20.19-9.5-34.85-28.27-43.65zm-81.99 20.5h32.25c11.39 0 19.91 1.76 25.33 5.23 4.88 3.13 7.15 7.98 7.15 15.28 0 9.11-3.24 21.23-31.29 21.23h-33.44v-41.74zm55.29-44.68-.04.07c-1.99 3.66-4.75 6.07-8.46 7.36-4.31 1.49-10.69 2.25-18.98 2.25h-27.82v-35.88h24.1c12.17 0 21.21 1.32 26.86 3.93 4.57 2.11 6.7 6.36 6.7 13.35.02 3.36-.73 6.19-2.36 8.92zM1565.78 946.37c-3.52-3.52-8.24-5.6-13.21-5.76-6.98-.22-12.21 1.87-15.54 6.21-2.55 3.33-4.69 7.58-6.32 12.57-3.24 8.86-8.05 15.62-14.29 20.1-6.21 4.45-14 6.71-23.15 6.71-8.46 0-15.9-2.01-22.11-5.96-6.16-3.92-11.03-10.02-14.46-18.14-3.56-8.43-5.37-19.26-5.37-32.21 0-19.25 4.03-34.18 11.98-44.37 7.78-9.97 17.97-14.81 31.16-14.81 8.16 0 15.04 1.89 20.47 5.63 5.6 3.85 10.59 9.85 14.84 17.83 3.06 5.78 5.85 9.82 8.53 12.36 3.18 3.01 7.72 4.53 13.5 4.53 5.43 0 10.11-2.08 13.9-6.2 3.69-4 5.57-8.71 5.57-13.99 0-8.39-3.27-17.27-9.73-26.39-6.33-8.93-15.48-16.5-27.21-22.49-11.72-5.98-25.21-9.02-40.11-9.02-12.21 0-23.88 2.21-34.7 6.57-10.87 4.38-20.48 10.86-28.58 19.24-8.09 8.38-14.38 18.59-18.7 30.33-4.28 11.65-6.46 24.97-6.46 39.59 0 8.99.86 17.62 2.56 25.64 1.7 8.07 4.3 15.79 7.73 22.92 3.43 7.15 7.64 13.71 12.52 19.53 5.5 6.43 11.63 11.69 18.22 15.65 6.58 3.95 13.99 6.9 22.02 8.76 7.9 1.83 16.76 2.76 26.33 2.76 12.8 0 24.22-2.1 33.94-6.25 9.74-4.15 17.89-9.66 24.22-16.38 6.27-6.65 10.95-13.57 13.91-20.56 2.99-7.06 4.51-13.79 4.51-19.99.02-5.69-2-10.54-5.97-14.41z" />
+                    <path
+                        d="M712.11 1052.37c-2.12 7.65-4.07 13.19-3.77 24.79.63 23.95 9.58 45.63 18.19 60.98l139.39 139.39H415.57l115.02-129.03c15.8-17.72 25.98-39.89 28.35-63.51.26-2.59.43-5.2.5-7.83.34-13.12-2.2-18.5-4.62-27.91l157.29 3.12z"
+                        style="fill:#ebb39e" />
+                    <path
+                        d="M1008.76 1522.81c.1 11.73-9.39 21.3-21.13 21.3h-710.5c-11.74 0-21.23-9.56-21.13-21.3.49-57.7 4.1-198.37 27.98-275.35 6.86-22.06 14.77-38.83 24.93-54.18 5.7-8.62 30.67-44.88 79.47-69.67a213.337 213.337 0 0 1 35.35-14.17c21.77-6.46 45.79-10.17 72.15-9.06l42.36 37.76.88.78 93.26 83.15 94.14-83.94 42.36-37.76c22.07-1.02 48.01 1.72 72.15 9.06 11.31 3.4 23.21 7.99 35.35 14.17 48.79 24.8 73.76 61.05 79.47 69.67 10.16 15.35 18.07 32.12 24.93 54.18 23.88 76.98 27.5 217.65 27.98 275.36z"
+                        style="fill:#f7e07f" />
+                    <path
+                        d="m841.03 1109.43-39.41 103.8-24.42 64.29-101.22 266.58h-87.21l-101.22-266.58-21.5-56.63-42.32-111.46c21.77-6.46 45.79-10.17 72.15-9.06l42.36 37.76.88.78 93.26 83.15 94.14-83.94 42.36-37.76c22.07-1 48.01 1.74 72.15 9.07z"
+                        style="fill:#ecf0f9" />
+                    <path class="st6"
+                        d="M381.75 1544.11v-194.78c0-8.54 6.55-15.89 15.07-16.31 9.12-.45 16.67 6.84 16.67 15.85v195.24h-31.74zM851.27 1544.11v-194.77c0-8.54 6.55-15.9 15.07-16.32 9.11-.45 16.68 6.83 16.68 15.85v195.24h-31.75z" />
+                    <g>
+                        <path
+                            d="M802.06 841.13c52.98 17.03 25.62 105.89-15.24 112.77-4.52 21.23-14.85 57.11-40.08 86.96-14.12 16.71-27.76 26.3-31.16 28.64-7.54 5.18-23.63 16.03-47.52 21.68-6.34 1.5-30.81 6.78-61.55 0-5.96-1.32-34.22-7.95-62.33-30.97-7.17-5.87-33.9-28.83-48.3-68.9-4.66-12.97-7.5-28.44-8.57-36.39-41.79-12.13-68.97-74.04-23.35-113.87l10.55-110.91 165.13-40.76s91.56 23.13 93.21 25.34c1.65 2.21 69.21 126.41 69.21 126.41z"
+                            style="fill:#f4baa6" />
+                        <path class="st8"
+                            d="M635.82 1025.06c-17.63 0-35.26-6.71-48.68-20.13-3.12-3.12-3.12-8.19 0-11.31 3.12-3.12 8.19-3.12 11.31 0 20.6 20.6 54.13 20.6 74.74 0 3.12-3.12 8.19-3.12 11.31 0 3.12 3.12 3.12 8.19 0 11.31-13.42 13.42-31.05 20.13-48.68 20.13z" />
+                        <circle class="st8" cx="571.78" cy="886.21" r="21.6" />
+                        <circle class="st8" cx="699.85" cy="886.21" r="21.6" />
+                    </g>
+                    <path class="st8"
+                        d="M677.27 748.13c-3.52 5.79-9.58 13.95-19.48 20.13-8.45 5.27-16.99 7.42-25.27 8.22-8.72.85-17.51.05-26.07-1.8-8.35-1.81-25.28-3.82-56.18-1.68-17.96 1.24-37.14 2.22-53.36 10.86-20.67 11.02-28.01 33.9-31.95 55.45-.16.87-.66 1.99-1.53 1.81-.37-.08-.63-.39-.85-.69-6.27-8.33-7.68-21.82-8.78-31.81-3.5-31.85-3.14-57.08-.13-64.25 1.82-4.33 11.02-25.48 32.72-46.45 35.08-33.9 92.86-51.66 122.26-57.76 23.8-4.94 48.97-7.45 73.56-5.74 13.71.95 28.07 2.7 41.4 6.08 10.95 2.77 21.81 8.02 28.39 17.21 7.09 9.89 8.8 22.4 17.29 31.46 9.26 9.89 21.89 15.8 31.37 25.46 12.67 12.92 25.29 33.26 27.12 51.5 1.65 16.42-5.55 31.93-13.85 45.62-1.53 2.53-10.37 30.97-11.86 29.39-3.43-3.62-46.76-15.27-81.16-57.38-8.15-9.97-11.74-14.3-14.8-17.29-2.04-2-8.35-7.98-17.66-14.45-3.02-2.11-9.45-6.81-11.18-3.89z" />
+                </svg>
                 <h3 class="text-lg font-semibold text-orange-600 mb-2">Revision Classes</h3>
                 <p class="text-gray-700 text-sm">We have so many peer classes by fellow learners that you get many
                     chances to learn the topic</p>
             </div>
         </div>
     </div>
+    </div>
 
-    <div class="WhyChaiCode bg-background text-textColor py-16 px-4 relative">
-
-        <h1 class="text-center text-7xl font-semibold mb-4 ">
+    <div class="WhyChaiCode py-24 px-6 relative ">
+        <h1 class="text-center text-5xl md:text-7xl font-semibold mb-8 leading-tight">
             But Why <span
                 class="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-orange-500 to-red-500">ChaiCode?</span>
         </h1>
-        <p class="text-gray-600 text-lg mb-12 text-center">
+        <p class="text-gray-500 text-lg text-center mb-16 max-w-2xl mx-auto">
             ChaiCode exists because we love tech and teaching
         </p>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-7xl w-full mx-auto">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-14 relative">
 
             <!-- Left Column -->
-            <div class="flex flex-col justify-between gap-8">
+            <div class="flex flex-col gap-8 text-center">
                 <div
-                    class="border border-gray-300 p-6 rounded-xl hover:border-orange-400 transition bg-white shadow-sm h-full">
-                    <h2 class="font-semibold text-lg mb-2 text-gray-900">Comprehensive Curriculum</h2>
-                    <p class="text-sm text-gray-600">Master key concepts and hands-on skills with clarity and
+                    class="border border-gray-300 p-6 rounded-xl hover:border-orange-400 transition shadow-sm flex flex-col h-full">
+                    <h2 class="font-semibold text-xl mb-4">Comprehensive Curriculum</h2>
+                    <p class="text-gray-500 text-sm">Master key concepts and hands-on skills with clarity and
                         confidence. Learn what truly matters, the right way — practical, easy to understand.</p>
                 </div>
                 <div
-                    class="border border-gray-300 p-6 rounded-xl hover:border-orange-400 transition bg-white shadow-sm h-full">
-                    <h2 class="font-semibold text-lg mb-2 text-gray-900">You Finish It</h2>
-                    <p class="text-sm text-gray-600">Our cohorts are a collaborative journey where students learn
+                    class="border border-gray-300 p-6 rounded-xl hover:border-orange-400 transition shadow-sm flex flex-col h-full">
+                    <h2 class="font-semibold text-xl mb-4">You Finish It</h2>
+                    <p class="text-gray-500 text-sm">Our cohorts are a collaborative journey where students learn
                         together, stay motivated, and complete the course as a community.</p>
                 </div>
                 <div
-                    class="border border-gray-300 p-6 rounded-xl hover:border-orange-400 transition bg-white shadow-sm h-full">
-                    <h2 class="font-semibold text-lg mb-2 text-gray-900">Industry Guests</h2>
-                    <p class="text-sm text-gray-600">We regularly bring in industry experts for insightful, fun, and
+                    class="border border-gray-300 p-6 rounded-xl hover:border-orange-400 transition shadow-sm flex flex-col h-full">
+                    <h2 class="font-semibold text-xl mb-4">Industry Guests</h2>
+                    <p class="text-gray-500 text-sm">We regularly bring in industry experts for insightful, fun, and
                         engaging sessions with students.</p>
                 </div>
             </div>
 
-            <!-- Center Column: Hitesh Choudhary -->
+            <!-- Center Column -->
             <div
-                class="border border-gray-300 p-6 rounded-2xl text-center bg-white shadow-md flex flex-col items-center h-full">
-                <img src="./images/image.png" alt="Hitesh Choudhary"
-                    class="rounded-xl mb-4 shadow w-full object-cover h-64">
-                <h3 class="text-xl font-bold text-gray-900">Hitesh Choudhary</h3>
-                <p class="text-sm text-gray-600 my-2">
-                    Retired from corporate and now a full-time YouTuber, ex-founder of LCO (acquired), ex-CTO, Sr.
-                    Director at PW.
-                </p>
-                <p class="text-sm text-gray-600 my-2">
-                    2 YT channels (950k & 470k), stepped into 43 countries.
-                </p>
-                <h4 class="text-lg font-semibold text-gray-800 mt-4">Approach</h4>
-                <p class="text-sm text-gray-600 text-center">Project-based courses with peer learning and bounties
-                    through many activities.</p>
-
+                class="flex flex-col items-center text-center backdrop-blur-md border-2 border-orange-400 p-10 rounded-3xl shadow-xl hover:shadow-2xl transition-all">
+                <img src="./images/hc-laptop.png" alt="Hitesh Choudhary"
+                    class="rounded-2xl shadow-md mb-8 object-cover w-full h-64">
+                <h3 class="text-2xl font-bold mb-3">Hitesh Choudhary</h3>
+                <p class="text-sm text-gray-500 mb-2">Retired from corporate and now a full-time YouTuber, ex-founder of
+                    LCO (acquired), ex-CTO, Sr. Director at PW.</p>
+                <p class="text-sm text-gray-500 mb-4">2 YT channels (950k & 470k), stepped into 43 countries.</p>
+                <h4 class="text-lg font-semibold mt-4 mb-2">Approach</h4>
+                <p class="text-sm text-gray-500">Project-based courses with peer learning and bounties through many
+                    activities.</p>
             </div>
 
             <!-- Right Column -->
-            <div class="flex flex-col justify-between gap-8">
+            <div class="flex flex-col gap-8 text-center">
                 <div
-                    class="border border-gray-300 p-6 rounded-xl hover:border-orange-400 transition bg-white shadow-sm h-full">
-                    <h2 class="font-semibold text-lg mb-2 text-gray-900">Code and Chill</h2>
-                    <p class="text-sm text-gray-600">Coding should be fun, not frightening. With time and practice,
+                    class="border border-gray-300 p-6 rounded-xl hover:border-orange-400 transition shadow-sm flex flex-col h-full">
+                    <h2 class="font-semibold text-xl mb-8">Code and Chill</h2>
+                    <p class="text-gray-500 text-sm">Coding should be fun, not frightening. With time and practice,
                         everything starts to fall into place.</p>
                 </div>
                 <div
-                    class="border border-gray-300 p-6 rounded-xl hover:border-orange-400 transition bg-white shadow-sm h-full">
-                    <h2 class="font-semibold text-lg mb-2 text-gray-900">Improve Communication</h2>
-                    <p class="text-sm text-gray-600">Practice through collaboration helps improve communication.
+                    class="border border-gray-300 p-6 rounded-xl hover:border-orange-400 transition shadow-sm flex flex-col h-full">
+                    <h2 class="font-semibold text-xl mb-4">Improve Communication</h2>
+                    <p class="text-gray-500 text-sm">Practice through collaboration helps improve communication.
                         Co-learners teach, share, and grow together.</p>
                 </div>
                 <div
-                    class="border border-gray-300 p-6 rounded-xl hover:border-orange-400 transition bg-white shadow-sm h-full">
-                    <h2 class="font-semibold text-lg mb-2 text-gray-900">Bounties</h2>
-                    <p class="text-sm text-gray-600">Win exciting prizes (sometimes even MacBooks!) in our
+                    class="border border-gray-300 p-6 rounded-xl hover:border-orange-400 transition shadow-sm flex flex-col h-full">
+                    <h2 class="font-semibold text-xl mb-4">Bounties</h2>
+                    <p class="text-gray-500 text-sm">Win exciting prizes (sometimes even MacBooks!) in our
                         high-motivation bounties and challenges.</p>
                 </div>
             </div>
         </div>
 
-        <div class="text-center mt-12">
-            <button
-                class="px-6 py-3 border-2 border-orange-500 text-orange-500 font-semibold rounded-xl hover:bg-orange-500 hover:text-white transition">
-                <a href="https://courses.chaicode.com/learn/view-all?show=batch&type=17">
+        <div class="text-center mt-20">
+            <a href="https://courses.chaicode.com/learn/view-all?show=batch&type=17">
+                <button
+                    class="px-10 py-4 border-2 border-orange-500 text-orange-500 font-semibold text-lg rounded-2xl hover:bg-orange-500 hover:text-white transition-all">
                     Join Cohorts Live Classes
-                </a>
-            </button>
+                </button>
+            </a>
         </div>
     </div>
 
-    <div class="Topics-Cloud">
+
+
+    <div class="Topics-Cloud mt-10">
         <div class=" mb-10">
-            <h1
-                class="text-7xl text-center font-semibold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-orange-500 to-red-500">
-                Topics Cloud
+            <h1 class="text-7xl text-center font-semibold mb-4">
+                Topics <span
+                    class="text-7xl text-center font-semibold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-orange-500 to-red-500">
+                    Cloud</span>
             </h1>
-            <p class="text-center text-gray-600">You can find videos and courses on topics and much more</p>
+            <p class="text-center text-lg mt-6 text-gray-600">You can find videos and courses on topics and much more
+            </p>
         </div>
 
-        <div class="flex flex-wrap justify-center gap-3 max-w-6xl align-center mx-auto">
-            <a href=""
-                class="float-animate rotate-1 text-orange-400 border border-orange-400 px-4 py-2 rounded-full text-sm hover:bg-orange-400 hover:text-[#ffffff] transition"
+        <div class="flex flex-wrap justify-center gap-6 max-w-7xl items-center mx-auto py-16 px-4">
+
+            <!-- Button List -->
+            <a href="https://www.youtube.com/watch?v=UgRw9lhhWDk"
+                class="float-soft glow-soft text-orange-500 border border-orange-400  px-9 py-3 rounded-full text-xl font-semibold hover:bg-gradient-to-r hover:from-orange-400 hover:to-orange-500 hover:text-white hover:scale-110  transition-all duration-500 ease-in-out shadow-md backdrop-blur-sm"
                 target="_blank">Middleware in Nextjs</a>
-            <a href=""
-                class="float-animate rotate-2 text-orange-400 border border-orange-400 px-4 py-2 rounded-full text-sm hover:bg-orange-400 hover:text-[#ffffff] transition"
+
+            <a href="https://www.youtube.com/watch?v=7tOLcNZfPso&list=PLRAV69dS1uWT4v4iK1h6qejyhGObFH9_o"
+                class="float-soft glow-soft text-orange-500 border border-orange-400  px-7 py-3 rounded-full text-xl font-semibold hover:bg-gradient-to-r hover:from-orange-400 hover:to-orange-500 hover:text-white hover:scale-110  transition-all duration-500 ease-in-out shadow-md backdrop-blur-sm"
                 target="_blank">Git</a>
-            <a href=""
-                class="float-animate rotate-3 text-orange-400 border border-orange-400 px-4 py-2 rounded-full text-sm hover:bg-orange-400 hover:text-[#ffffff] transition"
+
+            <a href="https://www.youtube.com/watch?v=fnbOLnGGxYk&list=PLRAV69dS1uWTd5IYNjm75PlS0gYi0mRFJ"
+                class="float-soft glow-soft text-orange-500 border border-orange-400  px-7 py-3 rounded-full text-xl font-semibold hover:bg-gradient-to-r hover:from-orange-400 hover:to-orange-500 hover:text-white hover:scale-110  transition-all duration-500 ease-in-out shadow-md backdrop-blur-sm"
                 target="_blank">Tailwind</a>
-            <a href=""
-                class="float-animate rotate-4 text-orange-400 border border-orange-400 px-4 py-2 rounded-full text-sm hover:bg-orange-400 hover:text-[#ffffff] transition"
+
+            <a href="https://www.youtube.com/watch?v=_gg5_gFP0gQ&list=PLRAV69dS1uWR3m57Vo39j5lQE9h5w0vkG"
+                class="float-soft glow-soft text-orange-500 border border-orange-400  px-7 py-3 rounded-full text-xl font-semibold hover:bg-gradient-to-r hover:from-orange-400 hover:to-orange-500 hover:text-white hover:scale-110  transition-all duration-500 ease-in-out shadow-md backdrop-blur-sm"
                 target="_blank">Javascript Marathon</a>
-            <a href=""
-                class="float-animate rotate-1 text-orange-400 border border-orange-400 px-4 py-2 rounded-full text-sm hover:bg-orange-400 hover:text-[#ffffff] transition"
+
+            <a href="https://www.youtube.com/watch?v=kGtEax1WQFg&list=PLRAV69dS1uWSjBBJ-egNNOd4mdblt1P4c"
+                class="float-soft glow-soft text-orange-500 border border-orange-400  px-7 py-3 rounded-full text-xl font-semibold hover:bg-gradient-to-r hover:from-orange-400 hover:to-orange-500 hover:text-white hover:scale-110  transition-all duration-500 ease-in-out shadow-md backdrop-blur-sm"
                 target="_blank">React State Management</a>
-            <a href=""
-                class="float-animate rotate-2 text-orange-400 border border-orange-400 px-4 py-2 rounded-full text-sm hover:bg-orange-400 hover:text-[#ffffff] transition"
+
+            <a href="https://www.youtube.com/watch?v=O7zPiurDdDk&list=PLRAV69dS1uWTcGaBdIhAU4rdvhWKl1spk"
+                class="float-soft glow-soft text-orange-500 border border-orange-400  px-7 py-3 rounded-full text-xl font-semibold hover:bg-gradient-to-r hover:from-orange-400 hover:to-orange-500 hover:text-white hover:scale-110  transition-all duration-500 ease-in-out shadow-md backdrop-blur-sm"
                 target="_blank">Javascript Project</a>
-            <a href=""
-                class="float-animate rotate-3 text-orange-400 border border-orange-400 px-4 py-2 rounded-full text-sm hover:bg-orange-400 hover:text-[#ffffff] transition"
+
+            <a href="https://www.youtube.com/watch?v=mqJIGIxRkEs"
+                class="float-soft glow-soft text-orange-500 border border-orange-400  px-7 py-3 rounded-full text-xl font-semibold hover:bg-gradient-to-r hover:from-orange-400 hover:to-orange-500 hover:text-white hover:scale-110  transition-all duration-500 ease-in-out shadow-md backdrop-blur-sm"
                 target="_blank">Open Source</a>
-            <a href=""
-                class="float-animate rotate-4 text-orange-400 border border-orange-400 px-4 py-2 rounded-full text-sm hover:bg-orange-400 hover:text-[#ffffff] transition"
+
+            <a href="https://www.youtube.com/watch?v=tz82ola3oy0"
+                class="float-soft glow-soft text-orange-500 border border-orange-400  px-7 py-3 rounded-full text-xl font-semibold hover:bg-gradient-to-r hover:from-orange-400 hover:to-orange-500 hover:text-white hover:scale-110  transition-all duration-500 ease-in-out shadow-md backdrop-blur-sm"
                 target="_blank">Learn Git</a>
-            <a href=""
-                class="float-animate rotate-2 text-orange-400 border border-orange-400 px-4 py-2 rounded-full text-sm hover:bg-orange-400 hover:text-[#ffffff] transition"
+
+            <a href="https://www.youtube.com/watch?v=BDwCQc2uEfw&list=PLRAV69dS1uWT-ooTYHCqgxMTGA233JMrP"
+                class="float-soft glow-soft text-orange-500 border border-orange-400  px-7 py-3 rounded-full text-xl font-semibold hover:bg-gradient-to-r hover:from-orange-400 hover:to-orange-500 hover:text-white hover:scale-110  transition-all duration-500 ease-in-out shadow-md backdrop-blur-sm"
                 target="_blank">Flutter Dart</a>
-            <a href=""
-                class="float-animate rotate-3 text-orange-400 border border-orange-400 px-4 py-2 rounded-full text-sm hover:bg-orange-400 hover:text-[#ffffff] transition"
+
+            <a href="https://www.youtube.com/watch?v=iPGXk-i-VYU&list=PLRAV69dS1uWR7KF-zV6YPYtKYEHENETyE"
+                class="float-soft glow-soft text-orange-500 border border-orange-400  px-7 py-3 rounded-full text-xl font-semibold hover:bg-gradient-to-r hover:from-orange-400 hover:to-orange-500 hover:text-white hover:scale-110  transition-all duration-500 ease-in-out shadow-md backdrop-blur-sm"
                 target="_blank">Full Stack Project</a>
-            <a href=""
-                class="float-animate rotate-1 text-orange-400 border border-orange-400 px-4 py-2 rounded-full text-sm hover:bg-orange-400 hover:text-[#ffffff] transition"
+
+            <a href="https://www.youtube.com/watch?v=4hEDKrIM724"
+                class="float-soft glow-soft text-orange-500 border border-orange-400  px-7 py-3 rounded-full text-xl font-semibold hover:bg-gradient-to-r hover:from-orange-400 hover:to-orange-500 hover:text-white hover:scale-110  transition-all duration-500 ease-in-out shadow-md backdrop-blur-sm"
                 target="_blank">Learn About AI</a>
-            <a href=""
-                class="float-animate rotate-2 text-orange-400 border border-orange-400 px-4 py-2 rounded-full text-sm hover:bg-orange-400 hover:text-[#ffffff] transition"
+
+            <a href="https://www.youtube.com/watch?v=4CXcK7f8FZE"
+                class="float-soft glow-soft text-orange-500 border border-orange-400  px-7 py-3 rounded-full text-xl font-semibold hover:bg-gradient-to-r hover:from-orange-400 hover:to-orange-500 hover:text-white hover:scale-110  transition-all duration-500 ease-in-out shadow-md backdrop-blur-sm"
                 target="_blank">Tech Podcast</a>
-            <a href=""
-                class="float-animate rotate-3 text-orange-400 border border-orange-400 px-4 py-2 rounded-full text-sm hover:bg-orange-400 hover:text-[#ffffff] transition"
+
+            <a href="https://www.youtube.com/watch?v=VQ3HhyQCbMA&list=PLRAV69dS1uWRJcxXk1omgcMI07ygMxSRl"
+                class="float-soft glow-soft text-orange-500 border border-orange-400  px-7 py-3 rounded-full text-xl font-semibold hover:bg-gradient-to-r hover:from-orange-400 hover:to-orange-500 hover:text-white hover:scale-110  transition-all duration-500 ease-in-out shadow-md backdrop-blur-sm"
                 target="_blank">Stack Overflow Clone</a>
-            <a href=""
-                class="float-animate rotate-4 text-orange-400 border border-orange-400 px-4 py-2 rounded-full text-sm hover:bg-orange-400 hover:text-[#ffffff] transition"
+
+            <a href="https://www.youtube.com/watch?v=_BqkCRgCdng"
+                class="float-soft glow-soft text-orange-500 border border-orange-400  px-7 py-3 rounded-full text-xl font-semibold hover:bg-gradient-to-r hover:from-orange-400 hover:to-orange-500 hover:text-white hover:scale-110  transition-all duration-500 ease-in-out shadow-md backdrop-blur-sm"
                 target="_blank">User Verification</a>
-            <a href=""
-                class="float-animate rotate-1 text-orange-400 border border-orange-400 px-4 py-2 rounded-full text-sm hover:bg-orange-400 hover:text-[#ffffff] transition"
+
+            <a href="https://www.youtube.com/watch?v=Trsho3HVAdI&list=PLRAV69dS1uWTDMYA_7mzG2dN9TKC9ed3m"
+                class="float-soft glow-soft text-orange-500 border border-orange-400  px-7 py-3 rounded-full text-xl font-semibold hover:bg-gradient-to-r hover:from-orange-400 hover:to-orange-500 hover:text-white hover:scale-110  transition-all duration-500 ease-in-out shadow-md backdrop-blur-sm"
                 target="_blank">Interview Preparation</a>
-            <a href=""
-                class="float-animate rotate-2 text-orange-400 border border-orange-400 px-4 py-2 rounded-full text-sm hover:bg-orange-400 hover:text-[#ffffff] transition"
+
+            <a href="https://www.youtube.com/watch?v=kGtEax1WQFg&list=PLRAV69dS1uWSjBBJ-egNNOd4mdblt1P4c"
+                class="float-soft glow-soft text-orange-500 border border-orange-400  px-7 py-3 rounded-full text-xl font-semibold hover:bg-gradient-to-r hover:from-orange-400 hover:to-orange-500 hover:text-white hover:scale-110  transition-all duration-500 ease-in-out shadow-md backdrop-blur-sm"
                 target="_blank">React Native</a>
-            <a href=""
-                class="float-animate rotate-3 text-orange-400 border border-orange-400 px-4 py-2 rounded-full text-sm hover:bg-orange-400 hover:text-[#ffffff] transition"
-                target="_blank">Cloud and Devops</a>
-            <a href=""
-                class="float-animate rotate-4 text-orange-400 border border-orange-400 px-4 py-2 rounded-full text-sm hover:bg-orange-400 hover:text-[#ffffff] transition"
+
+            <a href="https://www.youtube.com/watch?v=JkOEwVkaXso"
+                class="float-soft glow-soft text-orange-500 border border-orange-400  px-7 py-3 rounded-full text-xl font-semibold hover:bg-gradient-to-r hover:from-orange-400 hover:to-orange-500 hover:text-white hover:scale-110  transition-all duration-500 ease-in-out shadow-md backdrop-blur-sm"
+                target="_blank">Cloud and DevOps</a>
+
+            <a href="https://www.youtube.com/watch?v=7XDeI5fyj3w"
+                class="float-soft glow-soft text-orange-500 border border-orange-400  px-7 py-3 rounded-full text-xl font-semibold hover:bg-gradient-to-r hover:from-orange-400 hover:to-orange-500 hover:text-white hover:scale-110  transition-all duration-500 ease-in-out shadow-md backdrop-blur-sm"
                 target="_blank">Kubernetes</a>
-            <a href=""
-                class="float-animate rotate-1 text-orange-400 border border-orange-400 px-4 py-2 rounded-full text-sm hover:bg-orange-400 hover:text-[#ffffff] transition"
+
+            <a href="https://www.youtube.com/watch?v=A36VQFdIAkI"
+                class="float-soft glow-soft text-orange-500 border border-orange-400  px-7 py-3 rounded-full text-xl font-semibold hover:bg-gradient-to-r hover:from-orange-400 hover:to-orange-500 hover:text-white hover:scale-110  transition-all duration-500 ease-in-out shadow-md backdrop-blur-sm"
                 target="_blank">PostMan</a>
-            <a href=""
-                class="float-animate rotate-2 text-orange-400 border border-orange-400 px-4 py-2 rounded-full text-sm hover:bg-orange-400 hover:text-[#ffffff] transition"
+
+            <a href="https://www.youtube.com/watch?v=Vh_NlF9hHN4"
+                class="float-soft glow-soft text-orange-500 border border-orange-400  px-7 py-3 rounded-full text-xl font-semibold hover:bg-gradient-to-r hover:from-orange-400 hover:to-orange-500 hover:text-white hover:scale-110  transition-all duration-500 ease-in-out shadow-md backdrop-blur-sm"
                 target="_blank">Build Your Own SAAS</a>
-            <a href=""
-                class="float-animate rotate-3 text-orange-400 border border-orange-400 px-4 py-2 rounded-full text-sm hover:bg-orange-400 hover:text-[#ffffff] transition"
+
+            <a href="https://www.youtube.com/watch?v=VT099T4Feb0"
+                class="float-soft glow-soft text-orange-500 border border-orange-400  px-7 py-3 rounded-full text-xl font-semibold hover:bg-gradient-to-r hover:from-orange-400 hover:to-orange-500 hover:text-white hover:scale-110 transition-all duration-500 ease-in-out shadow-md backdrop-blur-sm"
                 target="_blank">Learn Deployment</a>
+
         </div>
     </div>
 
@@ -656,7 +983,9 @@
 
         <!-- Right: Info Section -->
         <div class="max-w-xl">
-            <h1 class="text-6xl flex flex-col font-bold text-orange-500 mb-7 ">Learn on
+            <h1
+                class="text-6xl flex flex-col font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 pb-2 mb-7 ">
+                Learn on
                 the go</h1>
             <p class="text-lg leading-relaxed mb-8 ">
                 Take your coding journey anywhere with the ChaiCode mobile app.
@@ -705,112 +1034,165 @@
         </div>
     </div>
 
-    <div class="Free-API-Open-Source bg-background text-textColor">
-        <h1 class="text-7xl font-semibold mb-4 text-center  ">
-            <span
-                class="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 mt-16 ">FreeAPI</span>
-            - Open Source
-        </h1>
-        <div class="flex items-center justify-center">
-            <div class="w-1/2 m-4">
-                <h1 class="text-4xl font-semibold text-center p-2">
-                    Unlock Your Potential with Our API Hub
-                </h1>
-                <p class="text-gray-600 mb-4 text-center p-4">
-                    Our API Hub is designed to streamline your
-                    learning experience in API handling across
-                    various programming languages.
-                    With this resource, you can effortlessly build and
-                    showcase your front-end portfolio in both web and mobile applications.
-                    Join us to enhance your skills and take your coding projects to the next level!
-                </p>
-            </div>
-            <div class="w-1/2 flex justify-center items-center">
-                <iframe width="450" height="200" class="embed-video"
-                    src="https://www.youtube.com/embed/yG8JMlldoCE?si=xzx4siKIaMwnbJsM" title="YouTube video player"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share;"
-                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
-                </iframe>
+    <div class="Free API py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <h1 class="text-7xl font-semibold text-center mb-8">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-orange-500 to-red-500">
+                    FreeAPI
+                </span>
+                - Open Source
+            </h1>
+
+            <h2 class="text-3xl font-semibold text-center mb-12 text-gray-500">
+                Unlock Your Potential with Our API Hub
+            </h2>
+
+            <!-- Main Content -->
+            <div class="flex flex-col md:flex-row items-center md:items-start justify-center md:justify-between gap-8">
+
+                <!-- Left Side Text -->
+                <div class="w-full md:w-1/2">
+                    <p class="text-center text-gray-500 text-lg leading-relaxed mt-8">
+                        Our API Hub is designed to streamline your
+                        learning experience in API handling across
+                        various programming languages.
+                        With this resource, you can effortlessly build and
+                        showcase your front-end portfolio in both web and mobile applications.
+                        Join us to enhance your skills and take your coding projects to the next level!
+                    </p>
+                </div>
+
+                <div class="divider hidden md:block w-px h-60 relative mx-20">
+                    <div
+                        class="absolute top-0 left-0 w-px h-full bg-gradient-to-b from-transparent via-orange-400 to-transparent">
+                    </div>
+                </div>
+
+                <!-- Right Side Video -->
+                <div class="w-full md:w-[55%] flex justify-center md:justify-end">
+                    <div
+                        class="w-full max-w-md rounded-xl overflow-hidden shadow-md transform transition-transform duration-300 hover:scale-110  hover:shadow-lg">
+                        <iframe class="w-full h-44 md:h-56"
+                            src="https://www.youtube.com/embed/yG8JMlldoCE?si=xzx4siKIaMwnbJsM"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
 
-    <footer class="bg-background text-textColor">
+    <footer id="footer" class="bg-black text-white py-12 border-t border-orange-200 ">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-start">
 
-        <div class="py-8">
-            <div class="max-w-screen-xl mx-auto flex flex-wrap">
+            <!-- Left Part (Logo + Description + Socials) -->
+            <div class="md:w-1/2 mb-10 md:mb-0">
+                <div class="flex items-center gap-3 mb-4">
+                    <img src="./images/chai-gray.png" alt="Logo"
+                        class="w-10 h-10 object-contain transition-all duration-300 hover:scale-140 ">
+                    <h1 class="text-2xl font-bold">ChaiCode</h1>
+                </div>
+                <p class="text-gray-400">Home for programmers</p>
 
-                <div class="flex-1 min-w-[250px] mx-2 my-5">
-                    <h3>
-                        <a href="#"
-                            class="text-xl font-bold hover:text-orange-500 transition-transform hover:scale-105">ChaiCode</a>
-                    </h3>
-                    <p class="text-sm mt-1">Home for Programmers</p>
+                <!-- Social Icons -->
+                <div class="flex gap-4 mt-6">
+                    <a target="_blank" href="https://www.youtube.com/@chaiaurcode"
+                        class="transition-all duration-700 hover:scale-125 hover:rotate-[360deg] group">
+                        <i
+                            class="fab fa-youtube w-6 h-6 text-white group-hover:text-orange-500 group-hover:drop-shadow-[0_0_20px_#ff7b00]"></i>
+                    </a>
 
-                    <div class="mt-4 flex space-x-4 text-2xl">
-                        <a href="https://youtube.com" target="_blank"
-                            class="hover:text-orange-500 transition-transform hover:scale-110"><i
-                                class="fab fa-youtube"></i></a>
-                        <a href="https://instagram.com" target="_blank"
-                            class="hover:text-orange-500 transition-transform hover:scale-125"><i
-                                class="fab fa-instagram"></i></a>
-                        <a href="https://github.com" target="_blank"
-                            class="hover:text-orange-500 transition-transform hover:scale-110"><i
-                                class="fab fa-github"></i></a>
-                        <a href="https://twitter.com" target="_blank"
-                            class="hover:text-orange-500 transition-transform hover:scale-110"><i
-                                class="fab fa-twitter"></i></a>
-                        <a href="https://linkedin.com" target="_blank"
-                            class="hover:text-orange-500 transition-transform hover:scale-110"><i
-                                class="fab fa-linkedin"></i></a>
-                        <a href="https://discord.com" target="_blank"
-                            class="hover:text-orange-500 transition-transform hover:scale-110"><i
-                                class="fab fa-discord"></i></a>
-                    </div>
-
-                    <p class="mt-4 text-sm">&copy; 2024 <strong>Chaicode</strong>. All rights reserved.</p>
+                    <a target="_blank" href="https://www.instagram.com/hiteshchoudharyofficial/?hl=en"
+                        class="transition-all duration-700 hover:scale-125 hover:rotate-[360deg] group">
+                        <i
+                            class="fab fa-instagram w-6 h-6 group-hover:text-orange-500 group-hover:drop-shadow-[0_0_12px_#f97316]"></i>
+                    </a>
+                    <a target="_blank" href="https://github.com/hiteshchoudhary"
+                        class="transition-all duration-700 hover:scale-125 hover:rotate-[360deg] group">
+                        <i
+                            class="fab fa-github w-6 h-6 group-hover:text-orange-500 group-hover:drop-shadow-[0_0_12px_#f97316]"></i>
+                    </a>
+                    <a target="_blank" href="https://x.com/hiteshdotcom"
+                        class="transition-all duration-700 hover:scale-125 hover:rotate-[360deg] group">
+                        <i
+                            class="fab fa-x w-6 h-6 group-hover:text-orange-500 group-hover:drop-shadow-[0_0_12px_#f97316]"></i>
+                    </a>
+                    <a target="_blank" href="https://in.linkedin.com/in/hiteshchoudhary"
+                        class="transition-all duration-700 hover:scale-125 hover:rotate-[360deg] group">
+                        <i
+                            class="fab fa-linkedin w-6 h-6 group-hover:text-orange-500 group-hover:drop-shadow-[0_0_12px_#f97316]"></i>
+                    </a>
+                    <a target="_blank" href="https://discord.com/invite/WDrH3zuWFb"
+                        class="transition-all duration-700 hover:scale-125 hover:rotate-[360deg] group">
+                        <i
+                            class="fab fa-discord w-6 h-6 group-hover:text-orange-500 group-hover:drop-shadow-[0_0_12px_#f97316]"></i>
+                    </a>
                 </div>
 
-                <div class="flex flex-col sm:flex-row justify-end gap-8 flex-wrap my-5 ml-auto">
-                    <div>
-                        <ul class="space-y-1 text-sm">
-                            <li><a href="#"
-                                    class="hover:text-orange-500 transition-transform hover:scale-105">Courses</a></li>
-                            <li><a href="#"
-                                    class="hover:text-orange-500 transition-transform hover:scale-105">Cohort</a></li>
-                            <li><a href="#" class="hover:text-orange-500 transition-transform hover:scale-105">Coding
-                                    Hero</a></li>
-                            <li><a href="#"
-                                    class="hover:text-orange-500 transition-transform hover:scale-105">FreeAPI</a></li>
-                            <li><a href="#"
-                                    class="hover:text-orange-500 transition-transform hover:scale-105">Masterji</a></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <ul class="space-y-1 text-sm">
-                            <li><a href="#" class="hover:text-orange-500 transition-transform hover:scale-105">Docs</a>
-                            </li>
-                            <li><a href="#" class="hover:text-orange-500 transition-transform hover:scale-105">Privacy
-                                    Policy</a></li>
-                            <li><a href="#" class="hover:text-orange-500 transition-transform hover:scale-105">Terms of
-                                    Service</a></li>
-                            <li><a href="#" class="hover:text-orange-500 transition-transform hover:scale-105">Pricing
-                                    Policy</a></li>
-                            <li><a href="#" class="hover:text-orange-500 transition-transform hover:scale-105">Refund
-                                    Policy</a></li>
-                        </ul>
-                    </div>
+                <div class="mt-4 text-gray-500 text-sm mb-6">
+                    © 2025 ChaiCode. All rights reserved.
+                </div>
+            </div>
+
+            <!-- Right Part (Products + Resources) -->
+            <div class="flex gap-20 md:w-1/2 justify-end">
+
+                <!-- Products -->
+                <div>
+                    <h3 class="text-lg font-semibold text-orange-500 mb-4">Products</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a target="_blank" href="https://courses.chaicode.com/learn"
+                                class="hover:text-orange-400">Courses</a></li>
+                        <li><a target="_blank" href="https://courses.chaicode.com/learn/view-all?show=batch&type=17"
+                                class="hover:text-orange-400">Cohort</a></li>
+                        <li><a target="_blank" href="https://courses.chaicode.com/learn/batch/about?bundleId=226894"
+                                class="hover:text-orange-400">Coding Hero</a></li>
+                        <li><a target="_blank" href="https://freeapi.app/" class="hover:text-orange-400">FreeAPI</a>
+                        </li>
+                        <li><a target="_blank" href="https://masterji.co/login"
+                                class="hover:text-orange-400">Masterji</a></li>
+                    </ul>
+                </div>
+
+                <!-- Resources -->
+                <div>
+                    <h3 class="text-lg font-semibold text-orange-500 mb-4">Resources</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a target="_blank" href="https://docs.chaicode.com/youtube/getting-started/"
+                                class="hover:text-orange-400">Docs</a></li>
+                        <li><a target="_blank" href="https://www.chaicode.com/privacy-policy"
+                                class="hover:text-orange-400">Privacy
+                                Policy</a></li>
+                        <li><a target="_blank" href="https://www.chaicode.com/terms-of-services"
+                                class="hover:text-orange-400">Terms of
+                                Service</a></li>
+                        <li><a target="_blank" href="https://www.chaicode.com/pricing-policy"
+                                class="hover:text-orange-400">Pricing
+                                Policy</a></li>
+                        <li><a target="_blank" href="https://www.chaicode.com/refund-policy"
+                                class="hover:text-orange-400">Refund
+                                Policy</a></li>
+                    </ul>
                 </div>
 
             </div>
+
         </div>
 
-        <div
-            class="text-[280px] font-bold text-justify w-full bg-gradient-to-r from-orange-400 to-orange-600 text-transparent bg-clip-text opacity-70 mt-0 ml-0 sm:text-[36px]">
-            CHAICODE
-        </div>
+        <!-- Copyright -->
 
+
+        <!-- Big Brand Name -->
+        <div class="flex justify-center">
+            <div class="text-center w-[80%] text-7xl md:text-[160px] font-extrabold text-transparent bg-clip-text bg-gradient-to-t from-[#FF3C00] to-[#FF9D00] leading-tight mt-28
+            drop-shadow-[0_0_100px_#f97316]">
+                CHAICODE
+            </div>
+        </div>
     </footer>
 
     <script src="script.js"></script>

@@ -4,21 +4,146 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ChaiCode App Promo</title>
+    <title>Auto-Scrolling Testimonials</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
 
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        @keyframes scroll-reverse {
+            0% {
+                transform: translateX(-50%);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        .scrolling-wrapper {
+            animation: scroll 20s linear infinite;
+            display: flex;
+            width: max-content;
+        }
+
+        .scrolling-wrapper-reverse {
+            animation: scroll-reverse 20s linear infinite;
+            display: flex;
+            width: max-content;
+        }
+
+        .pause-on-hover:hover .scrolling-wrapper,
+        .pause-on-hover:hover .scrolling-wrapper-reverse {
+            animation-play-state: paused;
+        }
     </style>
-
-
 </head>
 
 <body>
 
 
 
+    <!-- First Row -->
+    <div class="overflow-hidden relative pause-on-hover mb-10">
+        <div class="scrolling-wrapper">
+            <div class="flex gap-4">
+                <!-- Cards repeated 2x for seamless scroll -->
+                <!-- Group Start -->
+                <div class="flex gap-4 transform transition-all duration-300 hover:scale-100">
+                    <div class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0 ">
+                        <img src="your-image-path-1.jpg" alt="Memory 1" class="w-full h-48 object-cover">
+                    </div>
+                    <div class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0 ">
+                        <img src="your-image-path-2.jpg" alt="Memory 2" class="w-full h-48 object-cover">
+                    </div>
+                    <div class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0 ">
+                        <img src="your-image-path-3.jpg" alt="Memory 3" class="w-full h-48 object-cover">
+                    </div>
+                    <div class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0 ">
+                        <img src="your-image-path-4.jpg" alt="Memory 4" class="w-full h-48 object-cover">
+                    </div>
+                    <div class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
+                        <img src="your-image-path-5.jpg" alt="Memory 5" class="w-full h-48 object-cover">
+                    </div>
+                </div>
+                <!-- Group Repeat -->
+                <div class="flex gap-4">
+                    <div class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
+                        <img src="your-image-path-1.jpg" alt="Memory 1" class="w-full h-48 object-cover">
+                    </div>
+                    <div class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
+                        <img src="your-image-path-2.jpg" alt="Memory 2" class="w-full h-48 object-cover">
+                    </div>
+                    <div class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
+                        <img src="your-image-path-3.jpg" alt="Memory 3" class="w-full h-48 object-cover">
+                    </div>
+                    <div class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
+                        <img src="your-image-path-4.jpg" alt="Memory 4" class="w-full h-48 object-cover">
+                    </div>
+                    <div class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
+                        <img src="your-image-path-5.jpg" alt="Memory 5" class="w-full h-48 object-cover">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-
+    <!-- Second Row (Reverse Direction) -->
+    <div class="overflow-hidden relative pause-on-hover">
+        <div class="scrolling-wrapper-reverse">
+            <div class="flex gap-4">
+                <!-- Cards repeated 2x for seamless scroll -->
+                <!-- Group Start -->
+                <div class="flex gap-4">
+                    <div
+                        class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0 transform transition-transform duration-300 hover:scale-105">
+                        <img src="your-image-path-1.jpg" alt="Memory 1" class="w-full h-48 object-cover">
+                    </div>
+                    <div
+                        class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0 transform transition-transform duration-300 hover:scale-105">
+                        <img src="your-image-path-2.jpg" alt="Memory 2" class="w-full h-48 object-cover">
+                    </div>
+                    <div
+                        class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0 transform transition-transform duration-300 hover:scale-105">
+                        <img src="your-image-path-3.jpg" alt="Memory 3" class="w-full h-48 object-cover">
+                    </div>
+                    <div
+                        class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0 transform transition-transform duration-300 hover:scale-105">
+                        <img src="your-image-path-4.jpg" alt="Memory 4" class="w-full h-48 object-cover">
+                    </div>
+                    <div
+                        class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0 transform transition-transform duration-300 hover:scale-105">
+                        <img src="your-image-path-5.jpg" alt="Memory 5" class="w-full h-48 object-cover">
+                    </div>
+                </div>
+                <!-- Group Repeat -->
+                <div class="flex gap-4">
+                    <div class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
+                        <img src="your-image-path-1.jpg" alt="Memory 1" class="w-full h-48 object-cover">
+                    </div>
+                    <div class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
+                        <img src="your-image-path-2.jpg" alt="Memory 2" class="w-full h-48 object-cover">
+                    </div>
+                    <div class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
+                        <img src="your-image-path-3.jpg" alt="Memory 3" class="w-full h-48 object-cover">
+                    </div>
+                    <div class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
+                        <img src="your-image-path-4.jpg" alt="Memory 4" class="w-full h-48 object-cover">
+                    </div>
+                    <div class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
+                        <img src="your-image-path-5.jpg" alt="Memory 5" class="w-full h-48 object-cover">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </body>
 
