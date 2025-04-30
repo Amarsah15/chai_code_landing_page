@@ -3,26 +3,54 @@ toogle.addEventListener("click", () => {
   document.body.classList.toggle("dark-theme");
 });
 
-const video = document.getElementById("scaleVideo");
+document.addEventListener("DOMContentLoaded", function () {
+  const video = document.getElementById("scaleVideo");
 
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        video.classList.remove("scale-down");
-        video.classList.add("scale-up");
-      } else {
-        video.classList.remove("scale-up");
-        video.classList.add("scale-down");
+  if (video) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            video.classList.remove("scale-down");
+            video.classList.add("scale-up");
+          } else {
+            video.classList.remove("scale-up");
+            video.classList.add("scale-down");
+          }
+        });
+      },
+      {
+        threshold: 0.5, // Adjusts when scaling happens
       }
-    });
-  },
-  {
-    threshold: 0.5, // Adjusts when scaling happens
-  }
-);
+    );
 
-observer.observe(video);
+    observer.observe(video);
+  }
+
+  // Ensure typewriter animation completes properly
+  function resetTypewriterAnimation() {
+    const typewriter = document.querySelector(".typewriter");
+    if (typewriter) {
+      // Force a repaint/reflow by briefly removing and readding the animation
+      typewriter.style.animation = "none";
+      setTimeout(() => {
+        if (window.innerWidth < 640) {
+          typewriter.style.animation =
+            "typing 3s steps(12, end), typewriter-blink 0.75s step-end infinite";
+        } else {
+          typewriter.style.animation =
+            "typing 3s steps(20, end), typewriter-blink 0.75s step-end infinite";
+        }
+      }, 10);
+    }
+  }
+
+  // Initial call
+  resetTypewriterAnimation();
+
+  // Reset on window resize
+  window.addEventListener("resize", resetTypewriterAnimation);
+});
 
 // Function to Render Courses
 
@@ -140,85 +168,122 @@ const courses = [
   },
 ];
 
-renderCourses(courses);
-
 function renderCourses(courses) {
   const container = document.getElementById("swiper-wrapper");
   courses.forEach((course) => {
     container.innerHTML += `
-      <div class="swiper-slide">
-        <div class="flex flex-wrap justify-center items-start rounded-2xl border-white border-2 w-full">
-          <div class="rounded-2xl max-w-xs w-full overflow-hidden shadow-md bg-background text-textColor">
-            <div class="relative w-full pt-[56.25%] overflow-hidden shadow-lg">
-              <iframe class="absolute top-0 left-0 w-full h-full"
-                src="${course.video}" title="YouTube video player"
-                frameborder="0"
-                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
-              </iframe>
-            </div>
-
-            <div class="p-4">
-              <h2 class="font-bold text-lg text-textColor">${course.title}</h2>
-
-              <div class="mt-4">
-                <p class="font-semibold text-sm text-textColor">Course Outline</p>
-                <ul class="mt-2 space-y-2 text-sm text-gray-600">
-                  ${course.outline
-                    .map(
-                      (item) =>
-                        `<li class="flex items-center gap-2">${item}</li>`
-                    )
-                    .join("")}
-                </ul>
+          <div class="swiper-slide">
+              <div class="flex flex-wrap justify-center items-start rounded-2xl border-white border-2 w-full">
+                  <div class="rounded-2xl max-w-xs w-full overflow-hidden shadow-md bg-background text-textColor">
+                      <div class="relative w-full pt-[56.25%] overflow-hidden shadow-lg">
+                          <iframe class="absolute top-0 left-0 w-full h-full"
+                              src="${course.video}" title="YouTube video player"
+                              frameborder="0"
+                              allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                              referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                          </iframe>
+                      </div>
+                      <div class="p-2 sm:p-4">
+                          <h2 class="font-bold text-base sm:text-lg text-textColor">${
+                            course.title
+                          }</h2>
+                          <div class="mt-2 sm:mt-4">
+                              <p class="font-semibold text-xs sm:text-sm text-textColor">Course Outline</p>
+                              <ul class="mt-1 sm:mt-2 space-y-1 sm:space-y-2 text-xs sm:text-sm text-gray-600">
+                                  ${course.outline
+                                    .map(
+                                      (item) =>
+                                        `<li class="flex items-center gap-1 sm:gap-2">${item}</li>`
+                                    )
+                                    .join("")}
+                              </ul>
+                          </div>
+                          <div class="mt-2 sm:mt-4">
+                              <span class="text-textColor font-bold text-xl sm:text-2xl">${
+                                course.price
+                              }</span>
+                              <span class="text-gray-500 text-xs sm:text-sm line-through ml-1 sm:ml-2">${
+                                course.original
+                              }</span>
+                              <p class="text-[11px] sm:text-[13px] mt-1 sm:mt-2 text-textColor font-semibold">${
+                                course.discount
+                              }</p>
+                          </div>
+                          <div class="mt-3 sm:mt-5 flex flex-col gap-1 sm:gap-2">
+                              <button
+                                  class="bg-orange-600 hover:bg-orange-700 text-white py-1 sm:py-2 rounded text-sm sm:text-base font-semibold">
+                                  <a href="${
+                                    course.buynow
+                                  }" target="_blank">Buy Now</a>  
+                              </button>
+                              <button
+                                  class="border-2 border-orange-600 text-orange-600 py-1 sm:py-2 rounded text-sm sm:text-base font-semibold hover:bg-blue-50">
+                                  <a href="${
+                                    course.learnmore
+                                  }" target="_blank">Learn More</a>
+                              </button>
+                          </div>
+                      </div>
+                  </div>
               </div>
-
-              <div class="mt-4">
-                <span class="text-textColor font-bold text-2xl mt-4">${
-                  course.price
-                }</span>
-                <span class="text-gray-500 text-sm line-through ml-2">${
-                  course.original
-                }</span>
-                <p class="text-[13px] mt-2 text-textColor font-semibold">${
-                  course.discount
-                }</p>
-              </div>
-
-              <div class="mt-5 flex flex-col gap-2">
-                <button
-                  class="bg-orange-600 hover:bg-orange-700 text-white py-2 rounded font-semibold">
-                  <a href="${course.buynow}" target="_blank">Buy Now</a>  
-                </button>
-                <button
-                  class="border-2 border-orange-600 text-orange-600 py-2 rounded font-semibold hover:bg-blue-50"><a href="${
-                    course.learnmore
-                  }" target="_blank">Learn More</a> </button>
-              </div>
-            </div>
           </div>
-        </div>
-      </div>
-    `;
+      `;
   });
 }
 
-function renderTweets(containerId, tweets) {
+renderCourses(courses);
+
+function renderTweetsWithDuplication(containerId, tweets) {
   const container = document.getElementById(containerId);
+  if (!container) return;
+
+  // Clear any existing content
+  container.innerHTML = "";
+
+  // First set of tweets
   tweets.forEach((tweet) => {
     container.innerHTML += `
-  <div class="bg-background p-4 rounded-xl shadow border border-textColor">
-    <div class="flex gap-3">
-      <img src="${tweet.img}" class="w-10 h-10 rounded-full" />
-      <div>
-        <p class="font-bold">${tweet.name} <span class="text-sm text-textColor">${tweet.handle}</span></p>
-        <p class="mt-1 text-textColor leading-relaxed">${tweet.text}</p>
-      </div>
-    </div>
-  </div>
-`;
+          <div class="bg-background p-3 sm:p-4 rounded-xl shadow border border-textColor">
+              <div class="flex gap-2 sm:gap-3">
+                  <img src="${tweet.img}" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full" />
+                  <div>
+                      <p class="font-bold text-sm sm:text-base">${tweet.name} <span class="text-xs sm:text-sm text-textColor">${tweet.handle}</span></p>
+                      <p class="mt-1 text-textColor leading-relaxed text-sm sm:text-base">${tweet.text}</p>
+                  </div>
+              </div>
+          </div>
+      `;
   });
 }
+
+// Initialize with different starting points for each column
+document.addEventListener("DOMContentLoaded", function () {
+  // Shuffle and slice tweets for different columns
+  const shuffled1 = [...tweets].sort(() => 0.5 - Math.random());
+  const shuffled2 = [...tweets].sort(() => 0.5 - Math.random());
+  const shuffled3 = [...tweets].sort(() => 0.5 - Math.random());
+
+  renderTweetsWithDuplication("col1", shuffled1);
+  renderTweetsWithDuplication("col2", shuffled2);
+  renderTweetsWithDuplication("col3", shuffled3);
+
+  // Add event listener to pause animations when not in viewport for performance
+  const scrollingContainers = document.querySelectorAll(".scrolling-container");
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.style.animationPlayState = "running";
+      } else {
+        entry.target.style.animationPlayState = "paused";
+      }
+    });
+  });
+
+  scrollingContainers.forEach((container) => {
+    observer.observe(container);
+  });
+});
 
 const col1Tweets = [
   {
@@ -463,9 +528,9 @@ const col3Tweets = [
   },
 ];
 
-renderTweets("col1", col1Tweets);
-renderTweets("col2", col2Tweets);
-renderTweets("col3", col3Tweets);
+renderTweetsWithDuplication("col1", col1Tweets);
+renderTweetsWithDuplication("col2", col2Tweets);
+renderTweetsWithDuplication("col3", col3Tweets);
 
 const scrollers = document.querySelectorAll(".scroller");
 

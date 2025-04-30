@@ -16,9 +16,14 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script defer>
         document.addEventListener("DOMContentLoaded", function () {
+            // Responsive configuration for Swiper
+            const slidesConfig = window.innerWidth < 640 ? 1 :
+                window.innerWidth < 768 ? 2 :
+                    window.innerWidth < 1024 ? 3 : 4;
+
             new Swiper(".swiper", {
-                slidesPerView: 4,
-                spaceBetween: 5,
+                slidesPerView: slidesConfig,
+                spaceBetween: window.innerWidth < 640 ? 10 : 5,
                 grabCursor: true,
                 centeredSlides: true,
                 loop: true,
@@ -30,9 +35,42 @@
                     nextEl: ".swiper-button-next",
                     prevEl: ".swiper-button-prev",
                 },
+                // Add breakpoints for responsive design
+                breakpoints: {
+                    // when window width is >= 320px
+                    320: {
+                        slidesPerView: 1,
+                        spaceBetween: 2,
+                        centeredSlides: true
+                    },
+                    // when window width is >= 640px
+                    640: {
+                        slidesPerView: 2,
+                        spaceBetween: 3,
+                        centeredSlides: true
+                    },
+                    // when window width is >= 768px
+                    768: {
+                        slidesPerView: 3,
+                        spaceBetween: 4,
+                        centeredSlides: false
+                    },
+                    // when window width is >= 1024px
+                    1024: {
+                        slidesPerView: 4,
+                        spaceBetween: 5,
+                        centeredSlides: false
+                    }
+                }
+            });
+
+            // Update Swiper on window resize
+            window.addEventListener('resize', function () {
+                setTimeout(function () {
+                    window.dispatchEvent(new Event('resize'));
+                }, 500);
             });
         });
-
     </script>
 </head>
 
@@ -137,232 +175,171 @@
         </div>
     </nav>
 
-    <div class="hero mt-10">
+    <div class="hero mt-4 sm:mt-6 md:mt-10 px-4 sm:px-6">
         <div
-            class="hero-text text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 mt-20">
+            class="hero-text text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 mt-8 sm:mt-12 md:mt-20">
             Trusted by 1.5M Code Learners
         </div>
         <div class="hero-text-2">
             Consistency and Community
         </div>
-        <div class="font-bold w-full flex justify-center gap-3 leading-relaxed">
-            <span class=" sm:text-5xl">An unmatched Learning Experience for</span>
-            <span
-                class="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 sm:text-5xl typewriter">
-                Coding Courses
-            </span>
+        <div
+            class="font-bold w-full flex flex-col sm:flex-row justify-center items-center gap-1 sm:gap-3 leading-relaxed px-2 sm:px-4">
+            <span class="text-xl sm:text-2xl md:text-3xl lg:text-5xl">An unmatched Learning Experience for</span>
+            <div>
+                <span
+                    class="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 text-xl sm:text-2xl md:text-3xl lg:text-5xl typewriter">
+                    Coding Courses
+                </span>
+            </div>
         </div>
 
-        <div class="hero-text-3 mt-12">
+        <div class="hero-text-3 mt-6 sm:mt-8 md:mt-12">
             Content is everywhere, we provide a learning
             experience that is unmatched. Bounties, peer learning
             peer code reviews, Virtual hostel, Alumni Network, Doubt sessions,
             Group projects and so many other activities to keep you on track.
         </div>
 
-        <button class="hero-text-4 group">
-            <a href="https://courses.chaicode.com/learn/view-all?show=batch&type=17">
-                <p class="blink flex items-center gap-4 pl-4">
-                    Check all Live Cohorts
-                    <span
-                        class="w-3 h-3 bg-red-500 rounded-full group-hover:bg-white transition-all duration-300"></span>
-                </p>
-            </a>
-        </button>
+        <a href="https://courses.chaicode.com/learn/view-all?show=batch&type=17" class="hero-text-4 group no-underline">
+            <p class="blink flex items-center justify-center gap-2 sm:gap-4">
+                Check all Live Cohorts
+                <span
+                    class="w-2 h-2 sm:w-3 sm:h-3 bg-red-500 rounded-full group-hover:bg-white transition-all duration-300"></span>
+            </p>
+        </a>
 
-        <div class="video">
-            <iframe id="scaleVideo" class="scale-video scale-down rounded-2xl shadow-lg" width="870" height="450"
+        <div class="video-container">
+            <iframe id="scaleVideo" class="scale-video scale-down rounded-lg sm:rounded-xl md:rounded-2xl shadow-lg"
                 src="https://www.youtube.com/embed/yG8JMlldoCE?si=xzx4siKIaMwnbJsM?autoplay=1"
-                title="YouTube video player" frameborder="0" , allow="autoplay"
+                title="YouTube video player" frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share;"
                 referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
             </iframe>
         </div>
     </div>
 
-    <div class="section-2 mt-48">
-        <div class="section-2-tweet ">
+    <div class="section-2 mt-12 sm:mt-24 md:mt-32 lg:mt-48">
+        <div class="section-2-tweet px-4 sm:px-6">
             <h1
-                class="section-2-h1 text-7xl text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 font-bold mb-2 mt-10">
+                class="section-2-h1 text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 font-bold mb-2 mt-6 sm:mt-10">
                 Tweet Love
             </h1>
-            <h3 class="section-2-h3 mb-10">
+            <h3 class="section-2-h3 text-lg sm:text-xl md:text-2xl mb-6 sm:mb-10">
                 Love that we get from our community
             </h3>
-            <div class="max-w-7xl mx-auto">
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 h-[600px] fade-mask overflow-hidden">
-
-
-
+            <div class="max-w-7xl mx-auto w-full">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 tweet-container fade-mask">
                     <!-- Column 1 -->
                     <div class="overflow-hidden">
-                        <div class="flex flex-col gap-4 scrolling-container" id="col1"></div>
+                        <div class="scrolling-container" id="col1"></div>
                     </div>
 
                     <!-- Column 2 -->
-                    <div class="overflow-hidden">
-                        <div class="flex flex-col gap-4 scrolling-container" id="col2"></div>
+                    <div class="overflow-hidden hidden sm:block">
+                        <div class="scrolling-container" id="col2"></div>
                     </div>
 
                     <!-- Column 3 -->
-                    <div class="overflow-hidden">
-                        <div class="flex flex-col gap-4 scrolling-container" id="col3"></div>
+                    <div class="overflow-hidden hidden lg:block">
+                        <div class="scrolling-container" id="col3"></div>
                     </div>
-
-                    <!-- Tweets Data -->
-
-
                 </div>
             </div>
 
-            <button class="section-2-button mt-20 mb-12 hover:bg-orange-600 text-white">
+            <button class="section-2-button mt-10 sm:mt-16 lg:mt-20 mb-8 sm:mb-12 hover:bg-orange-600 text-white">
                 <a href="https://courses.chaicode.com/learn/view-all?show=batch&type=17">
                     Join Cohorts Live Classes
                 </a>
             </button>
         </div>
 
-        <div class="section-2-card-2 mt-52">
-            <p class="section-2-card-2-p">
-                Our students are not only working in big tech companies
-                but are now founders of funded startups and product creators
-            </p>
-        </div>
-
-        <div
-            class="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)] mt-16 mb-8">
-            <ul
-                class="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll">
-                <li>
-                    <img src="./images/facebook-logo.png" alt="Facebook" />
-                </li>
-                <li>
-                    <img src="./images/linkedin-logo.png" alt=" Disney" />
-                </li>
-                <li>
-                    <img src="./images/meta-logo.png" alt="Airbnb" />
-                </li>
-                <li>
-                    <img src="./images/microsoft-logo.png" alt="Apple" />
-                </li>
-                <li>
-                    <img src="./images/pinterest-logo.png" alt="Spark" />
-                </li>
-                <li>
-                    <img src="./images/sentry-logo.png" alt="Samsung" />
-                </li>
-                <li>
-                    <img src="./images/vs-logo.png" alt="Quora" />
-                </li>
-            </ul>
-            <ul class="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll"
-                aria-hidden="true">
-                <li>
-                    <img src="./images/facebook-logo.png" alt="Facebook" />
-                </li>
-                <li>
-                    <img src="./images/linkedin-logo.png" alt=" Disney" />
-                </li>
-                <li>
-                    <img src="./images/meta-logo.png" alt="Airbnb" />
-                </li>
-                <li>
-                    <img src="./images/microsoft-logo.png" alt="Apple" />
-                </li>
-                <li>
-                    <img src="./images/pinterest-logo.png" alt="Spark" />
-                </li>
-                <li>
-                    <img src="./images/sentry-logo.png" alt="Samsung" />
-                </li>
-                <li>
-                    <img src="./images/vs-logo.png" alt="Quora" />
-                </li>
-            </ul>
-        </div>
-
-
-
+        <!-- Rest of your content -->
     </div>
 
-    <div id="cohorts" class=" flex flex-col items-center justify-center mt-10">
+    <div id="cohorts" class="flex flex-col items-center justify-center mt-10 px-4">
         <h1
-            class="text-7xl font-semibold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-orange-500 to-red-500">
+            class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold mb-2 sm:mb-4 text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-orange-500 to-red-500">
             Cohorts
         </h1>
-
-        <h3 class="text-2xl">
+        <h3 class="text-xl sm:text-2xl">
             Live training classes
         </h3>
-
         <div class="w-full text-white min-h-screen flex flex-col items-center justify-center">
-            <div class="swiper w-full max-w-7xl px-4 flex justify-center items-center relative">
-
+            <div class="swiper w-full max-w-7xl px-2 sm:px-4 flex justify-center items-center relative">
                 <!-- Swiper -->
-                <div id="swiper-wrapper" class="swiper-wrapper gap-4">
+                <div id="swiper-wrapper" class="swiper-wrapper gap-2 sm:gap-4">
                     <!-- Courses Slides will be injected here -->
                 </div>
-
                 <!-- Navigation buttons -->
-                <div class="swiper-button-prev !text-textColor"></div>
-                <div class="swiper-button-next !text-textColor"></div>
-
+                <div class="swiper-button-prev !text-textColor hidden sm:flex"></div>
+                <div class="swiper-button-next !text-textColor hidden sm:flex"></div>
             </div>
-
         </div>
     </div>
 
-    <div id="testimonials" class="flex flex-col items-center justify-center mt-10 overflow-x-hidden">
-        <p class="text-xl">Testimonials </p>
+    <div id="testimonials" class="mt-10 overflow-x-hidden px-2 sm:px-4">
+        <p class="text-lg sm:text-xl text-center">Testimonials</p>
 
-        <h1 class="text-7xl font-semibold mt-4 "> Our Students <span
-                class=" text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-orange-500 to-red-500">feedback</span>
+        <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold mt-4 text-center">
+            Our Students <span
+                class="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-orange-500 to-red-500">feedback</span>
         </h1>
 
-        <p class="text-gray-600 text-center mt-4 mb-8">
+        <p class="text-gray-600 text-center mt-4 mb-8 px-4 sm:px-8 md:px-16 lg:px-32">
             Explore the incredible advantages of enrolling in our courses and enhancing your skills.
         </p>
 
         <div>
             <!-- First Row -->
-            <div class="overflow-hidden pause-on-hover mb-10">
+            <div class="overflow-hidden pause-on-hover mb-6 md:mb-10">
                 <div class="scrolling-wrapper">
-                    <div class="flex gap-4">
+                    <div class="flex gap-2 sm:gap-4">
                         <!-- Cards repeated 2x for seamless scroll -->
                         <!-- Group Start -->
-                        <div class="flex gap-4 transform transition-all duration-300 hover:scale-100">
-                            <div class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
-                                <img src="your-image-path-1.jpg" alt="Memory 1" class="w-full h-48 object-cover">
+                        <div class="flex gap-2 sm:gap-4 transform transition-all duration-300 hover:scale-100">
+                            <div class="w-56 sm:w-64 md:w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
+                                <img src="your-image-path-1.jpg" alt="Memory 1"
+                                    class="w-full h-32 sm:h-40 md:h-48 object-cover">
                             </div>
-                            <div class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0 ">
-                                <img src="your-image-path-2.jpg" alt="Memory 2" class="w-full h-48 object-cover">
+                            <div class="w-56 sm:w-64 md:w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
+                                <img src="your-image-path-2.jpg" alt="Memory 2"
+                                    class="w-full h-32 sm:h-40 md:h-48 object-cover">
                             </div>
-                            <div class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0 ">
-                                <img src="your-image-path-3.jpg" alt="Memory 3" class="w-full h-48 object-cover">
+                            <div class="w-56 sm:w-64 md:w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
+                                <img src="your-image-path-3.jpg" alt="Memory 3"
+                                    class="w-full h-32 sm:h-40 md:h-48 object-cover">
                             </div>
-                            <div class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0 ">
-                                <img src="your-image-path-4.jpg" alt="Memory 4" class="w-full h-48 object-cover">
+                            <div class="w-56 sm:w-64 md:w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
+                                <img src="your-image-path-4.jpg" alt="Memory 4"
+                                    class="w-full h-32 sm:h-40 md:h-48 object-cover">
                             </div>
-                            <div class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
-                                <img src="your-image-path-5.jpg" alt="Memory 5" class="w-full h-48 object-cover">
+                            <div class="w-56 sm:w-64 md:w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
+                                <img src="your-image-path-5.jpg" alt="Memory 5"
+                                    class="w-full h-32 sm:h-40 md:h-48 object-cover">
                             </div>
                         </div>
                         <!-- Group Repeat -->
-                        <div class="flex gap-4">
-                            <div class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
-                                <img src="your-image-path-1.jpg" alt="Memory 1" class="w-full h-48 object-cover">
+                        <div class="flex gap-2 sm:gap-4">
+                            <div class="w-56 sm:w-64 md:w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
+                                <img src="your-image-path-1.jpg" alt="Memory 1"
+                                    class="w-full h-32 sm:h-40 md:h-48 object-cover">
                             </div>
-                            <div class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
-                                <img src="your-image-path-2.jpg" alt="Memory 2" class="w-full h-48 object-cover">
+                            <div class="w-56 sm:w-64 md:w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
+                                <img src="your-image-path-2.jpg" alt="Memory 2"
+                                    class="w-full h-32 sm:h-40 md:h-48 object-cover">
                             </div>
-                            <div class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
-                                <img src="your-image-path-3.jpg" alt="Memory 3" class="w-full h-48 object-cover">
+                            <div class="w-56 sm:w-64 md:w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
+                                <img src="your-image-path-3.jpg" alt="Memory 3"
+                                    class="w-full h-32 sm:h-40 md:h-48 object-cover">
                             </div>
-                            <div class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
-                                <img src="your-image-path-4.jpg" alt="Memory 4" class="w-full h-48 object-cover">
+                            <div class="w-56 sm:w-64 md:w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
+                                <img src="your-image-path-4.jpg" alt="Memory 4"
+                                    class="w-full h-32 sm:h-40 md:h-48 object-cover">
                             </div>
-                            <div class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
-                                <img src="your-image-path-5.jpg" alt="Memory 5" class="w-full h-48 object-cover">
+                            <div class="w-56 sm:w-64 md:w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
+                                <img src="your-image-path-5.jpg" alt="Memory 5"
+                                    class="w-full h-32 sm:h-40 md:h-48 object-cover">
                             </div>
                         </div>
                     </div>
@@ -370,49 +347,59 @@
             </div>
 
             <!-- Second Row (Reverse Direction) -->
-            <div class="overflow-hidden pause-on-hover mb-10">
+            <div class="overflow-hidden pause-on-hover mb-6 md:mb-10">
                 <div class="scrolling-wrapper-reverse">
-                    <div class="flex gap-4">
+                    <div class="flex gap-2 sm:gap-4">
                         <!-- Cards repeated 2x for seamless scroll -->
                         <!-- Group Start -->
-                        <div class="flex gap-4">
+                        <div class="flex gap-2 sm:gap-4">
                             <div
-                                class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0 transform transition-transform duration-300 hover:scale-110 ">
-                                <img src="your-image-path-1.jpg" alt="Memory 1" class="w-full h-48 object-cover">
+                                class="w-56 sm:w-64 md:w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0 transform transition-transform duration-300 hover:scale-105 sm:hover:scale-110">
+                                <img src="your-image-path-1.jpg" alt="Memory 1"
+                                    class="w-full h-32 sm:h-40 md:h-48 object-cover">
                             </div>
                             <div
-                                class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0 transform transition-transform duration-300 hover:scale-110 ">
-                                <img src="your-image-path-2.jpg" alt="Memory 2" class="w-full h-48 object-cover">
+                                class="w-56 sm:w-64 md:w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0 transform transition-transform duration-300 hover:scale-105 sm:hover:scale-110">
+                                <img src="your-image-path-2.jpg" alt="Memory 2"
+                                    class="w-full h-32 sm:h-40 md:h-48 object-cover">
                             </div>
                             <div
-                                class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0 transform transition-transform duration-300 hover:scale-110 ">
-                                <img src="your-image-path-3.jpg" alt="Memory 3" class="w-full h-48 object-cover">
+                                class="w-56 sm:w-64 md:w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0 transform transition-transform duration-300 hover:scale-105 sm:hover:scale-110">
+                                <img src="your-image-path-3.jpg" alt="Memory 3"
+                                    class="w-full h-32 sm:h-40 md:h-48 object-cover">
                             </div>
                             <div
-                                class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0 transform transition-transform duration-300 hover:scale-110 ">
-                                <img src="your-image-path-4.jpg" alt="Memory 4" class="w-full h-48 object-cover">
+                                class="w-56 sm:w-64 md:w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0 transform transition-transform duration-300 hover:scale-105 sm:hover:scale-110">
+                                <img src="your-image-path-4.jpg" alt="Memory 4"
+                                    class="w-full h-32 sm:h-40 md:h-48 object-cover">
                             </div>
                             <div
-                                class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0 transform transition-transform duration-300 hover:scale-110 ">
-                                <img src="your-image-path-5.jpg" alt="Memory 5" class="w-full h-48 object-cover">
+                                class="w-56 sm:w-64 md:w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0 transform transition-transform duration-300 hover:scale-105 sm:hover:scale-110">
+                                <img src="your-image-path-5.jpg" alt="Memory 5"
+                                    class="w-full h-32 sm:h-40 md:h-48 object-cover">
                             </div>
                         </div>
                         <!-- Group Repeat -->
-                        <div class="flex gap-4">
-                            <div class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
-                                <img src="your-image-path-1.jpg" alt="Memory 1" class="w-full h-48 object-cover">
+                        <div class="flex gap-2 sm:gap-4">
+                            <div class="w-56 sm:w-64 md:w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
+                                <img src="your-image-path-1.jpg" alt="Memory 1"
+                                    class="w-full h-32 sm:h-40 md:h-48 object-cover">
                             </div>
-                            <div class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
-                                <img src="your-image-path-2.jpg" alt="Memory 2" class="w-full h-48 object-cover">
+                            <div class="w-56 sm:w-64 md:w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
+                                <img src="your-image-path-2.jpg" alt="Memory 2"
+                                    class="w-full h-32 sm:h-40 md:h-48 object-cover">
                             </div>
-                            <div class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
-                                <img src="your-image-path-3.jpg" alt="Memory 3" class="w-full h-48 object-cover">
+                            <div class="w-56 sm:w-64 md:w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
+                                <img src="your-image-path-3.jpg" alt="Memory 3"
+                                    class="w-full h-32 sm:h-40 md:h-48 object-cover">
                             </div>
-                            <div class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
-                                <img src="your-image-path-4.jpg" alt="Memory 4" class="w-full h-48 object-cover">
+                            <div class="w-56 sm:w-64 md:w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
+                                <img src="your-image-path-4.jpg" alt="Memory 4"
+                                    class="w-full h-32 sm:h-40 md:h-48 object-cover">
                             </div>
-                            <div class="w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
-                                <img src="your-image-path-5.jpg" alt="Memory 5" class="w-full h-48 object-cover">
+                            <div class="w-56 sm:w-64 md:w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
+                                <img src="your-image-path-5.jpg" alt="Memory 5"
+                                    class="w-full h-32 sm:h-40 md:h-48 object-cover">
                             </div>
                         </div>
                     </div>
@@ -420,66 +407,74 @@
             </div>
         </div>
 
-        <button class="section-2-button">
-            <a href="https://courses.chaicode.com/learn/view-all?show=batch&type=17">
-                Join Cohorts Live Classes
-            </a>
-        </button>
+        <div class="text-center">
+            <button
+                class="section-2-button px-4 py-2 sm:px-6 sm:py-3 text-base sm:text-lg md:text-xl bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 text-white rounded-lg hover:shadow-lg transition-all duration-300">
+                <a href="https://courses.chaicode.com/learn/view-all?show=batch&type=17">
+                    Join Cohorts Live Classes
+                </a>
+            </button>
+        </div>
     </div>
 
-    <div id="udemy" class=" mt-10 shadow-lg py-5 pt-10">
+    <div id="udemy" class="mt-10 shadow-lg py-5 pt-10">
         <div class="text-center mb-8">
-            <h3 class="font-bold mb-2 text-7xl">
+            <h3 class="font-bold mb-2 text-4xl md:text-5xl lg:text-7xl">
                 <span
                     class="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-orange-500 to-red-500">Udemy</span>
                 Courses
             </h3>
-            <p class="text-xl mt-4">Not only in India, we are global leaders in tech education</p>
+            <p class="text-lg md:text-xl mt-4">Not only in India, we are global leaders in tech education</p>
         </div>
 
-        <div class="flex flex-row overflow-x-hidden justify-center items-center border-orange-200 py-5 " id="slider">
+        <div class="flex flex-col md:flex-row overflow-x-auto justify-center items-center border-orange-200 py-5"
+            id="slider">
             <!-- Card -->
             <div
-                class=" card-1 flex bg-gray-200 rounded-xl m-4 max-h-md max-w-md shadow-lg hover:shadow-2xl transition duration-300 ease-in-out transform hover:-translate-y-1">
+                class="card-1 flex flex-col sm:flex-row bg-gray-200 rounded-xl m-4 max-w-md shadow-lg hover:shadow-2xl transition duration-300 ease-in-out transform hover:-translate-y-1 w-full md:w-auto">
                 <!-- Left Content -->
-                <div class="p-6 flex flex-col rounded-xl justify-between w-3/4 bg-gray-200 text-black">
+                <div
+                    class="p-6 flex flex-col rounded-xl sm:rounded-l-xl sm:rounded-r-none justify-between w-full sm:w-3/4 bg-gray-200 text-black">
                     <div>
-                        <h2 class="text-2xl font-semibold mb-2 text-black ">Complete web development course</h2>
+                        <h2 class="text-xl md:text-2xl font-semibold mb-2 text-black">Complete web development course
+                        </h2>
                         <p class="text-sm my-4 text-gray-600">
                             Only web development course that you will need. Covers HTML, CSS, Tailwind, Node, React,
                             MongoDB, Prisma, Deployment etc.
                         </p>
                     </div>
                     <div class="text-center mt-4">
-                        <a href="https://www.udemy.com/course/web-dev-master/?couponCode=CHAIFRIDAY80"
-                            target="_blank"><button
-                                class="text-3xl font-semibold bg-orange-400 text-white py-2 rounded-lg mb-2 px-10">Buy
-                                Now
-                            </button>
+                        <a href="https://www.udemy.com/course/web-dev-master/?couponCode=CHAIFRIDAY80" target="_blank">
+                            <button
+                                class="text-xl md:text-3xl font-semibold bg-orange-400 text-white py-2 rounded-lg mb-2 px-4 md:px-10">Buy
+                                Now</button>
                         </a>
                     </div>
                 </div>
                 <!-- Right Image & Buttons -->
-                <div class="w-1/2 bg-white p-4 rounded-r-2xl flex flex-col justify-between text-black">
-                    <img class=" object-fill mt-10" src="./images/udemy-course.png" alt="Course Image"
-                        class="rounded-lg mb-4 w-full h-36 object-cover border border-gray-300 ">
-                    <div class="text-3xl text-center text-purple-600 font-semibold">₹399 <span
+                <div
+                    class="w-full sm:w-1/2 bg-white p-4 rounded-b-2xl sm:rounded-b-none sm:rounded-r-2xl flex flex-col justify-between text-black">
+                    <img class="object-fill mt-4 sm:mt-10 mx-auto" src="./images/udemy-course.png" alt="Course Image"
+                        class="rounded-lg mb-4 w-full h-36 object-cover border border-gray-300">
+                    <div class="text-2xl md:text-3xl text-center text-purple-600 font-semibold">₹399 <span
                             class="line-through text-xs text-gray-400">₹3,099</span></div>
                     <div class="text-xs text-purple-600 text-center">87% Off</div>
-                    <div class="mb-10">
+                    <div class="mb-6 sm:mb-10">
                         <div
-                            class="text-center bg-purple-500 text-white text-xl font-semibold py-1 rounded mb-1 hover:bg-purple-800">
+                            class="text-center bg-purple-500 text-white text-lg md:text-xl font-semibold py-1 rounded mb-1 hover:bg-purple-800">
                             4.7 Stars</div>
                         <p class="text-sm font-semibold text-center">Top Rated</p>
                     </div>
                 </div>
             </div>
             <div
-                class=" card-1 flex bg-gray-200 rounded-xl m-4 max-h-md max-w-md shadow-lg hover:shadow-2xl transition duration-300 ease-in-out transform hover:-translate-y-1 p-2">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/KZ31wDjYleI?si=eU1BnCZjV_Hw7DgO"
-                    title="YouTube video player" frameborder="0"
-                    allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                class="card-1 bg-gray-200 rounded-xl m-4 max-w-md shadow-lg hover:shadow-2xl transition duration-300 ease-in-out transform hover:-translate-y-1 p-2 w-full">
+                <div class="w-full h-56 sm:h-64 md:h-72 lg:h-80">
+                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/KZ31wDjYleI?si=eU1BnCZjV_Hw7DgO"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen></iframe>
+                </div>
             </div>
         </div>
     </div>
@@ -755,7 +750,6 @@
             </div>
         </div>
     </div>
-    </div>
 
     <div class="WhyChaiCode py-24 px-6 relative ">
         <h1 class="text-center text-5xl md:text-7xl font-semibold mb-8 leading-tight">
@@ -836,8 +830,6 @@
             </a>
         </div>
     </div>
-
-
 
     <div class="Topics-Cloud mt-10">
         <div class=" mb-10">
@@ -940,80 +932,101 @@
         </div>
     </div>
 
-    <div class="flex flex-wrap justify-center items-center mt-20 p-10">
-        <!-- Left: Phone -->
-        <div class="relative mx-40 border-gray-800 dark:border-gray-800 bg-gray-800 border-[14px] rounded-[2.5rem]
-        h-[600px] w-[300px] shadow-xl ">
-            <div class="w-[148px] h-[18px] bg-gray-800 top-0 rounded-b-[1rem] left-1/2 -translate-x-1/2 absolute"></div>
-            <div class="h-[46px] w-[3px] bg-gray-800 absolute -start-[17px] top-[124px] rounded-s-lg"></div>
-            <div class="h-[46px] w-[3px] bg-gray-800 absolute -start-[17px] top-[178px] rounded-s-lg"></div>
-            <div class="h-[64px] w-[3px] bg-gray-800 absolute -end-[17px] top-[142px] rounded-e-lg"></div>
-            <div class="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-white dark:bg-[#384152]">
-                <img src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/hero/mockup-2-light.png"
-                    class="dark:hidden w-[272px] h-[572px]" alt="img1">
-                <img class="mt-6 h-8 m-auto" src="./images/chaicode-white.png" />
-                <div class="bg-gray-800 m-3 text-white p-3 rounded-lg mb-3 bounce-infinite mt-8">
-                    <div class="text-sm font-bold text-orange-500">TRENDING</div>
-                    <div>React Native Masterclass</div>
+    <div id="Mobile-Phone" class="flex flex-col lg:flex-row justify-center items-center mt-10 md:mt-16 lg:mt-20 p-4 sm:p-6 md:p-8 lg:p-10
+        gap-8 lg:gap-16">
+        <!-- Left: Phone - Will stack on top on mobile -->
+        <div
+            class="relative mx-4 sm:mx-10 md:mx-20 lg:mx-6 xl:mx-20 border-gray-800 dark:border-gray-800 bg-gray-800 border-[10px] sm:border-[14px] rounded-[2rem] sm:rounded-[2.5rem] 
+        h-[450px] sm:h-[500px] md:h-[600px] w-[220px] sm:w-[260px] md:w-[300px] shadow-xl transform transition-all duration-300 hover:rotate-1 mb-10 lg:mb-0">
+            <!-- Phone notch -->
+            <div
+                class="w-[100px] sm:w-[120px] md:w-[148px] h-[12px] sm:h-[18px] bg-gray-800 top-0 rounded-b-[1rem] left-1/2 -translate-x-1/2 absolute">
+            </div>
+
+            <!-- Side buttons -->
+            <div
+                class="h-[36px] sm:h-[40px] md:h-[46px] w-[2px] sm:w-[3px] bg-gray-800 absolute -start-[13px] sm:-start-[17px] top-[100px] sm:top-[124px] rounded-s-lg">
+            </div>
+            <div
+                class="h-[36px] sm:h-[40px] md:h-[46px] w-[2px] sm:w-[3px] bg-gray-800 absolute -start-[13px] sm:-start-[17px] top-[150px] sm:top-[178px] rounded-s-lg">
+            </div>
+            <div
+                class="h-[50px] sm:h-[58px] md:h-[64px] w-[2px] sm:w-[3px] bg-gray-800 absolute -end-[13px] sm:-end-[17px] top-[120px] sm:top-[142px] rounded-e-lg">
+            </div>
+
+            <!-- Phone screen -->
+            <div
+                class="rounded-[1.8rem] overflow-hidden w-[200px] sm:w-[232px] md:w-[272px] h-[430px] sm:h-[472px] md:h-[572px] bg-white dark:bg-[#384152]">
+                <!-- Logo -->
+                <img class="mt-4 md:mt-6 h-6 md:h-8 m-auto" src="./images/chaicode-white.png" alt="ChaiCode Logo" />
+
+                <!-- Course Cards -->
+                <div
+                    class="bg-gray-800 m-2 md:m-3 text-white p-2 md:p-3 rounded-lg mb-2 md:mb-3 bounce-infinite mt-6 md:mt-8">
+                    <div class="text-xs md:text-sm font-bold text-orange-500">TRENDING</div>
+                    <div class="text-sm md:text-base">React Native Masterclass</div>
                     <div class="flex justify-between text-xs opacity-90 mt-1">
                         <span>4.8 ★ · 2.5h</span>
-                        <span class="bg-orange-600 text-white text-xs py-1 px-2 rounded">LIVE</span>
+                        <span class="bg-orange-600 text-white text-xs py-0.5 md:py-1 px-1.5 md:px-2 rounded">LIVE</span>
                     </div>
                 </div>
 
-                <div class="bg-gray-800 m-3 text-white p-3 rounded-lg mb-3 bounce-infinite">
-                    <div class="text-sm font-bold text-cyan-400">POPULAR</div>
-                    <div>Full Stack JavaScript</div>
+                <div class="bg-gray-800 m-2 md:m-3 text-white p-2 md:p-3 rounded-lg mb-2 md:mb-3 bounce-infinite">
+                    <div class="text-xs md:text-sm font-bold text-cyan-400">POPULAR</div>
+                    <div class="text-sm md:text-base">Full Stack JavaScript</div>
                     <div class="flex justify-between text-xs opacity-90 mt-1">
                         <span>4.9 ★ · 8h</span>
-                        <span class="bg-gray-600 text-white text-xs py-1 px-2 rounded">ENROLLED</span>
+                        <span
+                            class="bg-gray-600 text-white text-xs py-0.5 md:py-1 px-1.5 md:px-2 rounded">ENROLLED</span>
                     </div>
                 </div>
 
-                <div class="bg-gray-800 m-3 text-white p-3 rounded-lg mb-3 bounce-infinite">
-                    <div class="text-sm font-bold text-green-500">NEW</div>
-                    <div>AI with JavaScript</div>
+                <div class="bg-gray-800 m-2 md:m-3 text-white p-2 md:p-3 rounded-lg mb-2 md:mb-3 bounce-infinite">
+                    <div class="text-xs md:text-sm font-bold text-green-500">NEW</div>
+                    <div class="text-sm md:text-base">AI with JavaScript</div>
                     <div class="flex justify-between text-xs opacity-90 mt-1">
                         <span>5.0 ★ · 4h</span>
-                        <span class="bg-blue-500 text-white text-xs py-1 px-2 rounded">ENROLL</span>
+                        <span class="bg-blue-500 text-white text-xs py-0.5 md:py-1 px-1.5 md:px-2 rounded">ENROLL</span>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Right: Info Section -->
-        <div class="max-w-xl">
+        <div class="max-w-full sm:max-w-lg md:max-w-xl px-4">
             <h1
-                class="text-6xl flex flex-col font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 pb-2 mb-7 ">
+                class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 pb-2 mb-4 md:mb-7 text-center lg:text-left">
                 Learn on
-                the go</h1>
-            <p class="text-lg leading-relaxed mb-8 ">
+                <span class="inline lg:block">the go</span>
+            </h1>
+
+            <p class="text-base sm:text-lg leading-relaxed mb-6 md:mb-8 text-center lg:text-left">
                 Take your coding journey anywhere with the ChaiCode mobile app.
                 Access courses, join live sessions, and connect with the community — all from your pocket.
             </p>
 
-            <div class="mb-12">
-                <div class="flex items-center mb-3 text-lg">
+            <div class="mb-6 md:mb-12">
+                <div class="flex items-center mb-2 md:mb-3 text-base sm:text-lg">
                     <span
                         class="w-6 h-6 text-white rounded-full flex items-center justify-center mr-3 font-bold">⚡</span>
                     Offline course access
                 </div>
-                <div class="flex items-center mb-3 text-lg">
+                <div class="flex items-center mb-2 md:mb-3 text-base sm:text-lg">
                     <span
                         class="w-6 h-6 text-white rounded-full flex items-center justify-center mr-3 font-bold">🔔</span>
                     Live session notifications
                 </div>
-                <div class="flex items-center mb-3 text-lg">
+                <div class="flex items-center mb-2 md:mb-3 text-base sm:text-lg">
                     <span
                         class="w-6 h-6 text-white rounded-full flex items-center justify-center mr-3 font-bold">📱</span>
                     Revision while commuting
                 </div>
             </div>
 
-            <div class="flex gap-5 flex-wrap">
-                <a href="https://apps.apple.com/in/app/chaicode/id6504993143" Target="_blank"
-                    class="bg-orange-500 flex flex-row gap-4 text-white py-4 px-5 rounded-xl font-semibold shadow-lg transform transition duration-300 hover:bg-orange-600 ">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-6 h-6 inline"
+            <div class="flex flex-col sm:flex-row gap-4 sm:gap-5 justify-center lg:justify-start">
+                <a href="https://apps.apple.com/in/app/chaicode/id6504993143" target="_blank"
+                    class="bg-orange-500 flex flex-row items-center justify-center sm:justify-start gap-2 sm:gap-4 text-white py-3 sm:py-4 px-4 sm:px-5 rounded-xl font-semibold shadow-lg transform transition duration-300 hover:bg-orange-600 text-sm sm:text-base">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-5 h-5 sm:w-6 sm:h-6 inline"
                         viewBox="0 0 305 305">
                         <path
                             d="M40.74 112.12c-25.79 44.74-9.4 112.65 19.12 153.82C74.09 286.52 88.5 305 108.24 305c.37 0 .74 0 1.13-.02 9.27-.37 15.97-3.23 22.45-5.99 7.27-3.1 14.8-6.3 26.6-6.3 11.22 0 18.39 3.1 25.31 6.1 6.83 2.95 13.87 6 24.26 5.81 22.23-.41 35.88-20.35 47.92-37.94a168.18 168.18 0 0021-43l.09-.28a2.5 2.5 0 00-1.33-3.06l-.18-.08c-3.92-1.6-38.26-16.84-38.62-58.36-.34-33.74 25.76-51.6 31-54.84l.24-.15a2.5 2.5 0 00.7-3.51c-18-26.37-45.62-30.34-56.73-30.82a50.04 50.04 0 00-4.95-.24c-13.06 0-25.56 4.93-35.61 8.9-6.94 2.73-12.93 5.09-17.06 5.09-4.64 0-10.67-2.4-17.65-5.16-9.33-3.7-19.9-7.9-31.1-7.9l-.79.01c-26.03.38-50.62 15.27-64.18 38.86z">
@@ -1022,9 +1035,9 @@
                             d="M212.1 0c-15.76.64-34.67 10.35-45.97 23.58-9.6 11.13-19 29.68-16.52 48.38a2.5 2.5 0 002.29 2.17c1.06.08 2.15.12 3.23.12 15.41 0 32.04-8.52 43.4-22.25 11.94-14.5 17.99-33.1 16.16-49.77A2.52 2.52 0 00212.1 0z">
                         </path>
                     </svg> Download on App Store</a>
-                <a href="https://play.google.com/store/apps/details?id=com.chaicode.courses&hl=en_IN" Target="_blank"
-                    class="bg-orange-500 flex flex-row gap-4 text-white py-4 px-5 rounded-xl font-semibold shadow-lg transform transition duration-300 hover:bg-orange-600">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-6 h-6 inline"
+                <a href="https://play.google.com/store/apps/details?id=com.chaicode.courses&hl=en_IN" target="_blank"
+                    class="bg-orange-500 flex flex-row items-center justify-center sm:justify-start gap-2 sm:gap-4 text-white py-3 sm:py-4 px-4 sm:px-5 rounded-xl font-semibold shadow-lg transform transition duration-300 hover:bg-orange-600 text-sm sm:text-base">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-5 h-5 sm:w-6 sm:h-6 inline"
                         viewBox="0 0 512 512">
                         <path
                             d="M99.617 8.057a50.191 50.191 0 00-38.815-6.713l230.932 230.933 74.846-74.846L99.617 8.057zM32.139 20.116c-6.441 8.563-10.148 19.077-10.148 30.199v411.358c0 11.123 3.708 21.636 10.148 30.199l235.877-235.877L32.139 20.116zM464.261 212.087l-67.266-37.637-81.544 81.544 81.548 81.548 67.273-37.64c16.117-9.03 25.738-25.442 25.738-43.908s-9.621-34.877-25.749-43.907zM291.733 279.711L60.815 510.629c3.786.891 7.639 1.371 11.492 1.371a50.275 50.275 0 0027.31-8.07l266.965-149.372-74.849-74.847z">
@@ -1034,26 +1047,29 @@
         </div>
     </div>
 
-    <div class="Free API py-16">
+    <div class="free-api py-8 sm:py-12 md:py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-            <h1 class="text-7xl font-semibold text-center mb-8">
+            <!-- Main Heading - Responsive Text Sizes -->
+            <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-center mb-4 sm:mb-6 md:mb-8">
                 <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-orange-500 to-red-500">
                     FreeAPI
                 </span>
-                - Open Source
+                <span class="block sm:inline"> - Open Source</span>
             </h1>
 
-            <h2 class="text-3xl font-semibold text-center mb-12 text-gray-500">
+            <!-- Subheading - Responsive Text Sizes -->
+            <h2 class="text-xl sm:text-2xl md:text-3xl font-semibold text-center mb-6 sm:mb-8 md:mb-12 text-gray-500">
                 Unlock Your Potential with Our API Hub
             </h2>
 
-            <!-- Main Content -->
-            <div class="flex flex-col md:flex-row items-center md:items-start justify-center md:justify-between gap-8">
+            <!-- Main Content - Responsive Layout -->
+            <div
+                class="flex flex-col md:flex-row items-center md:items-start justify-center md:justify-between gap-6 md:gap-8">
 
-                <!-- Left Side Text -->
-                <div class="w-full md:w-1/2">
-                    <p class="text-center text-gray-500 text-lg leading-relaxed mt-8">
+                <!-- Left Side Text - Full Width on Mobile -->
+                <div class="w-full md:w-1/2 order-2 md:order-1 mt-6 md:mt-0">
+                    <p class="text-center md:text-left text-gray-500 text-base sm:text-lg leading-relaxed">
                         Our API Hub is designed to streamline your
                         learning experience in API handling across
                         various programming languages.
@@ -1063,22 +1079,25 @@
                     </p>
                 </div>
 
-                <div class="divider hidden md:block w-px h-60 relative mx-20">
+                <!-- Middle Divider - Hidden on Mobile -->
+                <div class="divider hidden md:block w-px h-40 lg:h-60 relative mx-4 lg:mx-20 order-2">
                     <div
                         class="absolute top-0 left-0 w-px h-full bg-gradient-to-b from-transparent via-orange-400 to-transparent">
                     </div>
                 </div>
 
-                <!-- Right Side Video -->
-                <div class="w-full md:w-[55%] flex justify-center md:justify-end">
+                <!-- Right Side Video - Full Width on Mobile -->
+                <div class="w-full md:w-[45%] lg:w-[55%] flex justify-center md:justify-end order-1 md:order-3">
                     <div
-                        class="w-full max-w-md rounded-xl overflow-hidden shadow-md transform transition-transform duration-300 hover:scale-110  hover:shadow-lg">
-                        <iframe class="w-full h-44 md:h-56"
-                            src="https://www.youtube.com/embed/yG8JMlldoCE?si=xzx4siKIaMwnbJsM"
-                            title="YouTube video player" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
-                        </iframe>
+                        class="w-full max-w-md rounded-xl overflow-hidden shadow-md transform transition-transform duration-300 hover:scale-105 sm:hover:scale-110 hover:shadow-lg">
+                        <div class="relative pb-[56.25%]"> <!-- 16:9 Aspect Ratio Container -->
+                            <iframe class="absolute top-0 left-0 w-full h-full"
+                                src="https://www.youtube.com/embed/yG8JMlldoCE?si=xzx4siKIaMwnbJsM"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                            </iframe>
+                        </div>
                     </div>
                 </div>
 
@@ -1086,65 +1105,65 @@
         </div>
     </div>
 
-    <footer id="footer" class="bg-black text-white py-12 border-t border-orange-200 ">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-start">
+    <footer id="footer" class="bg-black text-white py-8 md:py-12 border-t border-orange-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row justify-between items-start">
 
             <!-- Left Part (Logo + Description + Socials) -->
-            <div class="md:w-1/2 mb-10 md:mb-0">
+            <div class="w-full md:w-1/2 mb-8 md:mb-0">
                 <div class="flex items-center gap-3 mb-4">
                     <img src="./images/chai-gray.png" alt="Logo"
-                        class="w-10 h-10 object-contain transition-all duration-300 hover:scale-140 ">
-                    <h1 class="text-2xl font-bold">ChaiCode</h1>
+                        class="w-8 h-8 sm:w-10 sm:h-10 object-contain transition-all duration-300 hover:scale-110">
+                    <h1 class="text-xl sm:text-2xl font-bold">ChaiCode</h1>
                 </div>
-                <p class="text-gray-400">Home for programmers</p>
+                <p class="text-gray-400 text-sm sm:text-base">Home for programmers</p>
 
                 <!-- Social Icons -->
-                <div class="flex gap-4 mt-6">
+                <div class="flex flex-wrap gap-4 mt-4 sm:mt-6">
                     <a target="_blank" href="https://www.youtube.com/@chaiaurcode"
                         class="transition-all duration-700 hover:scale-125 hover:rotate-[360deg] group">
                         <i
-                            class="fab fa-youtube w-6 h-6 text-white group-hover:text-orange-500 group-hover:drop-shadow-[0_0_20px_#ff7b00]"></i>
+                            class="fab fa-youtube w-5 h-5 sm:w-6 sm:h-6 text-white group-hover:text-orange-500 group-hover:drop-shadow-[0_0_20px_#ff7b00]"></i>
                     </a>
 
                     <a target="_blank" href="https://www.instagram.com/hiteshchoudharyofficial/?hl=en"
                         class="transition-all duration-700 hover:scale-125 hover:rotate-[360deg] group">
                         <i
-                            class="fab fa-instagram w-6 h-6 group-hover:text-orange-500 group-hover:drop-shadow-[0_0_12px_#f97316]"></i>
+                            class="fab fa-instagram w-5 h-5 sm:w-6 sm:h-6 group-hover:text-orange-500 group-hover:drop-shadow-[0_0_12px_#f97316]"></i>
                     </a>
                     <a target="_blank" href="https://github.com/hiteshchoudhary"
                         class="transition-all duration-700 hover:scale-125 hover:rotate-[360deg] group">
                         <i
-                            class="fab fa-github w-6 h-6 group-hover:text-orange-500 group-hover:drop-shadow-[0_0_12px_#f97316]"></i>
+                            class="fab fa-github w-5 h-5 sm:w-6 sm:h-6 group-hover:text-orange-500 group-hover:drop-shadow-[0_0_12px_#f97316]"></i>
                     </a>
                     <a target="_blank" href="https://x.com/hiteshdotcom"
                         class="transition-all duration-700 hover:scale-125 hover:rotate-[360deg] group">
                         <i
-                            class="fab fa-x w-6 h-6 group-hover:text-orange-500 group-hover:drop-shadow-[0_0_12px_#f97316]"></i>
+                            class="fab fa-x w-5 h-5 sm:w-6 sm:h-6 group-hover:text-orange-500 group-hover:drop-shadow-[0_0_12px_#f97316]"></i>
                     </a>
                     <a target="_blank" href="https://in.linkedin.com/in/hiteshchoudhary"
                         class="transition-all duration-700 hover:scale-125 hover:rotate-[360deg] group">
                         <i
-                            class="fab fa-linkedin w-6 h-6 group-hover:text-orange-500 group-hover:drop-shadow-[0_0_12px_#f97316]"></i>
+                            class="fab fa-linkedin w-5 h-5 sm:w-6 sm:h-6 group-hover:text-orange-500 group-hover:drop-shadow-[0_0_12px_#f97316]"></i>
                     </a>
                     <a target="_blank" href="https://discord.com/invite/WDrH3zuWFb"
                         class="transition-all duration-700 hover:scale-125 hover:rotate-[360deg] group">
                         <i
-                            class="fab fa-discord w-6 h-6 group-hover:text-orange-500 group-hover:drop-shadow-[0_0_12px_#f97316]"></i>
+                            class="fab fa-discord w-5 h-5 sm:w-6 sm:h-6 group-hover:text-orange-500 group-hover:drop-shadow-[0_0_12px_#f97316]"></i>
                     </a>
                 </div>
 
-                <div class="mt-4 text-gray-500 text-sm mb-6">
+                <div class="mt-4 text-gray-500 text-xs sm:text-sm mb-4 sm:mb-6">
                     © 2025 ChaiCode. All rights reserved.
                 </div>
             </div>
 
             <!-- Right Part (Products + Resources) -->
-            <div class="flex gap-20 md:w-1/2 justify-end">
+            <div class="flex flex-col sm:flex-row gap-10 sm:gap-20 w-full md:w-1/2 md:justify-end mt-4 md:mt-0">
 
                 <!-- Products -->
                 <div>
-                    <h3 class="text-lg font-semibold text-orange-500 mb-4">Products</h3>
-                    <ul class="space-y-2 text-gray-400">
+                    <h3 class="text-base sm:text-lg font-semibold text-orange-500 mb-3 sm:mb-4">Products</h3>
+                    <ul class="space-y-2 text-gray-400 text-sm sm:text-base">
                         <li><a target="_blank" href="https://courses.chaicode.com/learn"
                                 class="hover:text-orange-400">Courses</a></li>
                         <li><a target="_blank" href="https://courses.chaicode.com/learn/view-all?show=batch&type=17"
@@ -1159,9 +1178,9 @@
                 </div>
 
                 <!-- Resources -->
-                <div>
-                    <h3 class="text-lg font-semibold text-orange-500 mb-4">Resources</h3>
-                    <ul class="space-y-2 text-gray-400">
+                <div class="mt-6 sm:mt-0">
+                    <h3 class="text-base sm:text-lg font-semibold text-orange-500 mb-3 sm:mb-4">Resources</h3>
+                    <ul class="space-y-2 text-gray-400 text-sm sm:text-base">
                         <li><a target="_blank" href="https://docs.chaicode.com/youtube/getting-started/"
                                 class="hover:text-orange-400">Docs</a></li>
                         <li><a target="_blank" href="https://www.chaicode.com/privacy-policy"
@@ -1183,13 +1202,10 @@
 
         </div>
 
-        <!-- Copyright -->
-
-
         <!-- Big Brand Name -->
-        <div class="flex justify-center">
-            <div class="text-center w-[80%] text-7xl md:text-[160px] font-extrabold text-transparent bg-clip-text bg-gradient-to-t from-[#FF3C00] to-[#FF9D00] leading-tight mt-28
-            drop-shadow-[0_0_100px_#f97316]">
+        <div class="flex justify-center mt-16 sm:mt-20 md:mt-24 lg:mt-28">
+            <div
+                class="text-center w-full px-4 text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[160px] font-extrabold text-transparent bg-clip-text bg-gradient-to-t from-[#FF3C00] to-[#FF9D00] leading-tight drop-shadow-[0_0_40px_#f97316] sm:drop-shadow-[0_0_60px_#f97316] md:drop-shadow-[0_0_80px_#f97316] lg:drop-shadow-[0_0_100px_#f97316]">
                 CHAICODE
             </div>
         </div>
