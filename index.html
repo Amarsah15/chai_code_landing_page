@@ -1,6 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" x-data="{ dark: true }"
-    :class="{ 'bg-black': dark, 'text-white':dark, 'bg-white': !dark ,'text-black': !dark }"
+<html lang="en" x-data="{ dark: true }" x-init="$watch('dark', val => {
+    const root = document.documentElement;
+    root.style.setProperty('--primary-color', val ? '#000000' : '#ffffff');
+    root.style.setProperty('--secondary-color', val ? '#ffffff' : '#000000');
+  })" :class="{ 'bg-black': dark, 'text-white':dark, 'bg-white': !dark ,'text-black': !dark }"
     class="transition-colors duration-500">
 
 <head>
@@ -14,131 +17,197 @@
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script defer>
-        document.addEventListener("DOMContentLoaded", function () {
-            // Responsive configuration for Swiper
-            const slidesConfig = window.innerWidth < 640 ? 1 :
-                window.innerWidth < 768 ? 2 :
-                    window.innerWidth < 1024 ? 3 : 4;
 
-            new Swiper(".swiper", {
-                slidesPerView: slidesConfig,
-                spaceBetween: window.innerWidth < 640 ? 10 : 5,
-                grabCursor: true,
-                centeredSlides: true,
-                loop: true,
-                autoplay: {
-                    delay: 3000,
-                    disableOnInteraction: false,
-                },
-                navigation: {
-                    nextEl: ".swiper-button-next",
-                    prevEl: ".swiper-button-prev",
-                },
-                // Add breakpoints for responsive design
-                breakpoints: {
-                    // when window width is >= 320px
-                    320: {
-                        slidesPerView: 1,
-                        spaceBetween: 2,
-                        centeredSlides: true
-                    },
-                    // when window width is >= 640px
-                    640: {
-                        slidesPerView: 2,
-                        spaceBetween: 3,
-                        centeredSlides: true
-                    },
-                    // when window width is >= 768px
-                    768: {
-                        slidesPerView: 3,
-                        spaceBetween: 4,
-                        centeredSlides: false
-                    },
-                    // when window width is >= 1024px
-                    1024: {
-                        slidesPerView: 4,
-                        spaceBetween: 5,
-                        centeredSlides: false
-                    }
-                }
-            });
-
-            // Update Swiper on window resize
-            window.addEventListener('resize', function () {
-                setTimeout(function () {
-                    window.dispatchEvent(new Event('resize'));
-                }, 500);
-            });
-        });
-    </script>
 </head>
 
 <body>
-    <nav class="flex justify-between items-center p-4 border-b border-gray-300">
-        <div class=" h-12 w-auto cursor-pointer">
-            <img id="white" class="logo-nav-black" src="./images/chaicode-black.png" alt="">
-            <img id="black" class="logo-nav-black" src="./images/chaicode-white.png" alt="">
+    <nav x-data="{ menuOpen: false }" class="flex justify-between items-center p-4 border-b border-gray-300"
+        :class="{ 'bg-black text-white border-gray-700': dark, 'bg-white text-black border-gray-300': !dark }">
+        <!-- Logo - Always visible -->
+        <div class="h-12 w-auto cursor-pointer">
+            <img class="logo-nav-black" :src="dark ? './images/chaicode-white.png' : './images/chaicode-black.png'"
+                alt="Chai Code">
         </div>
-        <ul class="nav-links" id="nav-li">
-            <a href="#cohorts">
+
+        <!-- Mobile Menu Button - Only visible on screens less than 1024px (laptop) -->
+        <button @click="menuOpen = true"
+            class="lg:hidden flex items-center px-3 py-2 text-orange-500 hover:text-orange-700">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="hamburger-icon">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+        </button>
+
+        <!-- Mobile Menu Overlay - Hidden by default -->
+        <div x-show="menuOpen" x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+            x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0"
+            class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex flex-col justify-center items-center">
+            <!-- Close button -->
+            <button @click="menuOpen = false" class="absolute top-5 right-5 text-white hover:text-orange-500">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+
+            <!-- Mobile Nav Links -->
+            <ul class="flex flex-col gap-6 text-white text-xl">
+                <a href="#cohorts" @click="menuOpen = false">
+                    <li
+                        class="blink cohort flex justify-center items-center gap-1 transition-transform hover:scale-110">
+                        <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="18" height="18" x="3" y="3" rx="2" />
+                            <path d="m10 8 4 4-4 4" />
+                        </svg> Cohorts
+                    </li>
+                </a>
+                <a href="#udemy" @click="menuOpen = false">
+                    <li class="flex justify-center items-center gap-1 hover:scale-110">
+                        <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v4" />
+                            <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+                            <path d="m5 12-3 3 3 3" />
+                            <path d="m9 18 3-3-3-3" />
+                        </svg> Udemy
+                    </li>
+                </a>
+                <a href="https://docs.chaicode.com/home-for-programmers/" @click="menuOpen = false">
+                    <li class="flex justify-center items-center gap-1 hover:scale-110">
+                        <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v4" />
+                            <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+                            <path d="m5 12-3 3 3 3" />
+                            <path d="m9 18 3-3-3-3" />
+                        </svg> Docs
+                    </li>
+                </a>
+                <a href="#testimonials" @click="menuOpen = false">
+                    <li class="flex justify-center items-center gap-1 hover:scale-110">
+                        <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
+                        </svg> Reviews
+                    </li>
+                </a>
+
+                <!-- Toggle theme in mobile menu -->
+                <li class="flex justify-center items-center mt-4">
+                    <div class="w-20 h-10 relative rounded-full cursor-pointer transition-colors duration-300 shadow-inner flex items-center px-4"
+                        :class="{ 'bg-white border-2 border-orange-500': !dark, 'bg-gray-700': dark }"
+                        @click="dark = !dark">
+                        <!-- Moon Icon -->
+                        <svg x-show="dark" class="w-5 h-5 text-gray-300 transition-all duration-500"
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+                        </svg>
+
+                        <!-- Spacer pushes icons to opposite edges -->
+                        <div class="flex-1"></div>
+
+                        <!-- Sun Icon -->
+                        <svg x-show="!dark" class="w-5 h-5 text-yellow-400 transition-all duration-500"
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="4" />
+                            <path d="M12 2v2" />
+                            <path d="M12 20v2" />
+                            <path d="m4.93 4.93 1.41 1.41" />
+                            <path d="m17.66 17.66 1.41 1.41" />
+                            <path d="M2 12h2" />
+                            <path d="M20 12h2" />
+                            <path d="m6.34 17.66-1.41 1.41" />
+                            <path d="m19.07 4.93-1.41 1.41" />
+                        </svg>
+
+                        <!-- Toggle Circle -->
+                        <div class="absolute top-1/3 left-2 w-6 h-6 rounded-full shadow-md transform -translate-y-1/4 transition-transform duration-500"
+                            :class="{ 'translate-x-10': dark, 'bg-orange-500': !dark, 'bg-gray-300': dark }"></div>
+                    </div>
+                </li>
+
+                <!-- Login button in mobile menu -->
+                <li class="mt-4">
+                    <button class="login-button w-full"
+                        :class="{ 'bg-black text-orange-500': dark, 'bg-white text-orange-500': !dark }">
+                        <a href="https://courses.chaicode.com/learn/account/signin">Login</a>
+                    </button>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Desktop Navigation - Visible on screens 1024px (laptop) and above -->
+        <ul class="nav-links hidden lg:flex" id="nav-li" :class="{ 'text-white': dark, 'text-black': !dark }">
+            <a href="#cohorts" :class="{ 'text-white': dark, 'text-black': !dark }">
                 <li
-                    class="blink cohort flex justify-center items-center gap-1 transition-transform hover:scale-125 hover:animate-bounce ">
+                    class="blink cohort flex justify-center items-center gap-1 transition-transform hover:scale-125 hover:animate-bounce">
                     <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round"
-                        class="lucide lucide-square-chevron-right-icon lucide-square-chevron-right">
+                        stroke-linejoin="round">
                         <rect width="18" height="18" x="3" y="3" rx="2" />
                         <path d="m10 8 4 4-4 4" />
                     </svg> Cohorts
                 </li>
             </a>
-            <a href="#udemy">
-                <li class="flex justify-center items-center gap-1 hover:animate-bounce"> <svg class="inline"
-                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" str oke-linejoin="round"
-                        class="lucide lucide-file-code2-icon lucide-file-code-2">
-                        <path d="M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v4" />
-                        <path d="M14 2v4a2 2 0 0 0 2 2h4" />
-                        <path d="m5 12-3 3 3 3" />
-                        <path d="m9 18 3-3-3-3" />
-                    </svg> Udemy</li>
-            </a>
-            <a href="https://docs.chaicode.com/home-for-programmers/">
-                <li class="flex justify-center items-center gap-1 hover:animate-bounce"> <svg class="inline"
-                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="lucide lucide-file-code2-icon lucide-file-code-2">
-                        <path d="M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v4" />
-                        <path d="M14 2v4a2 2 0 0 0 2 2h4" />
-                        <path d="m5 12-3 3 3 3" />
-                        <path d="m9 18 3-3-3-3" />
-                    </svg> Docs</li>
-            </a>
-            <a href="#testimonials">
+            <a href="#udemy" :class="{ 'text-white': dark, 'text-black': !dark }">
                 <li class="flex justify-center items-center gap-1 hover:animate-bounce">
                     <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" class="lucide lucide-star-icon lucide-star">
+                        stroke-linejoin="round">
+                        <path d="M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v4" />
+                        <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+                        <path d="m5 12-3 3 3 3" />
+                        <path d="m9 18 3-3-3-3" />
+                    </svg> Udemy
+                </li>
+            </a>
+            <a href="https://docs.chaicode.com/home-for-programmers/"
+                :class="{ 'text-white': dark, 'text-black': !dark }">
+                <li class="flex justify-center items-center gap-1 hover:animate-bounce">
+                    <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v4" />
+                        <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+                        <path d="m5 12-3 3 3 3" />
+                        <path d="m9 18 3-3-3-3" />
+                    </svg> Docs
+                </li>
+            </a>
+            <a href="#testimonials" :class="{ 'text-white': dark, 'text-black': !dark }">
+                <li class="flex justify-center items-center gap-1 hover:animate-bounce">
+                    <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
                         <path
                             d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                    </svg>Reviews
+                    </svg> Reviews
                 </li>
             </a>
         </ul>
-        <div class="flex items-center">
-            <div id="toogle"
-                class="w-20 h-10 relative rounded-full cursor-pointer transition-colors duration-300 shadow-inner flex items-center px-4"
-                :class="{
-            'bg-white border-2 border-orange-500': !dark,
-            'bg-gray-700': dark
-            }" @click="dark = !dark">
-                <!-- Moon Icon (left, for dark mode) -->
 
+        <!-- Desktop Right Side Controls - Visible on screens 1024px (laptop) and above -->
+        <div class="hidden lg:flex items-center">
+            <div class="w-20 h-10 relative rounded-full cursor-pointer transition-colors duration-300 shadow-inner flex items-center px-4"
+                :class="{ 'bg-white border-2 border-orange-500': !dark, 'bg-gray-700': dark }" @click="dark = !dark">
+                <!-- Moon Icon (left, for dark mode) -->
                 <svg x-show="dark" class="w-5 h-5 text-gray-300 transition-all duration-500"
                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-moon-icon lucide-moon">
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
                 </svg>
 
@@ -146,11 +215,9 @@
                 <div class="flex-1"></div>
 
                 <!-- Sun Icon (right, for light mode) -->
-
-                <svg x-show="!dark" class="w-5 h-5 text-yellow-400 transition-all duration-500" fill="none"
+                <svg x-show="!dark" class="w-5 h-5 text-yellow-400 transition-all duration-500"
                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-sun-icon lucide-sun">
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="12" cy="12" r="4" />
                     <path d="M12 2v2" />
                     <path d="M12 20v2" />
@@ -164,68 +231,71 @@
 
                 <!-- Toggle Circle -->
                 <div class="absolute top-1/3 left-2 w-6 h-6 rounded-full shadow-md transform -translate-y-1/4 transition-transform duration-500"
-                    :class="{
-                'translate-x-10': dark,
-                'bg-orange-500': !dark,
-                'bg-gray-300': dark
-            }"></div>
+                    :class="{ 'translate-x-10': dark, 'bg-orange-500': !dark, 'bg-gray-300': dark }"></div>
             </div>
-            <button class="login-button">
-                <a href="https://courses.chaicode.com/learn/account/signin">Login</a></button>
+            <button class="login-button"
+                :class="{ 'bg-black text-orange-500': dark, 'bg-white text-orange-500': !dark }">
+                <a href="https://courses.chaicode.com/learn/account/signin">Login</a>
+            </button>
         </div>
     </nav>
 
-    <div class="hero mt-4 sm:mt-6 md:mt-10 px-4 sm:px-6">
+    <div class="hero mt-10 px-4 sm:px-6 md:px-8">
         <div
-            class="hero-text text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 mt-8 sm:mt-12 md:mt-20">
+            class="hero-text text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 mt-16 sm:mt-20">
             Trusted by 1.5M Code Learners
         </div>
         <div class="hero-text-2">
             Consistency and Community
         </div>
-        <div
-            class="font-bold w-full flex flex-col sm:flex-row justify-center items-center gap-1 sm:gap-3 leading-relaxed px-2 sm:px-4">
-            <span class="text-xl sm:text-2xl md:text-3xl lg:text-5xl">An unmatched Learning Experience for</span>
-            <div>
+        <div class="font-bold w-full flex flex-col justify-center gap-2 sm:gap-3 leading-relaxed px-2">
+            <span class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl">An unmatched Learning Experience for</span>
+            <div class="w-full flex justify-center">
                 <span
-                    class="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 text-xl sm:text-2xl md:text-3xl lg:text-5xl typewriter">
+                    class="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 text-2xl sm:text-3xl md:text-4xl lg:text-5xl typewriter">
                     Coding Courses
                 </span>
             </div>
         </div>
 
-        <div class="hero-text-3 mt-6 sm:mt-8 md:mt-12">
+        <div class="hero-text-3 mt-8 sm:mt-12">
             Content is everywhere, we provide a learning
             experience that is unmatched. Bounties, peer learning
             peer code reviews, Virtual hostel, Alumni Network, Doubt sessions,
             Group projects and so many other activities to keep you on track.
         </div>
 
-        <a href="https://courses.chaicode.com/learn/view-all?show=batch&type=17" class="hero-text-4 group no-underline">
-            <p class="blink flex items-center justify-center gap-2 sm:gap-4">
-                Check all Live Cohorts
-                <span
-                    class="w-2 h-2 sm:w-3 sm:h-3 bg-red-500 rounded-full group-hover:bg-white transition-all duration-300"></span>
-            </p>
-        </a>
+        <div class="w-full flex justify-center">
+            <button class="hero-text-4 group">
+                <a href="https://courses.chaicode.com/learn/view-all?show=batch&type=17">
+                    <p class="blink flex items-center justify-center gap-2 sm:gap-4">
+                        <span>Check all Live Cohorts</span>
+                        <span
+                            class="w-2 h-2 sm:w-3 sm:h-3 bg-red-500 rounded-full group-hover:bg-white transition-all duration-300"></span>
+                    </p>
+                </a>
+            </button>
+        </div>
 
-        <div class="video-container">
-            <iframe id="scaleVideo" class="scale-video scale-down rounded-lg sm:rounded-xl md:rounded-2xl shadow-lg"
-                src="https://www.youtube.com/embed/yG8JMlldoCE?si=xzx4siKIaMwnbJsM?autoplay=1"
-                title="YouTube video player" frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share;"
-                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
-            </iframe>
+        <div class="video-container w-full">
+            <div class="responsive-video-wrapper">
+                <iframe id="scaleVideo" class="scale-video scale-down rounded-2xl shadow-lg"
+                    src="https://www.youtube.com/embed/yG8JMlldoCE?si=xzx4siKIaMwnbJsM" title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                </iframe>
+            </div>
         </div>
     </div>
 
-    <div class="section-2 mt-12 sm:mt-24 md:mt-32 lg:mt-48">
+    <div class="section-2 sm:mt-12 md:mt-16 lg:mt-20">
         <div class="section-2-tweet px-4 sm:px-6">
             <h1
                 class="section-2-h1 text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 font-bold mb-2 mt-6 sm:mt-10">
                 Tweet Love
             </h1>
-            <h3 class="section-2-h3 text-lg sm:text-xl md:text-2xl mb-6 sm:mb-10">
+            <h3 class="text-gray-600 section-2-h3 text-lg sm:text-xl md:text-2xl mb-6 sm:mb-10">
                 Love that we get from our community
             </h3>
             <div class="max-w-7xl mx-auto w-full">
@@ -262,18 +332,20 @@
             class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold mb-2 sm:mb-4 text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-orange-500 to-red-500">
             Cohorts
         </h1>
-        <h3 class="text-xl sm:text-2xl">
+        <h3 class="text-gray-600 text-xl sm:text-2xl">
             Live training classes
         </h3>
         <div class="w-full text-white min-h-screen flex flex-col items-center justify-center">
-            <div class="swiper w-full max-w-7xl px-2 sm:px-4 flex justify-center items-center relative">
+            <div class="swiper w-full max-w-7xl flex justify-center items-center relative">
                 <!-- Swiper -->
-                <div id="swiper-wrapper" class="swiper-wrapper gap-2 sm:gap-4">
+                <div id="swiper-wrapper" class="swiper-wrapper">
                     <!-- Courses Slides will be injected here -->
                 </div>
                 <!-- Navigation buttons -->
                 <div class="swiper-button-prev !text-textColor hidden sm:flex"></div>
                 <div class="swiper-button-next !text-textColor hidden sm:flex"></div>
+                <!-- Add pagination for mobile -->
+                <div class="swiper-pagination sm:hidden"></div>
             </div>
         </div>
     </div>
@@ -297,51 +369,96 @@
                     <div class="flex gap-2 sm:gap-4">
                         <!-- Cards repeated 2x for seamless scroll -->
                         <!-- Group Start -->
-                        <div class="flex gap-2 sm:gap-4 transform transition-all duration-300 hover:scale-100">
-                            <div class="w-56 sm:w-64 md:w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
-                                <img src="your-image-path-1.jpg" alt="Memory 1"
-                                    class="w-full h-32 sm:h-40 md:h-48 object-cover">
+                        <div class="flex gap-2 sm:gap-4">
+                            <!-- Review Cards from Second Section with Updated Alignment -->
+                            <div
+                                class="w-56 sm:w-64 md:w-72 bg-gray-900 text-white rounded-lg overflow-hidden shadow-md shrink-0 flex flex-col justify-between p-4">
+                                <h2 class="text-lg font-semibold text-center">"Real Projects That Teach You More"</h2>
+                                <p class="text-sm text-center text-gray-300 mt-2 mb-4 flex-grow">The real-world projects
+                                    were the highlight. I added 3 strong pieces to my portfolio!</p>
+                                <p class="text-xs text-gray-400 text-right">— Priya Kapoor (@priyacodesdaily)</p>
                             </div>
-                            <div class="w-56 sm:w-64 md:w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
-                                <img src="your-image-path-2.jpg" alt="Memory 2"
-                                    class="w-full h-32 sm:h-40 md:h-48 object-cover">
+
+                            <div
+                                class="w-56 sm:w-64 md:w-72 bg-gray-900 text-white rounded-lg overflow-hidden shadow-md shrink-0 flex flex-col justify-between p-4">
+                                <h2 class="text-lg font-semibold text-center">"Incredible Support Team"</h2>
+                                <p class="text-sm text-center text-gray-300 mt-2 mb-4 flex-grow">Even when I got stuck,
+                                    the mentors were quick to respond. You're never alone in this journey.</p>
+                                <p class="text-xs text-gray-400 text-right">— Vivek Rana (@vivek.dev)</p>
                             </div>
-                            <div class="w-56 sm:w-64 md:w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
-                                <img src="your-image-path-3.jpg" alt="Memory 3"
-                                    class="w-full h-32 sm:h-40 md:h-48 object-cover">
+
+                            <div
+                                class="w-56 sm:w-64 md:w-72 bg-gray-900 text-white rounded-lg overflow-hidden shadow-md shrink-0 flex flex-col justify-between p-4">
+                                <h2 class="text-lg font-semibold text-center">"Worth Every Penny"</h2>
+                                <p class="text-sm text-center text-gray-300 mt-2 mb-4 flex-grow">Affordable and
+                                    effective. I landed an internship two weeks after completing the course!</p>
+                                <p class="text-xs text-gray-400 text-right">— Ananya Ghosh (@ananyafrontend)</p>
                             </div>
-                            <div class="w-56 sm:w-64 md:w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
-                                <img src="your-image-path-4.jpg" alt="Memory 4"
-                                    class="w-full h-32 sm:h-40 md:h-48 object-cover">
+
+                            <div
+                                class="w-56 sm:w-64 md:w-72 bg-gray-900 text-white rounded-lg overflow-hidden shadow-md shrink-0 flex flex-col justify-between p-4">
+                                <h2 class="text-lg font-semibold text-center">"Great for Career Switchers"</h2>
+                                <p class="text-sm text-center text-gray-300 mt-2 mb-4 flex-grow">Coming from a non-tech
+                                    background, Chaicode made it smooth to transition into web dev. Can't thank them
+                                    enough!</p>
+                                <p class="text-xs text-gray-400 text-right">— Rohit Malhotra (@rohit2dev)</p>
                             </div>
-                            <div class="w-56 sm:w-64 md:w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
-                                <img src="your-image-path-5.jpg" alt="Memory 5"
-                                    class="w-full h-32 sm:h-40 md:h-48 object-cover">
+
+                            <div
+                                class="w-56 sm:w-64 md:w-72 bg-gray-900 text-white rounded-lg overflow-hidden shadow-md shrink-0 flex flex-col justify-between p-4">
+                                <h2 class="text-lg font-semibold text-center">"Built My Confidence as a Developer"</h2>
+                                <p class="text-sm text-center text-gray-300 mt-2 mb-4 flex-grow">I never imagined I’d
+                                    understand async JS or MongoDB, but here I am. Thank you Chaicode!</p>
+                                <p class="text-xs text-gray-400 text-right">— Sneha Das (@snehalearns)</p>
                             </div>
                         </div>
+
+
                         <!-- Group Repeat -->
                         <div class="flex gap-2 sm:gap-4">
-                            <div class="w-56 sm:w-64 md:w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
-                                <img src="your-image-path-1.jpg" alt="Memory 1"
-                                    class="w-full h-32 sm:h-40 md:h-48 object-cover">
+                            <!-- Review Cards from Second Section with Updated Alignment -->
+                            <div
+                                class="w-56 sm:w-64 md:w-72 bg-gray-900 text-white rounded-lg overflow-hidden shadow-md shrink-0 flex flex-col justify-between p-4">
+                                <h2 class="text-lg font-semibold text-center">"Real Projects That Teach You More"</h2>
+                                <p class="text-sm text-center text-gray-300 mt-2 mb-4 flex-grow">The real-world projects
+                                    were the highlight. I added 3 strong pieces to my portfolio!</p>
+                                <p class="text-xs text-gray-400 text-right">— Priya Kapoor (@priyacodesdaily)</p>
                             </div>
-                            <div class="w-56 sm:w-64 md:w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
-                                <img src="your-image-path-2.jpg" alt="Memory 2"
-                                    class="w-full h-32 sm:h-40 md:h-48 object-cover">
+
+                            <div
+                                class="w-56 sm:w-64 md:w-72 bg-gray-900 text-white rounded-lg overflow-hidden shadow-md shrink-0 flex flex-col justify-between p-4">
+                                <h2 class="text-lg font-semibold text-center">"Incredible Support Team"</h2>
+                                <p class="text-sm text-center text-gray-300 mt-2 mb-4 flex-grow">Even when I got stuck,
+                                    the mentors were quick to respond. You're never alone in this journey.</p>
+                                <p class="text-xs text-gray-400 text-right">— Vivek Rana (@vivek.dev)</p>
                             </div>
-                            <div class="w-56 sm:w-64 md:w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
-                                <img src="your-image-path-3.jpg" alt="Memory 3"
-                                    class="w-full h-32 sm:h-40 md:h-48 object-cover">
+
+                            <div
+                                class="w-56 sm:w-64 md:w-72 bg-gray-900 text-white rounded-lg overflow-hidden shadow-md shrink-0 flex flex-col justify-between p-4">
+                                <h2 class="text-lg font-semibold text-center">"Worth Every Penny"</h2>
+                                <p class="text-sm text-center text-gray-300 mt-2 mb-4 flex-grow">Affordable and
+                                    effective. I landed an internship two weeks after completing the course!</p>
+                                <p class="text-xs text-gray-400 text-right">— Ananya Ghosh (@ananyafrontend)</p>
                             </div>
-                            <div class="w-56 sm:w-64 md:w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
-                                <img src="your-image-path-4.jpg" alt="Memory 4"
-                                    class="w-full h-32 sm:h-40 md:h-48 object-cover">
+
+                            <div
+                                class="w-56 sm:w-64 md:w-72 bg-gray-900 text-white rounded-lg overflow-hidden shadow-md shrink-0 flex flex-col justify-between p-4">
+                                <h2 class="text-lg font-semibold text-center">"Great for Career Switchers"</h2>
+                                <p class="text-sm text-center text-gray-300 mt-2 mb-4 flex-grow">Coming from a non-tech
+                                    background, Chaicode made it smooth to transition into web dev. Can't thank them
+                                    enough!</p>
+                                <p class="text-xs text-gray-400 text-right">— Rohit Malhotra (@rohit2dev)</p>
                             </div>
-                            <div class="w-56 sm:w-64 md:w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
-                                <img src="your-image-path-5.jpg" alt="Memory 5"
-                                    class="w-full h-32 sm:h-40 md:h-48 object-cover">
+
+                            <div
+                                class="w-56 sm:w-64 md:w-72 bg-gray-900 text-white rounded-lg overflow-hidden shadow-md shrink-0 flex flex-col justify-between p-4">
+                                <h2 class="text-lg font-semibold text-center">"Built My Confidence as a Developer"</h2>
+                                <p class="text-sm text-center text-gray-300 mt-2 mb-4 flex-grow">I never imagined I’d
+                                    understand async JS or MongoDB, but here I am. Thank you Chaicode!</p>
+                                <p class="text-xs text-gray-400 text-right">— Sneha Das (@snehalearns)</p>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -352,56 +469,97 @@
                     <div class="flex gap-2 sm:gap-4">
                         <!-- Cards repeated 2x for seamless scroll -->
                         <!-- Group Start -->
-                        <div class="flex gap-2 sm:gap-4">
+                        <!-- Additional Review Cards -->
+                        <div class="flex gap-2 sm:gap-4 mt-6">
                             <div
-                                class="w-56 sm:w-64 md:w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0 transform transition-transform duration-300 hover:scale-105 sm:hover:scale-110">
-                                <img src="your-image-path-1.jpg" alt="Memory 1"
-                                    class="w-full h-32 sm:h-40 md:h-48 object-cover">
+                                class="w-56 sm:w-64 md:w-72 bg-gray-900 text-white rounded-lg overflow-hidden shadow-md shrink-0 flex flex-col justify-between p-4">
+                                <h2 class="text-lg font-semibold text-center">"Best Learning Experience Ever"</h2>
+                                <p class="text-sm text-center text-gray-300 mt-2 mb-4 flex-grow">From basics to
+                                    advanced, everything was covered in such a practical way. Loved every bit of it!</p>
+                                <p class="text-xs text-gray-400 text-right">— Karan Mehta (@karan.codes)</p>
                             </div>
+
                             <div
-                                class="w-56 sm:w-64 md:w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0 transform transition-transform duration-300 hover:scale-105 sm:hover:scale-110">
-                                <img src="your-image-path-2.jpg" alt="Memory 2"
-                                    class="w-full h-32 sm:h-40 md:h-48 object-cover">
+                                class="w-56 sm:w-64 md:w-72 bg-gray-900 text-white rounded-lg overflow-hidden shadow-md shrink-0 flex flex-col justify-between p-4">
+                                <h2 class="text-lg font-semibold text-center">"Learnt More Than Any College Course"</h2>
+                                <p class="text-sm text-center text-gray-300 mt-2 mb-4 flex-grow">Honestly, this course
+                                    gave me more practical knowledge than 3 years of my CS degree!</p>
+                                <p class="text-xs text-gray-400 text-right">— Aditi Jain (@aditicodes)</p>
                             </div>
+
                             <div
-                                class="w-56 sm:w-64 md:w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0 transform transition-transform duration-300 hover:scale-105 sm:hover:scale-110">
-                                <img src="your-image-path-3.jpg" alt="Memory 3"
-                                    class="w-full h-32 sm:h-40 md:h-48 object-cover">
+                                class="w-56 sm:w-64 md:w-72 bg-gray-900 text-white rounded-lg overflow-hidden shadow-md shrink-0 flex flex-col justify-between p-4">
+                                <h2 class="text-lg font-semibold text-center">"UI and UX Concepts Explained Perfectly"
+                                </h2>
+                                <p class="text-sm text-center text-gray-300 mt-2 mb-4 flex-grow">I always struggled with
+                                    frontend design, but this course broke it down so well. Super helpful!</p>
+                                <p class="text-xs text-gray-400 text-right">— Rishi Patel (@rishidevs)</p>
                             </div>
+
                             <div
-                                class="w-56 sm:w-64 md:w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0 transform transition-transform duration-300 hover:scale-105 sm:hover:scale-110">
-                                <img src="your-image-path-4.jpg" alt="Memory 4"
-                                    class="w-full h-32 sm:h-40 md:h-48 object-cover">
+                                class="w-56 sm:w-64 md:w-72 bg-gray-900 text-white rounded-lg overflow-hidden shadow-md shrink-0 flex flex-col justify-between p-4">
+                                <h2 class="text-lg font-semibold text-center">"Finally Understood JavaScript"</h2>
+                                <p class="text-sm text-center text-gray-300 mt-2 mb-4 flex-grow">Tried learning JS so
+                                    many times, but this course made everything click. Simple and effective.</p>
+                                <p class="text-xs text-gray-400 text-right">— Meenal Shah (@meenalcodes)</p>
                             </div>
+
                             <div
-                                class="w-56 sm:w-64 md:w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0 transform transition-transform duration-300 hover:scale-105 sm:hover:scale-110">
-                                <img src="your-image-path-5.jpg" alt="Memory 5"
-                                    class="w-full h-32 sm:h-40 md:h-48 object-cover">
+                                class="w-56 sm:w-64 md:w-72 bg-gray-900 text-white rounded-lg overflow-hidden shadow-md shrink-0 flex flex-col justify-between p-4">
+                                <h2 class="text-lg font-semibold text-center">"Perfect Balance of Theory and Practice"
+                                </h2>
+                                <p class="text-sm text-center text-gray-300 mt-2 mb-4 flex-grow">No fluff, just the
+                                    stuff that matters. Every concept backed by a project. Loved it!</p>
+                                <p class="text-xs text-gray-400 text-right">— Arjun Verma (@arjunfrontend)</p>
                             </div>
                         </div>
+
                         <!-- Group Repeat -->
-                        <div class="flex gap-2 sm:gap-4">
-                            <div class="w-56 sm:w-64 md:w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
-                                <img src="your-image-path-1.jpg" alt="Memory 1"
-                                    class="w-full h-32 sm:h-40 md:h-48 object-cover">
+                        <!-- Additional Review Cards -->
+                        <div class="flex gap-2 sm:gap-4 mt-6">
+                            <div
+                                class="w-56 sm:w-64 md:w-72 bg-gray-900 text-white rounded-lg overflow-hidden shadow-md shrink-0 flex flex-col justify-between p-4">
+                                <h2 class="text-lg font-semibold text-center">"Best Learning Experience Ever"</h2>
+                                <p class="text-sm text-center text-gray-300 mt-2 mb-4 flex-grow">From basics to
+                                    advanced, everything was covered in such a practical way. Loved every bit of it!</p>
+                                <p class="text-xs text-gray-400 text-right">— Karan Mehta (@karan.codes)</p>
                             </div>
-                            <div class="w-56 sm:w-64 md:w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
-                                <img src="your-image-path-2.jpg" alt="Memory 2"
-                                    class="w-full h-32 sm:h-40 md:h-48 object-cover">
+
+                            <div
+                                class="w-56 sm:w-64 md:w-72 bg-gray-900 text-white rounded-lg overflow-hidden shadow-md shrink-0 flex flex-col justify-between p-4">
+                                <h2 class="text-lg font-semibold text-center">"Learnt More Than Any College Course"</h2>
+                                <p class="text-sm text-center text-gray-300 mt-2 mb-4 flex-grow">Honestly, this course
+                                    gave me more practical knowledge than 3 years of my CS degree!</p>
+                                <p class="text-xs text-gray-400 text-right">— Aditi Jain (@aditicodes)</p>
                             </div>
-                            <div class="w-56 sm:w-64 md:w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
-                                <img src="your-image-path-3.jpg" alt="Memory 3"
-                                    class="w-full h-32 sm:h-40 md:h-48 object-cover">
+
+                            <div
+                                class="w-56 sm:w-64 md:w-72 bg-gray-900 text-white rounded-lg overflow-hidden shadow-md shrink-0 flex flex-col justify-between p-4">
+                                <h2 class="text-lg font-semibold text-center">"UI and UX Concepts Explained Perfectly"
+                                </h2>
+                                <p class="text-sm text-center text-gray-300 mt-2 mb-4 flex-grow">I always struggled with
+                                    frontend design, but this course broke it down so well. Super helpful!</p>
+                                <p class="text-xs text-gray-400 text-right">— Rishi Patel (@rishidevs)</p>
                             </div>
-                            <div class="w-56 sm:w-64 md:w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
-                                <img src="your-image-path-4.jpg" alt="Memory 4"
-                                    class="w-full h-32 sm:h-40 md:h-48 object-cover">
+
+                            <div
+                                class="w-56 sm:w-64 md:w-72 bg-gray-900 text-white rounded-lg overflow-hidden shadow-md shrink-0 flex flex-col justify-between p-4">
+                                <h2 class="text-lg font-semibold text-center">"Finally Understood JavaScript"</h2>
+                                <p class="text-sm text-center text-gray-300 mt-2 mb-4 flex-grow">Tried learning JS so
+                                    many times, but this course made everything click. Simple and effective.</p>
+                                <p class="text-xs text-gray-400 text-right">— Meenal Shah (@meenalcodes)</p>
                             </div>
-                            <div class="w-56 sm:w-64 md:w-72 bg-gray-900 rounded-lg overflow-hidden shadow-md shrink-0">
-                                <img src="your-image-path-5.jpg" alt="Memory 5"
-                                    class="w-full h-32 sm:h-40 md:h-48 object-cover">
+
+                            <div
+                                class="w-56 sm:w-64 md:w-72 bg-gray-900 text-white rounded-lg overflow-hidden shadow-md shrink-0 flex flex-col justify-between p-4">
+                                <h2 class="text-lg font-semibold text-center">"Perfect Balance of Theory and Practice"
+                                </h2>
+                                <p class="text-sm text-center text-gray-300 mt-2 mb-4 flex-grow">No fluff, just the
+                                    stuff that matters. Every concept backed by a project. Loved it!</p>
+                                <p class="text-xs text-gray-400 text-right">— Arjun Verma (@arjunfrontend)</p>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -424,7 +582,8 @@
                     class="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-orange-500 to-red-500">Udemy</span>
                 Courses
             </h3>
-            <p class="text-lg md:text-xl mt-4">Not only in India, we are global leaders in tech education</p>
+            <p class="text-gray-600 text-lg md:text-xl mt-4">Not only in India, we are global leaders in tech education
+            </p>
         </div>
 
         <div class="flex flex-col md:flex-row overflow-x-auto justify-center items-center border-orange-200 py-5"
@@ -549,7 +708,7 @@
                     </g>
                 </svg>
                 <h3 class="text-lg font-semibold text-orange-600 mb-2">Taught by Professionals</h3>
-                <p class="text-gray-700 text-sm">Our cohorts are being taught by top industry experts and educators</p>
+                <p class="text-gray-600 text-sm">Our cohorts are being taught by top industry experts and educators</p>
             </div>
 
             <!-- Card 2 -->
@@ -557,7 +716,7 @@
                 class="border-t-4 border-orange-500 border  p-6 rounded-xl shadow-md transform transition-all duration-300 hover:scale-105  hover:shadow-md hover:shadow-orange-400 text-center">
                 <img class="h-16 mb-4 mx-auto" src="/images/money-801.svg" alt="">
                 <h3 class="text-lg font-semibold text-orange-600 mb-2">Bounties</h3>
-                <p class="text-gray-700 text-sm">Earn rewards, from Cash to MacBook. Keeps you motivated to work hard
+                <p class="text-gray-600 text-sm">Earn rewards, from Cash to MacBook. Keeps you motivated to work hard
                 </p>
             </div>
 
@@ -632,7 +791,7 @@
                     <path class="st5" d="M12.5 5h36M15.5 9h30" />
                 </svg>
                 <h3 class="text-lg font-semibold text-orange-600 mb-2">Coding Hostels</h3>
-                <p class="text-gray-700 text-sm">There is nothing like late night discussion with fellow learners and
+                <p class="text-gray-600 text-sm">There is nothing like late night discussion with fellow learners and
                     solving bugs</p>
             </div>
 
@@ -668,7 +827,7 @@
                     </g>
                 </svg>
                 <h3 class="text-lg font-semibold text-orange-600 mb-2">Peer Code Reviews</h3>
-                <p class="text-gray-700 text-sm">With our internal tools like Masterji, every code assignment gets
+                <p class="text-gray-600 text-sm">With our internal tools like Masterji, every code assignment gets
                     feedback to improve your code</p>
             </div>
 
@@ -693,7 +852,7 @@
                     </g>
                 </svg>
                 <h3 class="text-lg font-semibold text-orange-600 mb-2">Leet Lab</h3>
-                <p class="text-gray-700 text-sm">Our in-house built LeetCode style platform helps you understand the
+                <p class="text-gray-600 text-sm">Our in-house built LeetCode style platform helps you understand the
                     foundation of programming</p>
             </div>
 
@@ -745,7 +904,7 @@
                         d="M677.27 748.13c-3.52 5.79-9.58 13.95-19.48 20.13-8.45 5.27-16.99 7.42-25.27 8.22-8.72.85-17.51.05-26.07-1.8-8.35-1.81-25.28-3.82-56.18-1.68-17.96 1.24-37.14 2.22-53.36 10.86-20.67 11.02-28.01 33.9-31.95 55.45-.16.87-.66 1.99-1.53 1.81-.37-.08-.63-.39-.85-.69-6.27-8.33-7.68-21.82-8.78-31.81-3.5-31.85-3.14-57.08-.13-64.25 1.82-4.33 11.02-25.48 32.72-46.45 35.08-33.9 92.86-51.66 122.26-57.76 23.8-4.94 48.97-7.45 73.56-5.74 13.71.95 28.07 2.7 41.4 6.08 10.95 2.77 21.81 8.02 28.39 17.21 7.09 9.89 8.8 22.4 17.29 31.46 9.26 9.89 21.89 15.8 31.37 25.46 12.67 12.92 25.29 33.26 27.12 51.5 1.65 16.42-5.55 31.93-13.85 45.62-1.53 2.53-10.37 30.97-11.86 29.39-3.43-3.62-46.76-15.27-81.16-57.38-8.15-9.97-11.74-14.3-14.8-17.29-2.04-2-8.35-7.98-17.66-14.45-3.02-2.11-9.45-6.81-11.18-3.89z" />
                 </svg>
                 <h3 class="text-lg font-semibold text-orange-600 mb-2">Revision Classes</h3>
-                <p class="text-gray-700 text-sm">We have so many peer classes by fellow learners that you get many
+                <p class="text-gray-600 text-sm">We have so many peer classes by fellow learners that you get many
                     chances to learn the topic</p>
             </div>
         </div>
@@ -756,7 +915,7 @@
             But Why <span
                 class="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-orange-500 to-red-500">ChaiCode?</span>
         </h1>
-        <p class="text-gray-500 text-lg text-center mb-16 max-w-2xl mx-auto">
+        <p class="text-gray-600 text-lg text-center mb-16 max-w-2xl mx-auto">
             ChaiCode exists because we love tech and teaching
         </p>
 
@@ -767,19 +926,19 @@
                 <div
                     class="border border-gray-300 p-6 rounded-xl hover:border-orange-400 transition shadow-sm flex flex-col h-full">
                     <h2 class="font-semibold text-xl mb-4">Comprehensive Curriculum</h2>
-                    <p class="text-gray-500 text-sm">Master key concepts and hands-on skills with clarity and
+                    <p class="text-gray-600 text-sm">Master key concepts and hands-on skills with clarity and
                         confidence. Learn what truly matters, the right way — practical, easy to understand.</p>
                 </div>
                 <div
                     class="border border-gray-300 p-6 rounded-xl hover:border-orange-400 transition shadow-sm flex flex-col h-full">
                     <h2 class="font-semibold text-xl mb-4">You Finish It</h2>
-                    <p class="text-gray-500 text-sm">Our cohorts are a collaborative journey where students learn
+                    <p class="text-gray-600 text-sm">Our cohorts are a collaborative journey where students learn
                         together, stay motivated, and complete the course as a community.</p>
                 </div>
                 <div
                     class="border border-gray-300 p-6 rounded-xl hover:border-orange-400 transition shadow-sm flex flex-col h-full">
                     <h2 class="font-semibold text-xl mb-4">Industry Guests</h2>
-                    <p class="text-gray-500 text-sm">We regularly bring in industry experts for insightful, fun, and
+                    <p class="text-gray-600 text-sm">We regularly bring in industry experts for insightful, fun, and
                         engaging sessions with students.</p>
                 </div>
             </div>
@@ -790,11 +949,11 @@
                 <img src="./images/hc-laptop.png" alt="Hitesh Choudhary"
                     class="rounded-2xl shadow-md mb-8 object-cover w-full h-64">
                 <h3 class="text-2xl font-bold mb-3">Hitesh Choudhary</h3>
-                <p class="text-sm text-gray-500 mb-2">Retired from corporate and now a full-time YouTuber, ex-founder of
+                <p class="text-sm text-gray-600 mb-2">Retired from corporate and now a full-time YouTuber, ex-founder of
                     LCO (acquired), ex-CTO, Sr. Director at PW.</p>
-                <p class="text-sm text-gray-500 mb-4">2 YT channels (950k & 470k), stepped into 43 countries.</p>
+                <p class="text-sm text-gray-600 mb-4">2 YT channels (950k & 470k), stepped into 43 countries.</p>
                 <h4 class="text-lg font-semibold mt-4 mb-2">Approach</h4>
-                <p class="text-sm text-gray-500">Project-based courses with peer learning and bounties through many
+                <p class="text-sm text-gray-600">Project-based courses with peer learning and bounties through many
                     activities.</p>
             </div>
 
@@ -803,19 +962,19 @@
                 <div
                     class="border border-gray-300 p-6 rounded-xl hover:border-orange-400 transition shadow-sm flex flex-col h-full">
                     <h2 class="font-semibold text-xl mb-8">Code and Chill</h2>
-                    <p class="text-gray-500 text-sm">Coding should be fun, not frightening. With time and practice,
+                    <p class="text-gray-600 text-sm">Coding should be fun, not frightening. With time and practice,
                         everything starts to fall into place.</p>
                 </div>
                 <div
                     class="border border-gray-300 p-6 rounded-xl hover:border-orange-400 transition shadow-sm flex flex-col h-full">
                     <h2 class="font-semibold text-xl mb-4">Improve Communication</h2>
-                    <p class="text-gray-500 text-sm">Practice through collaboration helps improve communication.
+                    <p class="text-gray-600 text-sm">Practice through collaboration helps improve communication.
                         Co-learners teach, share, and grow together.</p>
                 </div>
                 <div
                     class="border border-gray-300 p-6 rounded-xl hover:border-orange-400 transition shadow-sm flex flex-col h-full">
                     <h2 class="font-semibold text-xl mb-4">Bounties</h2>
-                    <p class="text-gray-500 text-sm">Win exciting prizes (sometimes even MacBooks!) in our
+                    <p class="text-gray-600 text-sm">Win exciting prizes (sometimes even MacBooks!) in our
                         high-motivation bounties and challenges.</p>
                 </div>
             </div>
@@ -1059,7 +1218,7 @@
             </h1>
 
             <!-- Subheading - Responsive Text Sizes -->
-            <h2 class="text-xl sm:text-2xl md:text-3xl font-semibold text-center mb-6 sm:mb-8 md:mb-12 text-gray-500">
+            <h2 class="text-xl sm:text-2xl md:text-3xl font-semibold text-center mb-6 sm:mb-8 md:mb-12 text-gray-600">
                 Unlock Your Potential with Our API Hub
             </h2>
 
@@ -1069,7 +1228,7 @@
 
                 <!-- Left Side Text - Full Width on Mobile -->
                 <div class="w-full md:w-1/2 order-2 md:order-1 mt-6 md:mt-0">
-                    <p class="text-center md:text-left text-gray-500 text-base sm:text-lg leading-relaxed">
+                    <p class="text-center md:text-left text-gray-600 text-base sm:text-lg leading-relaxed">
                         Our API Hub is designed to streamline your
                         learning experience in API handling across
                         various programming languages.
@@ -1152,7 +1311,7 @@
                     </a>
                 </div>
 
-                <div class="mt-4 text-gray-500 text-xs sm:text-sm mb-4 sm:mb-6">
+                <div class="mt-4 text-gray-400 text-xs sm:text-sm mb-4 sm:mb-6">
                     © 2025 ChaiCode. All rights reserved.
                 </div>
             </div>

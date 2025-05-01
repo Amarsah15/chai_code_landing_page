@@ -1,12 +1,8 @@
-const toogle = document.getElementById("toogle");
-toogle.addEventListener("click", () => {
-  document.body.classList.toggle("dark-theme");
-});
-
 document.addEventListener("DOMContentLoaded", function () {
   const video = document.getElementById("scaleVideo");
 
   if (video) {
+    // Observer for scaling animation
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -26,34 +22,51 @@ document.addEventListener("DOMContentLoaded", function () {
 
     observer.observe(video);
   }
+});
 
-  // Ensure typewriter animation completes properly
-  function resetTypewriterAnimation() {
-    const typewriter = document.querySelector(".typewriter");
-    if (typewriter) {
-      // Force a repaint/reflow by briefly removing and readding the animation
-      typewriter.style.animation = "none";
-      setTimeout(() => {
-        if (window.innerWidth < 640) {
-          typewriter.style.animation =
-            "typing 3s steps(12, end), typewriter-blink 0.75s step-end infinite";
-        } else {
-          typewriter.style.animation =
-            "typing 3s steps(20, end), typewriter-blink 0.75s step-end infinite";
-        }
-      }, 10);
+// Fixed typewriter effect that works responsively
+document.addEventListener("DOMContentLoaded", function () {
+  const typewriterElement = document.querySelector(".typewriter");
+
+  if (typewriterElement) {
+    // Function to adjust typewriter width based on screen size
+    function adjustTypewriterAnimation() {
+      const windowWidth = window.innerWidth;
+
+      // Remove any existing style first
+      typewriterElement.style.removeProperty("--typing-width");
+
+      // Calculate how wide the text should be in its container
+      const computedStyle = window.getComputedStyle(typewriterElement);
+      const fontSize = parseFloat(computedStyle.fontSize);
+      const text = typewriterElement.textContent.trim();
+
+      // Set custom property for the width
+      let finalWidth;
+      if (windowWidth < 640) {
+        finalWidth = `${text.length * fontSize * 0.6}px`;
+        typewriterElement.style.animationDuration = "2s, 0.75s";
+      } else if (windowWidth < 768) {
+        finalWidth = `${text.length * fontSize * 0.55}px`;
+        typewriterElement.style.animationDuration = "2.5s, 0.75s";
+      } else {
+        finalWidth = `${text.length * fontSize * 0.5}px`;
+        typewriterElement.style.animationDuration = "3s, 0.75s";
+      }
+
+      // Apply the custom property
+      document.documentElement.style.setProperty("--typing-width", finalWidth);
     }
+
+    // Call once on load
+    setTimeout(adjustTypewriterAnimation, 100); // Small delay to ensure fonts are loaded
+
+    // Add resize listener
+    window.addEventListener("resize", adjustTypewriterAnimation);
   }
-
-  // Initial call
-  resetTypewriterAnimation();
-
-  // Reset on window resize
-  window.addEventListener("resize", resetTypewriterAnimation);
 });
 
 // Function to Render Courses
-
 const courses = [
   {
     title: "Web Dev Cohort - Live 1.0",
@@ -168,28 +181,76 @@ const courses = [
   },
 ];
 
+// Wait for DOM content to load
+document.addEventListener("DOMContentLoaded", function () {
+  // Render the courses first
+  renderCourses(courses);
+
+  // Then initialize Swiper
+  const swiper = new Swiper(".swiper", {
+    slidesPerView: 1, // Default for mobile
+    spaceBetween: 20,
+    grabCursor: true,
+    centeredSlides: true,
+    loop: true,
+    autoplay: {
+      delay: 3000,
+      disableOnInteraction: false,
+    },
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+    // Responsive breakpoints
+    breakpoints: {
+      640: {
+        // sm
+        slidesPerView: 2,
+        spaceBetween: 20,
+      },
+      768: {
+        // md
+        slidesPerView: 3,
+        spaceBetween: 20,
+      },
+      1024: {
+        // lg
+        slidesPerView: 4,
+        spaceBetween: 20,
+      },
+    },
+  });
+});
+
 function renderCourses(courses) {
   const container = document.getElementById("swiper-wrapper");
   courses.forEach((course) => {
     container.innerHTML += `
-          <div class="swiper-slide">
-              <div class="flex flex-wrap justify-center items-start rounded-2xl border-white border-2 w-full">
-                  <div class="rounded-2xl max-w-xs w-full overflow-hidden shadow-md bg-background text-textColor">
+          <div class="swiper-slide h-auto">
+              <div class="card-wrapper h-full w-full rounded-2xl border-textColor border-2 overflow-hidden">
+                  <div class="card h-full flex flex-col">
                       <div class="relative w-full pt-[56.25%] overflow-hidden shadow-lg">
                           <iframe class="absolute top-0 left-0 w-full h-full"
-                              src="${course.video}" title="YouTube video player"
+                              src="${course.video}" 
+                              title="YouTube video player"
                               frameborder="0"
                               allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                              referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                              referrerpolicy="strict-origin-when-cross-origin" 
+                              allowfullscreen>
                           </iframe>
                       </div>
-                      <div class="p-2 sm:p-4">
-                          <h2 class="font-bold text-base sm:text-lg text-textColor">${
+                      <div class="p-3 sm:p-4 flex-grow flex flex-col">
+                          <h2 class="font-bold text-base sm:text-lg    line-clamp-2">${
                             course.title
                           }</h2>
-                          <div class="mt-2 sm:mt-4">
-                              <p class="font-semibold text-xs sm:text-sm text-textColor">Course Outline</p>
-                              <ul class="mt-1 sm:mt-2 space-y-1 sm:space-y-2 text-xs sm:text-sm text-gray-600">
+                          
+                          <div class="mt-2 sm:mt-4 flex-grow">
+                              <p class="font-semibold text-xs sm:text-sm   ">Course Outline</p>
+                              <ul class="mt-1 sm:mt-2 space-y-1 text-xs sm:text-sm text-gray-600">
                                   ${course.outline
                                     .map(
                                       (item) =>
@@ -198,30 +259,28 @@ function renderCourses(courses) {
                                     .join("")}
                               </ul>
                           </div>
+                          
                           <div class="mt-2 sm:mt-4">
-                              <span class="text-textColor font-bold text-xl sm:text-2xl">${
+                              <span class="   font-bold text-xl sm:text-2xl">${
                                 course.price
                               }</span>
                               <span class="text-gray-500 text-xs sm:text-sm line-through ml-1 sm:ml-2">${
                                 course.original
                               }</span>
-                              <p class="text-[11px] sm:text-[13px] mt-1 sm:mt-2 text-textColor font-semibold">${
+                              <p class="text-xs sm:text-sm mt-1 sm:mt-2    font-semibold">${
                                 course.discount
                               }</p>
                           </div>
-                          <div class="mt-3 sm:mt-5 flex flex-col gap-1 sm:gap-2">
-                              <button
-                                  class="bg-orange-600 hover:bg-orange-700 text-white py-1 sm:py-2 rounded text-sm sm:text-base font-semibold">
-                                  <a href="${
-                                    course.buynow
-                                  }" target="_blank">Buy Now</a>  
-                              </button>
-                              <button
-                                  class="border-2 border-orange-600 text-orange-600 py-1 sm:py-2 rounded text-sm sm:text-base font-semibold hover:bg-blue-50">
-                                  <a href="${
-                                    course.learnmore
-                                  }" target="_blank">Learn More</a>
-                              </button>
+                          
+                          <div class="mt-3 sm:mt-4">
+                              <a href="${course.buynow}" target="_blank" 
+                                 class="block bg-orange-600 hover:bg-orange-700 text-white py-2 rounded text-sm sm:text-base font-semibold text-center mb-2">
+                                  Buy Now
+                              </a>
+                              <a href="${course.learnmore}" target="_blank"
+                                 class="block border-2 border-orange-600 text-orange-600 py-2 rounded text-sm sm:text-base font-semibold hover:bg-blue-50 text-center">
+                                  Learn More
+                              </a>
                           </div>
                       </div>
                   </div>
@@ -230,8 +289,6 @@ function renderCourses(courses) {
       `;
   });
 }
-
-renderCourses(courses);
 
 function renderTweetsWithDuplication(containerId, tweets) {
   const container = document.getElementById(containerId);
@@ -243,12 +300,12 @@ function renderTweetsWithDuplication(containerId, tweets) {
   // First set of tweets
   tweets.forEach((tweet) => {
     container.innerHTML += `
-          <div class="bg-background p-3 sm:p-4 rounded-xl shadow border border-textColor">
+          <div class="p-3 sm:p-4 rounded-xl shadow border border-textColor">
               <div class="flex gap-2 sm:gap-3">
                   <img src="${tweet.img}" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full" />
                   <div>
-                      <p class="font-bold text-sm sm:text-base">${tweet.name} <span class="text-xs sm:text-sm text-textColor">${tweet.handle}</span></p>
-                      <p class="mt-1 text-textColor leading-relaxed text-sm sm:text-base">${tweet.text}</p>
+                      <p class="font-bold text-sm sm:text-base">${tweet.name} <span class="text-xs sm:text-sm">${tweet.handle}</span></p>
+                      <p class="mt-1    leading-relaxed text-sm sm:text-base">${tweet.text}</p>
                   </div>
               </div>
           </div>
@@ -258,15 +315,6 @@ function renderTweetsWithDuplication(containerId, tweets) {
 
 // Initialize with different starting points for each column
 document.addEventListener("DOMContentLoaded", function () {
-  // Shuffle and slice tweets for different columns
-  const shuffled1 = [...tweets].sort(() => 0.5 - Math.random());
-  const shuffled2 = [...tweets].sort(() => 0.5 - Math.random());
-  const shuffled3 = [...tweets].sort(() => 0.5 - Math.random());
-
-  renderTweetsWithDuplication("col1", shuffled1);
-  renderTweetsWithDuplication("col2", shuffled2);
-  renderTweetsWithDuplication("col3", shuffled3);
-
   // Add event listener to pause animations when not in viewport for performance
   const scrollingContainers = document.querySelectorAll(".scrolling-container");
 

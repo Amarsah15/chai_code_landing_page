@@ -8,41 +8,18 @@
   font-family: "Poppins", sans-serif;
 }
 
-:root {
-  --primary-color: #000000;
-  --textOrange: #e77300;
-  --secondary-color: #ffffff;
-  #white {
-    display: none;
-  }
-
-  #black {
-    display: block;
-  }
-}
-
-.dark-theme {
-  --primary-color: #ffffff;
-  --secondary-color: #000000;
-  #white {
-    display: block;
-  }
-  #black {
-    display: none;
-  }
-}
-
 nav {
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 1000;
-  background-color: var(--primary-color); /* Or any color */
+  z-index: 990;
+  background-color: var(--primary-color);
+  border-color: var(--secondary-color);
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
 .hide {
   transform: translateY(-100%);
-  transition: transform 0.3s ease;
 }
 
 .logo-nav-black {
@@ -55,21 +32,21 @@ nav {
 .nav-links {
   display: flex;
   gap: 30px;
-  color: var(--primary-color);
   font-size: 20px;
   padding-right: 50px;
+  margin-top: 10px;
 }
 
 #nav-li {
   list-style: none;
   text-decoration: none;
-  color: var(--secondary-color);
   font-size: 20px;
   font-weight: bold;
+  /* Removed fixed color to allow dynamic styling */
 }
 
 .login-button {
-  background-color: var(--primary-color);
+  /* Removed background-color that used var(--primary-color) */
   color: #e77300;
   padding: 10px 20px;
   border-radius: 5px;
@@ -78,30 +55,114 @@ nav {
   text-align: center;
   font-size: 16px;
   font-weight: bold;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
   margin: 0 20px;
 }
 
 .login-button:hover {
   background-color: #d66a00;
-  color: var(--primary-color);
+  color: white !important;
 }
 
 .cohort {
   color: #eb7b0b;
 }
 
+/* Mobile menu animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+#mobile-menu {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+#mobile-menu ul li {
+  animation: slideIn 0.4s ease-in-out;
+}
+
+/* Theme toggle styles */
+.toggle-circle {
+  transition: transform 0.3s ease;
+}
+
+.dark .toggle-circle {
+  transform: translateX(30px) translateY(-50%);
+  background-color: #f97316;
+}
+
+/* Media Queries */
+@media (max-width: 1023px) {
+  .logo-nav-black {
+    margin-left: 10px;
+    width: 180px;
+    height: 45px;
+  }
+
+  .login-button {
+    margin: 0 10px;
+  }
+}
+
+@media (max-width: 640px) {
+  .logo-nav-black {
+    width: 150px;
+    height: 40px;
+    margin-left: 0;
+  }
+}
+
+/* Updated media queries for laptop breakpoint at 1024px */
+@media (min-width: 1024px) {
+  .lg\:hidden {
+    display: none;
+  }
+
+  .lg\:flex {
+    display: flex;
+  }
+}
+
+@media (max-width: 1023px) {
+  .hidden.lg\:flex {
+    display: none;
+  }
+}
+
+/* Red dot blink */
 .blink {
   animation: dot-blink 1.4s linear infinite;
 }
 
 /* Typing animation */
+:root {
+  --typing-width: 14ch;
+}
+
 @keyframes typing {
   from {
     width: 0;
   }
   to {
-    width: 100%;
+    width: var(--typing-width);
   }
 }
 
@@ -109,7 +170,7 @@ nav {
   height: 10px;
   width: 10px;
   background-color: red;
-  border-radius: 9999px; /* fully round */
+  border-radius: 9999px;
   display: inline-block;
   animation: blink-red-dot 1s infinite;
   margin-left: 8px;
@@ -131,9 +192,9 @@ nav {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-top: 2%;
   text-align: center;
   overflow: hidden;
-  width: 100%;
 }
 
 .hero-text {
@@ -141,21 +202,24 @@ nav {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-weight: bolder;
-  font-size: 16px;
+  font-size: 20px;
   text-align: center;
   margin-bottom: 12px;
-  width: 90%;
-  line-height: 1.4;
 }
 
 @media (min-width: 640px) {
   .hero-text {
     font-size: 24px;
-    width: 100%;
   }
 }
 
 @media (min-width: 768px) {
+  .hero-text {
+    font-size: 26px;
+  }
+}
+
+@media (min-width: 1024px) {
   .hero-text {
     font-size: 30px;
   }
@@ -172,15 +236,21 @@ nav {
 
 @media (min-width: 640px) {
   .hero-text-2 {
-    font-size: 50px;
+    font-size: 46px;
     width: 90%;
   }
 }
 
 @media (min-width: 768px) {
   .hero-text-2 {
-    font-size: 70px;
+    font-size: 56px;
     width: 85%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-text-2 {
+    font-size: 70px;
   }
 }
 
@@ -205,22 +275,15 @@ nav {
 
 /* Typewriter class */
 .typewriter {
+  overflow: hidden;
   border-right: 2px solid orange;
   white-space: nowrap;
-  animation: typing 3s steps(12, end), typewriter-blink 0.75s step-end infinite;
+  animation: typing 3s steps(30, end), typewriter-blink 0.75s step-end infinite;
   display: inline-block;
-  width: 0; /* Start at 0 width */
-  max-width: 100%; /* Don't exceed container */
+  width: fit-content;
   line-height: 1.2;
-  padding-bottom: 4px;
-}
-
-@media (min-width: 640px) {
-  .typewriter {
-    padding-bottom: 8px;
-    animation: typing 3s steps(20, end),
-      typewriter-blink 0.75s step-end infinite;
-  }
+  padding-bottom: 8px;
+  margin: 0 auto;
 }
 
 .hero-text-3 {
@@ -241,6 +304,12 @@ nav {
 @media (min-width: 768px) {
   .hero-text-3 {
     font-size: 20px;
+    width: 80%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-text-3 {
     width: 72%;
   }
 }
@@ -248,45 +317,38 @@ nav {
 .hero-text-4 {
   font-size: 16px;
   text-align: center;
-  width: auto;
-  min-width: 240px;
-  max-width: 90%;
+  width: 90%;
+  max-width: 320px;
   color: #e77300;
   padding: 8px 16px;
   border: 2px solid #e77300;
   cursor: pointer;
-  margin: 20px 0;
+  margin: 3%;
   border-radius: 10px;
-}
-
-.hero-text-4 a {
-  display: block;
-  width: 100%;
-}
-
-.hero-text-4 p {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  white-space: nowrap;
 }
 
 @media (min-width: 640px) {
   .hero-text-4 {
     font-size: 18px;
-    width: auto;
-    min-width: 300px;
-    max-width: 60%;
-    padding: 10px 20px;
+    width: 80%;
+    max-width: 360px;
   }
 }
 
 @media (min-width: 768px) {
   .hero-text-4 {
-    font-size: 24px;
-    width: auto;
-    min-width: 350px;
-    max-width: 500px;
+    font-size: 22px;
+    width: 70%;
+    max-width: 400px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-text-4 {
+    font-size: 30px;
+    width: 45%;
+    max-width: 450px;
+    padding: 10px 20px;
   }
 }
 
@@ -295,53 +357,98 @@ nav {
   color: white;
 }
 
-.hero-text-4:hover p {
-  color: white;
+.video-container {
+  width: 100%;
+  margin-top: 20px;
+  padding: 0 15px;
 }
 
-.video-container {
+.responsive-video-wrapper {
   position: relative;
   width: 100%;
-  padding-top: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  max-width: 870px;
+  margin: 0 auto;
+  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+  height: 0;
+  overflow: hidden;
+}
+
+.responsive-video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 0.5rem;
+}
+
+@media (min-width: 770px) {
+  .responsive-video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 10%;
+    object-fit: cover;
+    width: 80%;
+    height: 80%;
+    border-radius: 0.5rem;
+  }
+}
+
+@media (min-width: 1025px) {
+  .responsive-video-wrapper {
+    padding-bottom: 56.25%; /* less height reserved */
+  }
+
+  .responsive-video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 4%;
+    object-fit: cover;
+    width: 90%;
+    height: 80%;
+    border-radius: 0.5rem;
+  }
+}
+
+@media (min-width: 1440px) {
+  .responsive-video-wrapper {
+    padding-bottom: 35%; /* less height reserved */
+  }
+
+  .responsive-video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    border-radius: 0.5rem;
+  }
 }
 
 .scale-video {
   transition: transform 0.5s ease;
-  width: 100%;
-  max-width: 90vw;
-  height: auto;
-  aspect-ratio: 16/9;
-}
-
-@media (min-width: 640px) {
-  .scale-video {
-    max-width: 85vw;
-  }
-}
-
-@media (min-width: 768px) {
-  .scale-video {
-    max-width: 80vw;
-  }
-}
-
-@media (min-width: 1024px) {
-  .scale-video {
-    max-width: 870px;
-    height: 450px;
-  }
 }
 
 .scale-down {
-  transform: scale(0.9);
+  transform: scale(0.95);
+}
+
+@media (min-width: 640px) {
+  .scale-down {
+    transform: scale(0.9);
+  }
 }
 
 @media (min-width: 768px) {
   .scale-down {
-    transform: scale(0.7);
+    transform: scale(0.85);
+  }
+}
+
+@media (min-width: 1024px) {
+  .scale-down {
+    transform: scale(0.8);
   }
 }
 
@@ -512,55 +619,6 @@ a {
   min-width: 44px;
 }
 
-/* Additional responsive styles for Swiper */
-@media (max-width: 640px) {
-  .swiper-slide {
-    width: 85% !important;
-    margin: 0 auto;
-  }
-}
-
-/* Make navigation buttons more touch-friendly on tablet */
-@media (min-width: 641px) and (max-width: 1024px) {
-  .swiper-button-next:after,
-  .swiper-button-prev:after {
-    font-size: 24px !important;
-  }
-
-  .swiper-button-next,
-  .swiper-button-prev {
-    padding: 20px;
-    margin-top: -30px;
-  }
-}
-
-/* Fix for Swiper centering on mobile */
-@media (max-width: 640px) {
-  .swiper {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-  }
-}
-
-/* Adjust symmetry for medium-sized screens */
-@media (min-width: 768px) and (max-width: 1023px) {
-  .swiper-wrapper {
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  .swiper-slide {
-    width: calc((100% - 20px) / 3) !important;
-  }
-}
-
-/* Adjust symmetry for large screens */
-@media (min-width: 1024px) {
-  .swiper-slide {
-    width: calc((100% - 30px) / 4) !important;
-  }
-}
-
 .scrolling-wrapper {
   animation: scroll 40s linear infinite;
   width: 100%;
@@ -614,6 +672,71 @@ a {
 .section-2-button:hover {
   transform: translateY(-3px);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.swiper-slide {
+  height: auto !important;
+}
+
+/* Card wrapper takes full height */
+.card-wrapper {
+  height: 100%;
+  display: flex;
+}
+
+/* Card takes full height of parent */
+.card {
+  width: 100%;
+  height: 100%;
+}
+
+/* Fix spacing for consistent cards */
+.swiper-wrapper {
+  align-items: stretch;
+}
+
+/* Make buttons take full width */
+.card a {
+  display: block;
+  width: 100%;
+}
+
+/* Mobile optimizations */
+@media (max-width: 640px) {
+  /* Ensure single card is fully visible */
+  .swiper {
+    padding: 0 10px;
+  }
+
+  /* Add pagination dots styling */
+  .swiper-pagination {
+    position: relative;
+    margin-top: 15px;
+  }
+
+  .swiper-pagination-bullet {
+    width: 8px;
+    height: 8px;
+    margin: 0 4px;
+  }
+
+  .swiper-pagination-bullet-active {
+    background-color: #f97316;
+  }
+}
+
+/* Tablet optimizations */
+@media (min-width: 641px) and (max-width: 1023px) {
+  .swiper-button-next:after,
+  .swiper-button-prev:after {
+    font-size: 24px;
+  }
+}
+
+/* Fix navigation buttons position */
+.swiper-button-next,
+.swiper-button-prev {
+  top: 45%;
 }
 
 #udemy {
