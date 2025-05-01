@@ -111,12 +111,12 @@ const courses = [
     video: "https://www.youtube.com/embed/VNb_LawBBWU",
 
     outline: [
-      "💻 Web Development Essentials",
-      "🧩 Frontend Frameworks",
-      "🖥️ Backend Development",
-      "☁️ DevOps & Deployment",
-      "🛠️ Modern Dev Workflows",
-      "🤖 AI Integration",
+      "🤖 LLM & GenAI Fundamentals",
+      "🧠 LangChain & Contextual AI ",
+      "🔒 Advanced AI & Security",
+      "🧮 Graph & Query Intelligence",
+      "🛠️ AI Application Development",
+      "☁️ AI Deployment & Infra",
     ],
     price: "4,999 INR",
     original: "7999 INR",
@@ -147,12 +147,12 @@ const courses = [
     title: "DevOps for developers 1.0",
     video: "https://www.youtube.com/embed/oBLpqSHc3lA",
     outline: [
-      "💻 Web Development Essentials",
-      "🧩 Frontend Frameworks",
-      "🖥️ Backend Development",
-      "☁️ DevOps & Deployment",
-      "🛠️ Modern Dev Workflows",
-      "🤖 AI Integration",
+      "🐧 Linux Fundamentals",
+      "🛠️ Essential Linux Commands",
+      "🌐 Linux Networking Basics",
+      "👥 Users, Groups & Permissions",
+      "📊 Process Management & Logs",
+      "📜 Shell Scripting & Automation",
     ],
     price: "4,999 INR",
     original: "7999 INR",
@@ -165,12 +165,12 @@ const courses = [
     title: "Coding Hero 2025",
     video: "https://www.youtube.com/embed/Fw3FezexzV0",
     outline: [
-      "💻 Web Development Essentials",
-      "🧩 Frontend Frameworks",
-      "🖥️ Backend Development",
-      "☁️ DevOps & Deployment",
-      "🛠️ Modern Dev Workflows",
-      "🤖 AI Integration",
+      "🎯 Roz Live Classes",
+      "🧩 Daily Coding Challenges",
+      "🏆 Weekend Quizzes & Leaderboard",
+      "👨‍💼 Live Lectures by Industry Experts",
+      "🎥 Session Recordings Access",
+      "🎓 Scholarship Opportunities",
     ],
     price: "299 INR",
     original: "599 INR",
@@ -236,6 +236,7 @@ function renderCourses(courses) {
                       <div class="relative w-full pt-[56.25%] overflow-hidden shadow-lg">
                           <iframe class="absolute top-0 left-0 w-full h-full"
                               src="${course.video}" 
+                              loading="lazy"
                               title="YouTube video player"
                               frameborder="0"
                               allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -619,4 +620,13 @@ window.addEventListener("scroll", () => {
   }
 
   prevScrollpos = currentScrollPos;
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll("iframe:not([loading])").forEach((el) => {
+    el.setAttribute("loading", "lazy");
+  });
+  document.querySelectorAll("img:not([loading])").forEach((el) => {
+    el.setAttribute("loading", "lazy");
+  });
 });
